@@ -20,24 +20,24 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Buttons
-        val BtnHome = view.findViewById<ImageButton>(R.id.BtnHome)
-        val BtnMaps = view.findViewById<ImageButton>(R.id.BtnMaps)
-        val BtnFavourites = view.findViewById<ImageButton>(R.id.BtnFavourites)
-        val BtnProfile = view.findViewById<ImageButton>(R.id.BtnProfile)
+        val btnHome = view.findViewById<ImageButton>(R.id.btnHome)
+        val btnMaps = view.findViewById<ImageButton>(R.id.btnMaps)
+        val btnFavourites = view.findViewById<ImageButton>(R.id.btnFavourites)
+        val btnProfile = view.findViewById<ImageButton>(R.id.btnProfile)
         //Buttons Motions
-        BtnHome.setOnClickListener { viewCreate: View? ->
+        btnHome.setOnClickListener { viewCreate: View? ->
             val bundleHome = Bundle()
             Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_mainFragment, bundleHome)
         }
-        BtnMaps.setOnClickListener { viewCreate: View? ->
+        btnMaps.setOnClickListener { viewCreate: View? ->
             val bundleHome = Bundle()
             Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_mapsFragment, bundleHome)
         }
-        BtnFavourites.setOnClickListener { viewCreate: View? ->
+        btnFavourites.setOnClickListener { viewCreate: View? ->
             val bundleHome = Bundle()
             Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_favouritesFragment, bundleHome)
         }
-        BtnProfile.setOnClickListener { viewCreate: View? ->
+        btnProfile.setOnClickListener { viewCreate: View? ->
             val bundleHome = Bundle()
             Navigation.findNavController(view).navigate(R.id.action_profileFragment_self, bundleHome)
         }

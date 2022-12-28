@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/BtnHome"
+            android:id="@+id/btnHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -85,7 +85,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
-            android:id="@+id/BtnMaps"
+            android:id="@+id/btnMaps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
@@ -95,10 +95,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/BtnHome" />
+            app:layout_constraintStart_toEndOf="@+id/btnHome" />
 
         <ImageButton
-            android:id="@+id/BtnProfile"
+            android:id="@+id/btnProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -110,7 +110,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
-            android:id="@+id/BtnFavourites"
+            android:id="@+id/btnFavourites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
@@ -118,9 +118,9 @@
             android:background="#F4F6FA"
             android:src="@drawable/favourites"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/BtnProfile"
+            app:layout_constraintEnd_toStartOf="@+id/btnProfile"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/BtnMaps" />
+            app:layout_constraintStart_toEndOf="@+id/btnMaps" />
 
         <TextView
             android:id="@+id/txtMain"
@@ -131,7 +131,7 @@
             android:text="Главная"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/BtnHome" />
+            app:layout_constraintTop_toBottomOf="@+id/btnHome" />
 
         <TextView
             android:id="@+id/txtMaps"
@@ -142,7 +142,7 @@
             android:text="Карта"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/BtnMaps" />
+            app:layout_constraintTop_toBottomOf="@+id/btnMaps" />
 
         <TextView
             android:id="@+id/txtFavourites"
@@ -153,7 +153,7 @@
             android:text="Закладки"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/BtnFavourites" />
+            app:layout_constraintTop_toBottomOf="@+id/btnFavourites" />
 
         <TextView
             android:id="@+id/txtProfile"
@@ -164,7 +164,7 @@
             android:text="Профиль"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/BtnProfile" />
+            app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
