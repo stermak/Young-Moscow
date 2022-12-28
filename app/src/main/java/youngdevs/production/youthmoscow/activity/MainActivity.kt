@@ -1,4 +1,4 @@
-package youngdevs.production.youthmoscow.Activity
+package youngdevs.production.youthmoscow.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
