@@ -82,7 +82,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.044"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
 
         <ImageButton
             android:id="@+id/btnMaps"
@@ -166,6 +168,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnProfile" />
 
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -177,6 +181,131 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TopLayout">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="358dp"
+            android:layout_height="115dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/slide290_03"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="186dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Специальные предложения"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="132dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Популярные места"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.276" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="142dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Ближайшие события"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.531" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="145dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Музей-заповедник «Царицыно»"
+            android:textColor="@color/black"
+            android:textSize="9dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView17"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="32dp"
+            android:layout_height="12dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="ВДНХ"
+            android:textColor="@color/black"
+            android:textSize="9dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.125"
+            app:layout_constraintStart_toStartOf="@+id/imageView18"
+            app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="24dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="184dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Всё"
+            android:textColor="@color/blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.935"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="6dp"
+            android:layout_height="12dp"
+            android:src="@drawable/vector__stroke_"
+            app:layout_constraintBottom_toBottomOf="@+id/textView7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.105"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toTopOf="@+id/textView7"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="246dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/caricino_akskursii_1140x570"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.375" />
+
+        <ImageView
+            android:id="@+id/imageView18"
+            android:layout_width="211dp"
+            android:layout_height="122dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/dostoprimechatelnosti_vdnkh_v_moskve_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView17"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.373" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
