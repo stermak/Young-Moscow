@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/usersFragment">
+
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="youngdevs.production.youngmoscow.application.ui.users.UsersFragment"
+        android:label="Users"
+        tools:layout="@layout/fragment_users" >
+        <action
+            android:id="@+id/action_usersFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_usersFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="youngdevs.production.youngmoscow.application.ui.add.AddFragment"
+        android:label="Add User"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="youngdevs.production.youngmoscow.application.ui.update.UpdateFragment"
+        android:label="Update User"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_usersFragment"
+            app:destination="@id/usersFragment" />
+        <argument
+            android:name="currentUser"
+            app:argType="youngdevs.production.youngmoscow.data.entities.User" />
+    </fragment>
+</navigation>

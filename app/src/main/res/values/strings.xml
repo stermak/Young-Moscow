@@ -1,3 +1,57 @@
 <resources>
-    <string name="app_name">Youth Moscow</string>
+    <string name="app_name">Young Moscow</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_main">Main</string>
+    <string name="title_maps">Maps</string>
+    <string name="title_favourites">Favourites</string>
+    <string name="title_profile">Profile</string>
+    <!-- Strings related to login -->
+    <string name="username">Username</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_repeat_password">Repeat password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="google_login">Google account</string>
+    <string name="registration_button">Registration</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="task_name_holder">Task name holder</string>
+    <string name="title_create_task">Create new task</string>
+    <string name="hint_date">Date</string>
+    <string name="hint_task_title">Task title</string>
+    <string name="hint_priority">Priority:</string>
+    <string name="date_plug">12.03.2023</string>
+    <string name="pick_date">Pick date</string>
+    <string-array name="priority_scale">
+        <item>Very high priority</item>
+        <item>High priority</item>
+        <item>Standard priority</item>
+        <item>Low priority</item>
+        <item>Very low priority</item>
+    </string-array>
+    <string name="cancel">Cancel</string>
+    <string name="create_task">Create</string>
+    <string name="task_point_holder">Task point</string>
+    <string name="new_task_point">Create new task point…</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
+    <string name="content_description_start_icon">Title</string>
+    <string name="spinner_priority_hint">Priority</string>
+    <string name="share_with_friend_title">Share task with friend</string>
+    <string name="share_task_with_friend_hint">In order to share copy the code:</string>
+    <string name="share_task_with_friend_holder">D3hJ34BbC32s</string>
+    <string name="ok">OK</string>
+    <string name="get_friend_task_title">Get friend task</string>
+    <string name="get_friend_task_hint">Paste the friend code to add the task:</string>
+    <string name="get_friend_task_holder">Code</string>
+    <string name="add_button">Add</string>
+    <string name="settings_welcome">Glad to see you, </string>
+    <string name="language_setting">Language</string>
+    <string name="exit_setting">Exit</string>
+    <string name="theme_setting">Themes</string>
+    <string name="about_setting">About</string>
+    <string name="new_task_point_holder">Task point name</string>
 </resources>
