@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/usersFragment"
-        android:name="youngdevs.production.youngmoscow.application.ui.users.UsersFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.UsersFragment"
         android:label="Users"
         tools:layout="@layout/fragment_users" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="youngdevs.production.youngmoscow.application.ui.add.AddFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.AddFragment"
         android:label="Add User"
         tools:layout="@layout/fragment_add" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/updateFragment"
-        android:name="youngdevs.production.youngmoscow.application.ui.update.UpdateFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.UpdateFragment"
         android:label="Update User"
         tools:layout="@layout/fragment_update" >
         <action

@@ -1,17 +1,19 @@
-package youngdevs.production.youngmoscow.application.ui.update
+package youngdevs.production.youngmoscow.presentation.ui.fragments
 
 import android.app.AlertDialog
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import youngdevs.production.youngmoscow.R
-import youngdevs.production.youngmoscow.data.entities.User
-import youngdevs.production.youngmoscow.application.ui.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import youngdevs.production.youngmoscow.application.common.BaseFragment
+import youngdevs.production.youngmoscow.R
+import youngdevs.production.youngmoscow.common.BaseFragment
+import youngdevs.production.youngmoscow.data.entities.User
 import youngdevs.production.youngmoscow.databinding.FragmentUpdateBinding
+import youngdevs.production.youngmoscow.presentation.viewmodel.UserViewModel
 
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package youngdevs.production.youngmoscow.application.ui
+package youngdevs.production.youngmoscow.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

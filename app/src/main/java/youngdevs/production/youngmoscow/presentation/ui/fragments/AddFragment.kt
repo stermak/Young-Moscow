@@ -1,14 +1,13 @@
-package youngdevs.production.youngmoscow.application.ui.add
+package youngdevs.production.youngmoscow.presentation.ui.fragments
 
-import android.view.View.inflate
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import youngdevs.production.youngmoscow.application.ui.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import youngdevs.production.youngmoscow.application.common.BaseFragment
+import youngdevs.production.youngmoscow.common.BaseFragment
 import youngdevs.production.youngmoscow.data.entities.User
 import youngdevs.production.youngmoscow.databinding.FragmentAddBinding
+import youngdevs.production.youngmoscow.presentation.viewmodel.UserViewModel
 
 
 @AndroidEntryPoint

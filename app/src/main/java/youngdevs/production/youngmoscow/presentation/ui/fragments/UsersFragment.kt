@@ -1,7 +1,9 @@
-package youngdevs.production.youngmoscow.application.ui.users
+package youngdevs.production.youngmoscow.presentation.ui.fragments
 
 import android.app.AlertDialog
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -9,13 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import youngdevs.production.youngmoscow.R
-import youngdevs.production.youngmoscow.application.ui.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import youngdevs.production.youngmoscow.application.adapter.UserAdapter
-import youngdevs.production.youngmoscow.application.common.BaseFragment
+import youngdevs.production.youngmoscow.R
+import youngdevs.production.youngmoscow.common.BaseFragment
 import youngdevs.production.youngmoscow.databinding.FragmentUsersBinding
+import youngdevs.production.youngmoscow.presentation.ui.adapter.UserAdapter
+import youngdevs.production.youngmoscow.presentation.viewmodel.UserViewModel
 
 
 @AndroidEntryPoint

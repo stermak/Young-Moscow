@@ -1,4 +1,4 @@
-package youngdevs.production.youngmoscow.application.adapter
+package youngdevs.production.youngmoscow.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import youngdevs.production.youngmoscow.application.ui.users.UsersFragmentDirections
 import youngdevs.production.youngmoscow.data.entities.User
 import youngdevs.production.youngmoscow.databinding.UserItemBinding
+import youngdevs.production.youngmoscow.presentation.ui.fragments.UsersFragmentDirections
 
 class UserAdapter : ListAdapter<User, UserAdapter.UserViewHolder>(ItemCallback) {
 

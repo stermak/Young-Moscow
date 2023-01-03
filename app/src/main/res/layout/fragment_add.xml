@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="application.ui.add.AddFragment">
+    tools:context=".presentation.ui.fragments.AddFragment">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/name"

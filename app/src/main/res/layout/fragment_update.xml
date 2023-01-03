@@ -6,7 +6,7 @@
     android:layout_marginTop="100dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="application.ui.update.UpdateFragment">
+    tools:context=".presentation.ui.fragments.UpdateFragment">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/name"

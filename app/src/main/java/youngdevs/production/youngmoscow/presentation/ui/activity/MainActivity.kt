@@ -1,10 +1,11 @@
-package youngdevs.production.youngmoscow
+package youngdevs.production.youngmoscow.presentation.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import youngdevs.production.youngmoscow.R
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

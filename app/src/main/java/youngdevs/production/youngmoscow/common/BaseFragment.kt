@@ -1,4 +1,4 @@
-package youngdevs.production.youngmoscow.application.common
+package youngdevs.production.youngmoscow.common
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,10 +1,9 @@
 package youngdevs.production.youngmoscow.data.dao
 
 import androidx.room.*
-
 import kotlinx.coroutines.flow.Flow
+import youngdevs.production.youngmoscow.common.USER_TABLE
 import youngdevs.production.youngmoscow.data.entities.User
-import youngdevs.production.youngmoscow.data.utilities.USER_TABLE
 
 @Dao
 interface UserDao {

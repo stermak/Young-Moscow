@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".presentation.ui.activity.MainActivity">
 
     <fragment
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="409dp"
+        android:layout_width="411dp"
         android:layout_height="729dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
