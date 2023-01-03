@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_dark_tertiary"
     tools:context=".presentation.ui.fragments.UsersFragment">
 
     <androidx.recyclerview.widget.RecyclerView

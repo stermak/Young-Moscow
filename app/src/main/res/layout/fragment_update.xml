@@ -6,6 +6,8 @@
     android:layout_marginTop="100dp"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/md_theme_dark_tertiary"
+
     tools:context=".presentation.ui.fragments.UpdateFragment">
 
     <androidx.appcompat.widget.AppCompatEditText
