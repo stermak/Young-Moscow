@@ -1,22 +1,18 @@
 package youngdevs.production.youngmoscow.di
 
-import dagger.Binds
 import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.Provides
+import youngdevs.production.youngmoscow.data.dao.UserDao
 import youngdevs.production.youngmoscow.data.repository.UserRepositoryImpl
-import youngdevs.production.youngmoscow.domain.repository.Repository
+import youngdevs.production.youngmoscow.domain.repository.UserRepository
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-
-    @Binds
+class RepositoryModule {
     @Singleton
-    abstract fun bindUserRepository(
-        userRepositoryImpl: UserRepositoryImpl
-    ) : Repository
-
+    @Provides
+    fun provideUserRepository(userDao: UserDao): UserRepository {
+        return UserRepositoryImpl(userDao)
+    }
 
 }

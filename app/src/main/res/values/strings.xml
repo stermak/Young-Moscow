@@ -41,8 +41,8 @@
     <string name="content_description_start_icon">Title</string>
     <string name="spinner_priority_hint">Priority</string>
     <string name="share_with_friend_title">Share task with friend</string>
-    <string name="share_task_with_friend_hint">In order to share copy the code:</string>
-    <string name="share_task_with_friend_holder">D3hJ34BbC32s</string>
+    <string name="young_moscow_with_friend_hint">In order to share copy the code:</string>
+    <string name="young_moscow_with_friend_holder">D3hJ34BbC32s</string>
     <string name="ok">OK</string>
     <string name="get_friend_task_title">Get friend task</string>
     <string name="get_friend_task_hint">Paste the friend code to add the task:</string>
@@ -54,4 +54,7 @@
     <string name="theme_setting">Themes</string>
     <string name="about_setting">About</string>
     <string name="new_task_point_holder">Task point name</string>
+    <string name="title_task">Task</string>
+    <string name="title_note">Note</string>
+    <string name="title_settings">Settings</string>
 </resources>

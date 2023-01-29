@@ -1,22 +1,26 @@
 package youngdevs.production.youngmoscow.data.entities
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
+import youngdevs.production.youngmoscow.domain.models.UserModel
 
-@Parcelize
-@Entity(tableName = "user_data")
+@Entity
 data class User(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int,
+    @PrimaryKey
+    var id: String,
 
     @ColumnInfo(name = "name")
     var name: String,
 
     @ColumnInfo(name = "email")
-    var email: String,
-    val parseInt: Int,
-): Parcelable
+    var email: String
+)
+
+fun User.asDomainModel(): UserModel {
+    return UserModel(
+        id = this.id,
+        name = this.name,
+        email = this.email
+    )
+}

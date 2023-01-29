@@ -2,8 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'androidx.navigation.safeargs.kotlin'
-    id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
     id 'kotlin-parcelize'
 }
 
@@ -40,36 +39,48 @@ android {
 }
 
 dependencies {
-
     //androidx
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation("androidx.appcompat:appcompat-resources:1.6.0")
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
 
     //test
     testImplementation 'junit:junit:4.13.2'
 
-    //hilt
-    implementation "com.google.dagger:hilt-android:2.43.2"
-    kapt "com.google.dagger:hilt-compiler:2.43.2"
+    //dagger
+    implementation 'com.google.dagger:dagger:2.44.2'
+    implementation 'junit:junit:4.13.2'
+    implementation 'org.mockito:mockito-core:5.1.0'
+    implementation 'org.mockito.kotlin:mockito-kotlin:4.1.0'
+    kapt 'com.google.dagger:dagger-compiler:2.44.2'
+
 
     // Navigation Component
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     // Room components
-    implementation "androidx.room:room-runtime:2.4.3"
-    kapt "androidx.room:room-compiler:2.4.3"
-    implementation "androidx.room:room-ktx:2.4.3"
-    androidTestImplementation "androidx.room:room-testing:2.4.3"
-    implementation "androidx.room:room-rxjava2:2.4.3"
-    implementation "androidx.room:room-runtime:2.4.3"
-    annotationProcessor "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-runtime:2.5.0"
+    kapt "androidx.room:room-compiler:2.5.0"
+    implementation "androidx.room:room-ktx:2.5.0"
+    androidTestImplementation "androidx.room:room-testing:2.5.0"
+    implementation "androidx.room:room-rxjava2:2.5.0"
+    implementation "androidx.room:room-runtime:2.5.0"
+    annotationProcessor "androidx.room:room-compiler:2.5.0"
+
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
@@ -77,21 +88,27 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 
     // Kotlin components
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0'
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
 
-    //dagger
-    def daggerVer = 2.42
-    implementation "com.google.dagger:hilt-android:2.43.2"
-    kapt "com.google.dagger:hilt-compiler:2.43.2"
-    implementation "com.google.dagger:dagger:2.43.2"
-    implementation "com.google.dagger:dagger-android-support:$daggerVer"
-    implementation "com.google.dagger:dagger-android:$daggerVer"
-    kapt "com.google.dagger:dagger-compiler:$daggerVer"
-    kapt "com.google.dagger:dagger-android-processor:$daggerVer"
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation "com.google.firebase:firebase-firestore-ktx"
+
+    kapt "com.android.databinding:compiler:3.1.4"
+
 }
 
 kapt {
     correctErrorTypes true
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }

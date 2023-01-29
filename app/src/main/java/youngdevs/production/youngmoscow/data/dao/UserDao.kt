@@ -2,28 +2,23 @@ package youngdevs.production.youngmoscow.data.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
-import youngdevs.production.youngmoscow.common.USER_TABLE
 import youngdevs.production.youngmoscow.data.entities.User
+import youngdevs.production.youngmoscow.data.utilities.USER_TABLE
 
 @Dao
 interface UserDao {
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addUser(user: User)
-
-    @Query("SELECT * FROM $USER_TABLE ORDER BY id ASC")
-    fun readAllData(): Flow<List<User>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(user: User)
 
     @Update
     suspend fun updateUser(user: User)
 
-    @Delete
-    suspend fun deleteUser(user: User)
+    @Query("SELECT * FROM $USER_TABLE WHERE id = :id")
+    fun getById(id: String): Flow<User>
 
-    @Query("DELETE FROM user_data")
-    suspend fun deleteAllUsers()
+    @Query("SELECT * FROM $USER_TABLE LIMIT 1")
+    suspend fun getCurrentUser(): User?
 
-    @Query("SELECT * FROM user_data WHERE name LIKE :name AND " +
-            "email LIKE :email LIMIT 1")
-    fun findByName(name: String, email: String): User
+    @Query("DELETE FROM  $USER_TABLE")
+    suspend fun clear()
 }
