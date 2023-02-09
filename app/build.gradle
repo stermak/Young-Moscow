@@ -27,11 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     buildFeatures{
         viewBinding = true
@@ -41,10 +41,10 @@ android {
 dependencies {
     //androidx
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation("androidx.appcompat:appcompat:1.6.0")
-    implementation("androidx.appcompat:appcompat-resources:1.6.0")
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.appcompat:appcompat-resources:1.6.1")
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
@@ -61,7 +61,7 @@ dependencies {
     //dagger
     implementation 'com.google.dagger:dagger:2.44.2'
     implementation 'junit:junit:4.13.2'
-    implementation 'org.mockito:mockito-core:5.1.0'
+    implementation 'org.mockito:mockito-core:5.1.1'
     implementation 'org.mockito.kotlin:mockito-kotlin:4.1.0'
     kapt 'com.google.dagger:dagger-compiler:2.44.2'
 
@@ -107,8 +107,4 @@ dependencies {
 
 kapt {
     correctErrorTypes true
-}
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
 }
