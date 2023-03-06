@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.YoungMoscow.presentation.settings.SettingsViewModel
-import com.example.YoungMoscow.presentation.settings.SettingsViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.app.YoungMoscow

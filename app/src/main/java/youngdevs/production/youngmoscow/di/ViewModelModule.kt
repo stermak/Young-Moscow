@@ -1,7 +1,7 @@
 package youngdevs.production.youngmoscow.di
 
 import android.content.Context
-import com.example.YoungMoscow.presentation.settings.SettingsViewModelFactory
+import youngdevs.production.youngmoscow.presentation.settings.SettingsViewModelFactory
 import dagger.Module
 import dagger.Provides
 import youngdevs.production.youngmoscow.domain.usecases.AuthenticateUserUseCase

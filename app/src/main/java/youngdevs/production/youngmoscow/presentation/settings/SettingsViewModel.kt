@@ -1,4 +1,4 @@
-package com.example.YoungMoscow.presentation.settings
+package youngdevs.production.youngmoscow.presentation.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
