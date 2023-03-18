@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_task"
-        android:icon="@drawable/ic_task"
-        android:title="@string/title_task" />
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/main"
+        android:title="@string/title_main" />
 
     <item
-        android:id="@+id/navigation_note"
-        android:icon="@drawable/ic_note"
-        android:title="@string/title_note" />
+        android:id="@+id/mapsFragment"
+        android:icon="@drawable/maps"
+        android:title="@string/maps" />
 
     <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings"
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/settings"
         android:title="@string/title_settings" />
 
 </menu>

@@ -47,6 +47,9 @@ class SettingsFragment : Fragment() {
             val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
             bottomNavigation?.visibility = View.GONE
         }
+        binding.maps.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_settings_to_mapsFragment)
+        }
     }
 
     private fun setObserver(){

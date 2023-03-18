@@ -15,7 +15,7 @@
             app:destination="@id/registrationFragment" />
         <action
             android:id="@+id/action_loginFragment_to_navigation_settings"
-            app:destination="@id/navigation_settings" />
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -23,16 +23,34 @@
         android:label="RegistrationFragment" >
         <action
             android:id="@+id/action_registrationFragment_to_navigation_settings"
-            app:destination="@id/navigation_settings" />
+            app:destination="@id/settingsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_settings"
+        android:id="@+id/settingsFragment"
         android:name="youngdevs.production.youngmoscow.presentation.settings.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_navigation_settings_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.maps.MapsFragment"
+        android:label="MapsFragment"
+        tools:layout="@layout/fragment_maps"/>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
+
     <activity
         android:id="@+id/mainActivity"
         android:name="youngdevs.production.youngmoscow.MainActivity"
         android:label="MainActivity" />
+
 </navigation>
