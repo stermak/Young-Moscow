@@ -2,7 +2,6 @@ package youngdevs.production.youngmoscow.presentation.maps
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.yandex.mapkit.MapKitFactory
 import javax.inject.Inject
 
 class MapsViewModelFactory @Inject constructor() : ViewModelProvider.Factory {

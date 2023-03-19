@@ -52,7 +52,7 @@ class LoginFragment : Fragment() {
         viewModel.isLoginSuccessful.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it == true) {
-                    findNavController().navigate(R.id.action_loginFragment_to_navigation_settings)
+                    findNavController().navigate(R.id.action_loginFragment_to_navigation_main)
                     val bottomNavigation =
                         activity?.findViewById<BottomNavigationView>(R.id.nav_view)
                     bottomNavigation?.visibility = View.VISIBLE

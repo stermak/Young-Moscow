@@ -51,7 +51,7 @@ class RegistrationFragment : Fragment() {
         viewModel.registrationResult.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it == 1) {
-                    findNavController().navigate(R.id.action_registrationFragment_to_navigation_settings)
+                    findNavController().navigate(R.id.action_registrationFragment_to_navigation_main)
                     val bottomNavigation =
                         activity?.findViewById<BottomNavigationView>(R.id.nav_view)
                     bottomNavigation?.visibility = View.VISIBLE

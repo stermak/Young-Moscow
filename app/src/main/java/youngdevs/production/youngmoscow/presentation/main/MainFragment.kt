@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.app.YoungMoscow
 import youngdevs.production.youngmoscow.data.adapters.EventsAdapter
-import youngdevs.production.youngmoscow.di.AppComponent
 import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
