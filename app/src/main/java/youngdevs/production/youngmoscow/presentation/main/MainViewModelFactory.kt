@@ -13,5 +13,4 @@ class MainViewModelFactory @Inject constructor(private val repository: KudaGoRep
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-
 }

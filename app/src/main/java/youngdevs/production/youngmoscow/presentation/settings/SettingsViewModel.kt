@@ -22,7 +22,6 @@ class SettingsViewModel(
             _userName.value = authenticateUserUseCase.getCurrentUser()?.name!!
         }
     }
-
     fun exit(){
         Firebase.auth.signOut()
         viewModelScope.launch {

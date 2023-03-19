@@ -10,10 +10,11 @@ import youngdevs.production.youngmoscow.data.utilities.ApiResponse
 interface KudaGoApi {
     @GET("events/")
     suspend fun getEvents(
-        @Query("fields") fields: String = "id,title,description,images",
+        @Query("fields") fields: String = "id,title,description,images,dates,place,body_text,price",
         @Query("actual_since") actualSince: Long,
         @Query("location") location: String? = null
     ): Response<ApiResponse>
+
     @GET("events/{event_id}/")
     suspend fun getEvent(@Path("event_id") eventId: Int): Response<Event>
 }

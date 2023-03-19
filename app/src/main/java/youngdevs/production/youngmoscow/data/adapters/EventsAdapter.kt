@@ -8,9 +8,12 @@ import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.databinding.ItemEventBinding
 
-class EventsAdapter() : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
+class EventsAdapter(private val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     private val events = mutableListOf<Event>()
 
+    interface OnItemClickListener {
+        fun onItemClick(event: Event)
+    }
     fun setEvents(newEvents: List<Event>) {
         events.clear()
         events.addAll(newEvents)
@@ -23,26 +26,29 @@ class EventsAdapter() : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        holder.bind(events[position])
+        val event = events[position]
+        holder.bind(event)
+        holder.itemView.setOnClickListener {
+            onItemClickListener.onItemClick(event)
+        }
     }
 
     override fun getItemCount() = events.size
 
     inner class EventViewHolder(private val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: Event) {
-            binding.eventTitle.text = event.title
-            binding.eventDescription.text = event.description
+            binding.eventTitle.text = event.formattedTitle
+            binding.eventDescription.text = event.formattedDescription
 
             if (event.images.isNotEmpty()) {
                 val imageUrl = event.images[0].image
                 Glide.with(binding.root.context)
                     .load(imageUrl)
-                    .placeholder(R.drawable.photonet) // Замените на ваше изображение-заглушку
-                    .error(R.drawable.photonet) // Замените на ваше изображение для ошибок
+                    .placeholder(R.drawable.photonet)
+                    .error(R.drawable.photonet)
                     .into(binding.eventImage)
             } else {
-                // Установите плейсхолдер, если нет изображения
-                binding.eventImage.setImageResource(R.drawable.photonet) // Замените на ваше изображение-заглушку
+                binding.eventImage.setImageResource(R.drawable.photonet)
             }
         }
     }
