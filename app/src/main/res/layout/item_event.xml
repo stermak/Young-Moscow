@@ -11,7 +11,8 @@
         android:layout_width="230dp"
         android:layout_height="200dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/image" />
 
     <TextView
         android:id="@+id/eventTitle"

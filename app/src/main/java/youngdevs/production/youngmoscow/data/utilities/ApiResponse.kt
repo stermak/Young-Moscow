@@ -1,4 +1,6 @@
-package youngdevs.production.youngmoscow.data.entities
+package youngdevs.production.youngmoscow.data.utilities
+
+import youngdevs.production.youngmoscow.data.entities.Event
 
 data class ApiResponse(
     val count: Int,
