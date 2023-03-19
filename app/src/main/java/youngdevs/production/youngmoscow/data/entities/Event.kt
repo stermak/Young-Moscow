@@ -1,9 +1,7 @@
 package youngdevs.production.youngmoscow.data.entities
 
-import android.os.Build
 import android.os.Parcelable
 import android.text.Html
-import androidx.annotation.RequiresApi
 import androidx.core.text.HtmlCompat
 import kotlinx.parcelize.Parcelize
 
