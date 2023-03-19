@@ -10,16 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.app.YoungMoscow
 import youngdevs.production.youngmoscow.data.adapters.EventsAdapter
+import youngdevs.production.youngmoscow.data.entities.Event
+import youngdevs.production.youngmoscow.presentation.event.EventDetailsFragment
 import javax.inject.Inject
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main), EventsAdapter.OnItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: MainViewModelFactory
 
     private val viewModel by viewModels<MainViewModel> { viewModelFactory }
 
-    private val eventsAdapter = EventsAdapter()
+    private val eventsAdapter = EventsAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,5 +41,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         (requireActivity().application as YoungMoscow)
             .appComponent
             .inject(this)
+    }
+
+    override fun onItemClick(event: Event) {
+        val eventDetailsFragment = EventDetailsFragment.newInstance(event)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment_activity_main, eventDetailsFragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

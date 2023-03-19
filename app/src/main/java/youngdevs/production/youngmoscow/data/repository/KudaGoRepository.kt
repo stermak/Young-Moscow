@@ -6,7 +6,7 @@ import java.util.*
 
 class KudaGoRepository(private val api: KudaGoApi) {
     suspend fun getEvents(): List<Event> {
-        val currentTime = Calendar.getInstance().timeInMillis / 1000 // Получаем текущее время в Unix Timestamp
+        val currentTime = Calendar.getInstance().timeInMillis / 1000
         return api.getEvents(actualSince = currentTime, location = "msk").body()?.results ?: emptyList()
     }
     suspend fun getEventDetails(eventId: Int): Event? {
