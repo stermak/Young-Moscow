@@ -14,16 +14,16 @@
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_navigation_settings"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_loginFragment_to_navigation_main"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="youngdevs.production.youngmoscow.presentation.authentication.RegistrationFragment"
         android:label="RegistrationFragment" >
         <action
-            android:id="@+id/action_registrationFragment_to_navigation_settings"
-            app:destination="@id/settingsFragment" />
+            android:id="@+id/action_registrationFragment_to_navigation_main"
+            app:destination="@id/mainFragment" />
     </fragment>
 
     <fragment

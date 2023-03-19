@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="250dp"
+    android:layout_height="400dp"
     android:orientation="vertical"
     android:padding="8dp">
 
+    <ImageView
+        android:id="@+id/eventImage"
+        android:layout_width="230dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
+
     <TextView
         android:id="@+id/eventTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="11sp"
         android:textStyle="bold"
         android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/eventDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="11sp"
         android:layout_marginTop="4dp" />
 
 </LinearLayout>

@@ -4,5 +4,9 @@ data class Event(
     val id: Int,
     val title: String,
     val description: String,
-    val imageUrl: String
+    val images: List<Image>
+)
+
+data class Image(
+    val image: String
 )
