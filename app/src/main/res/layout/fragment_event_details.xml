@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="75dp"
+    android:background="#9DACDD"
     tools:context=".presentation.event.EventDetailsFragment">
 
     <ScrollView
@@ -34,6 +35,7 @@
                 android:layout_marginEnd="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/md_theme_dark_inverseOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/eventImage" />
@@ -46,6 +48,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:textSize="14sp"
+                android:textColor="@color/md_theme_dark_inverseOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/eventTitle" />
@@ -58,6 +61,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:textSize="14sp"
+                android:textColor="@color/md_theme_dark_inverseOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/eventDates" />
@@ -70,6 +74,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:textSize="14sp"
+                android:textColor="@color/md_theme_dark_inverseOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/eventPlace" />
@@ -82,6 +87,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:textSize="14sp"
+                android:textColor="@color/md_theme_dark_inverseOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/eventDescription" />
@@ -94,6 +100,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:textSize="14sp"
+                android:textColor="@color/md_theme_dark_inverseOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/eventBodyText" />

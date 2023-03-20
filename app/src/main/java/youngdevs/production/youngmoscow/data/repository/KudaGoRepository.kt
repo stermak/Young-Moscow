@@ -12,7 +12,7 @@ class KudaGoRepository(private val api: KudaGoApi) {
     suspend fun getEventDetails(eventId: Int): Event? {
         val response = api.getEvent(eventId)
         return if (response.isSuccessful) {
-            response.body()
+            api.getEvent(eventId).body()
         } else {
             null
         }

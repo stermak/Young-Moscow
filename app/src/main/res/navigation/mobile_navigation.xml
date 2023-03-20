@@ -5,6 +5,12 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/loginFragment">
 
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="youngdevs.production.youngmoscow.MainActivity"
+        android:label="MainActivity" />
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="youngdevs.production.youngmoscow.presentation.authentication.LoginFragment"
@@ -46,11 +52,22 @@
         android:id="@+id/mainFragment"
         android:name="youngdevs.production.youngmoscow.presentation.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment">
+            <argument
+                android:name="eventId"
+                app:argType="integer" />
+        </action>
+    </fragment>
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="youngdevs.production.youngmoscow.MainActivity"
-        android:label="MainActivity" />
-
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.event.EventDetailsFragment"
+        android:label="EventDetailsFragment">
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
