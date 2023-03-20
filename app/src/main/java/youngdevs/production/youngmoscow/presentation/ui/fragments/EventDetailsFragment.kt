@@ -1,28 +1,24 @@
-package youngdevs.production.youngmoscow.presentation.event
+package youngdevs.production.youngmoscow.presentation.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
-import youngdevs.production.youngmoscow.app.YoungMoscow
-import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.databinding.FragmentEventDetailsBinding
-import javax.inject.Inject
+import youngdevs.production.youngmoscow.presentation.viewmodel.EventDetailsViewModel
 
+@AndroidEntryPoint
 class EventDetailsFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: EventDetailsViewModelFactory
-    private lateinit var viewModel: EventDetailsViewModel
-
+    private val viewModel: EventDetailsViewModel by viewModels()
     private var _binding: FragmentEventDetailsBinding? = null
     private val binding get() = _binding!!
-
     private val args: EventDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -37,7 +33,6 @@ class EventDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val eventId = args.eventId
-        viewModel = viewModelFactory.createWithEventId(eventId)
 
         viewModel.event.observe(viewLifecycleOwner) { event ->
             if (event != null) {
@@ -68,14 +63,6 @@ class EventDetailsFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        (requireActivity().application as YoungMoscow)
-            .appComponent
-            .inject(this)
     }
 
     override fun onDestroyView() {

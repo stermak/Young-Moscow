@@ -1,29 +1,27 @@
-package youngdevs.production.youngmoscow.presentation.maps
+package youngdevs.production.youngmoscow.presentation.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.mapview.MapView
-import youngdevs.production.youngmoscow.app.YoungMoscow
+import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.databinding.FragmentMapsBinding
-import javax.inject.Inject
+import youngdevs.production.youngmoscow.presentation.viewmodel.MapsViewModel
 
+@AndroidEntryPoint
 class MapsFragment : Fragment() {
 
     private var _binding: FragmentMapsBinding? = null
     private val binding get() = _binding!!
     private lateinit var mapView: MapView
 
-    @Inject
-    lateinit var mapsViewModelFactory: MapsViewModelFactory
-
-    private lateinit var viewModel: MapsViewModel
+    private val viewModel: MapsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +29,6 @@ class MapsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this, mapsViewModelFactory).get(MapsViewModel::class.java)
 
         mapView = binding.mapView
         mapView.map.move(
@@ -48,7 +44,6 @@ class MapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity?.applicationContext as YoungMoscow).appComponent.inject(this)
         _binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

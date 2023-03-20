@@ -1,17 +1,21 @@
-package youngdevs.production.youngmoscow.presentation.event
+package youngdevs.production.youngmoscow.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.data.repository.KudaGoRepository
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class EventDetailsViewModel(private val kudaGoRepository: KudaGoRepository, eventId: Int) : ViewModel() {
+@HiltViewModel
+class EventDetailsViewModel @Inject constructor(
+    private val kudaGoRepository: KudaGoRepository,
+    savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
+    private val eventId: Int = savedStateHandle.get<Int>("eventId") ?: 0
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> get() = _event
 
