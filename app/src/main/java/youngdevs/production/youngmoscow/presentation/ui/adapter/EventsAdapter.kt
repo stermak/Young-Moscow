@@ -1,4 +1,4 @@
-package youngdevs.production.youngmoscow.data.adapters
+package youngdevs.production.youngmoscow.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

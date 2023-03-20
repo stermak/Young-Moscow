@@ -1,6 +1,5 @@
-package youngdevs.production.youngmoscow.presentation.main
+package youngdevs.production.youngmoscow.presentation.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,21 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
-import youngdevs.production.youngmoscow.app.YoungMoscow
-import youngdevs.production.youngmoscow.data.adapters.EventsAdapter
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.databinding.FragmentMainBinding
-import javax.inject.Inject
+import youngdevs.production.youngmoscow.presentation.ui.adapter.EventsAdapter
+import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 
+@AndroidEntryPoint
 class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
 
-    @Inject
-    lateinit var viewModelFactory: MainViewModelFactory
+    private val viewModel: MainViewModel by viewModels()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-
-    private val viewModel by viewModels<MainViewModel> { viewModelFactory }
 
     private val eventsAdapter = EventsAdapter(this)
 
@@ -48,15 +45,7 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        (requireActivity().application as YoungMoscow)
-            .appComponent
-            .inject(this)
-    }
-
-     override fun onDestroyView() {
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }

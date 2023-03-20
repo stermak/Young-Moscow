@@ -1,28 +1,25 @@
-package youngdevs.production.youngmoscow.presentation.authentication
+package youngdevs.production.youngmoscow.presentation.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
-import youngdevs.production.youngmoscow.app.YoungMoscow
 import youngdevs.production.youngmoscow.databinding.FragmentLoginBinding
-import javax.inject.Inject
+import youngdevs.production.youngmoscow.presentation.viewmodel.LoginViewModel
 
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-
-    private lateinit var viewModel: LoginViewModel
-
-    @Inject
-    lateinit var authenticationViewModelFactory: AuthenticationViewModelFactory
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,14 +27,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val auth = Firebase.auth
-
-        (activity?.applicationContext as YoungMoscow).appComponent.inject(this)
-
         binding = FragmentLoginBinding.inflate(layoutInflater,container,false)
-
-        viewModel =
-            ViewModelProvider(this, authenticationViewModelFactory)[LoginViewModel::class.java]
-
         val currentUser = auth.currentUser
         viewModel.updateUI(currentUser)
 
@@ -46,7 +36,6 @@ class LoginFragment : Fragment() {
 
         return binding.root
     }
-
 
     private fun setObserver() {
         viewModel.isLoginSuccessful.observe(viewLifecycleOwner) {
