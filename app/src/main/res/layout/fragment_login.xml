@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="#9DACDD"
     tools:context=".presentation.authentication.LoginFragment">
 
     <RelativeLayout
@@ -36,8 +37,8 @@
             android:minHeight="48dp"
             android:paddingStart="10dp"
             android:selectAllOnFocus="true"
-            android:textColor="@color/md_theme_dark_onSecondaryContainer"
-            android:textColorHint="@color/md_theme_dark_onSecondaryContainer"
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
+            android:textColorHint="@color/md_theme_dark_inverseOnSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -55,8 +56,8 @@
             android:autofillHints=""
             android:background="@drawable/ic_launcher_background"
             android:hint="@string/prompt_password"
-            android:textColor="@color/md_theme_dark_onSecondaryContainer"
-            android:textColorHint="@color/md_theme_dark_onSecondaryContainer"
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
+            android:textColorHint="@color/md_theme_dark_inverseOnSurface"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
@@ -82,6 +83,7 @@
             android:background="@drawable/corners_bg"
             android:fontFamily="sans-serif-medium"
             android:text="@string/action_sign_in"
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +140,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
             android:background="@drawable/corners_bg"
             android:text="@string/google_login"
             android:textSize="17sp"
@@ -166,6 +168,7 @@
             android:background="@drawable/corners_bg"
             android:text="@string/registration_button"
             android:textSize="17sp"
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
