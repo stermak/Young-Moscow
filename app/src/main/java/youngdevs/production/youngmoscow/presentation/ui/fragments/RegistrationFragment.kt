@@ -24,19 +24,27 @@ class RegistrationFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Загружаем макет фрагмента
         binding = FragmentRegistrationBinding.inflate(layoutInflater)
 
+        // Устанавливаем наблюдателя для результата регистрации
         setObserver()
+
+        // Устанавливаем слушатель событий для кнопки регистрации
         setEventListener()
 
         return binding.root
     }
 
+    // Устанавливаем наблюдателя для результата регистрации
     private fun setObserver() {
         viewModel.registrationResult.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it == 1) {
+                    // Переходим на главный экран при успешной регистрации
                     findNavController().navigate(R.id.action_registrationFragment_to_navigation_main)
+
+                    // Показываем BottomNavigationView
                     val bottomNavigation =
                         activity?.findViewById<BottomNavigationView>(R.id.nav_view)
                     bottomNavigation?.visibility = View.VISIBLE
@@ -45,8 +53,10 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+    // Устанавливаем слушатель событий для кнопки регистрации
     private fun setEventListener() {
         binding.registration.setOnClickListener {
+            // Вызываем метод регистрации пользователя
             viewModel.registration(
                 email = binding.emailField.text.toString().trim(' '),
                 password = binding.passwordRegistrationField.text.toString().trim(' '),
@@ -58,6 +68,7 @@ class RegistrationFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Очищаем viewModelStore при уничтожении фрагмента
         viewModelStore.clear()
     }
 

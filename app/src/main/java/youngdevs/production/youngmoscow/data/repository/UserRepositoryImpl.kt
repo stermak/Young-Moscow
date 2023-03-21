@@ -18,25 +18,32 @@ import youngdevs.production.youngmoscow.domain.repository.UserRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
+// Этот класс является реализацией UserRepository и используется для работы с пользователями в Firebase.
 @Singleton
 class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : UserRepository {
 
+    // Создаем экземпляр класса FirebaseAuth для аутентификации пользователя.
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    // Функция createAccount используется для создания нового аккаунта пользователя в Firebase.
     override suspend fun createAccount(email: String, password: String, name: String): Boolean {
         var dbUser: User? = null
         var isSuccess = false
 
+        // Создаем нового пользователя в Firebase с помощью email и password.
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val userId = auth.currentUser!!.uid
+
+                    // Создаем нового пользователя в Firestore с помощью имени и email.
                     val newUser = hashMapOf(
                         "name" to name,
                         "email" to email,
                     )
                     isSuccess = true
 
+                    // Создаем ссылку на коллекцию пользователей в Firestore и добавляем нового пользователя.
                     dbUser = User(userId, name, email)
                     val db = Firebase.firestore
                     db.collection(CollectionNames.users).document(userId)
@@ -48,6 +55,8 @@ class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : Use
                 }
             }.addOnFailureListener { Exception -> Log.e(TAG, Exception.toString()) }
             .await()
+
+        // Если пользователь был успешно создан в Firebase, добавляем его в локальную базу данных.
         if (isSuccess) {
             withContext(Dispatchers.IO) {
                 userDao.insert(dbUser!!)
@@ -56,12 +65,14 @@ class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : Use
         return isSuccess
     }
 
+    // Функция authenticate используется для аутентификации пользователя в Firebase.
     override suspend fun authenticate(email: String, password: String): Boolean {
 
         var isSuccess = false
         val db = Firebase.firestore
         var id: String? = null
 
+        // Аутентифицируем пользователя с помощью email и password в Firebase.
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -75,6 +86,8 @@ class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : Use
             .addOnFailureListener { Log.e(TAG, "FailureListener") }.await()
 
         var user: User? = null
+
+        // Получаем информацию о пользователе из Firestore и конвертируем ее в объект User.
         db.collection(CollectionNames.users).document(auth.currentUser?.uid!!).get()
             .addOnSuccessListener {
                 it?.let {
@@ -83,25 +96,27 @@ class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : Use
             }
             .addOnFailureListener { Log.e(TAG, "FailureListener") }.await()
 
+        // Добавляем пользователя в локальную базу данных.
         withContext(Dispatchers.IO) {
             userDao.insert(user!!)
         }
         return isSuccess
     }
-
+    // Функция getCurrentUser возвращает текущего пользователя из локальной базы данных.
     override suspend fun getCurrentUser(): UserModel? {
         return userDao.getCurrentUser()?.asDomainModel()
     }
 
+    // Функция updateUserProfile используется для обновления информации о пользователе в Firebase.
     override suspend fun updateUserProfile(userId: String, name: String, email: String) {
+        // Эта функция еще не реализована.
         TODO("Not yet implemented")
     }
 
+    // Функция clearUser очищает локальную базу данных от всех пользователей.
     override suspend fun clearUser() {
         withContext(Dispatchers.IO) {
             userDao.clear()
         }
     }
-
-
 }

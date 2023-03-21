@@ -11,6 +11,7 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    // Функция, которая предоставляет контекст приложения для зависимостей
     @Provides
     fun provideAppContext(application: Application): Context {
         return application.applicationContext

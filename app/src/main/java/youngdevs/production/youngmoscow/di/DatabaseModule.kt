@@ -14,8 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-
-
+    // Функция, которая предоставляет экземпляр базы данных для зависимостей
     @Provides
     fun provideDatabase(appContext: Context): YoungMoscowDatabase {
         return Room.databaseBuilder(
@@ -25,6 +24,7 @@ object DatabaseModule {
         ).fallbackToDestructiveMigration().build()
     }
 
+    // Функция, которая предоставляет объект DAO для работы с таблицей пользователей
     @Provides
     @Singleton
     fun provideUserDao(database: YoungMoscowDatabase): UserDao {

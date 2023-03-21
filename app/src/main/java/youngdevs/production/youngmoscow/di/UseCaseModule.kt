@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class UseCaseModule {
 
-
+    // Функция, которая предоставляет экземпляр AuthenticateUserUseCase для зависимостей
     @Provides
     @Singleton
     fun provideAuthenticateUserUseCase(userRepository: UserRepository): AuthenticateUserUseCase {

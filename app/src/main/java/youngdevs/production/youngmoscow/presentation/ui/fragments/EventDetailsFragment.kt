@@ -16,50 +16,50 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.EventDetailsViewM
 @AndroidEntryPoint
 class EventDetailsFragment : Fragment() {
 
-    private val viewModel: EventDetailsViewModel by viewModels()
+    private val viewModel: EventDetailsViewModel by viewModels() // создание ViewModel для фрагмента
     private var _binding: FragmentEventDetailsBinding? = null
     private val binding get() = _binding!!
-    private val args: EventDetailsFragmentArgs by navArgs()
+    private val args: EventDetailsFragmentArgs by navArgs() // получение аргументов фрагмента
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEventDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentEventDetailsBinding.inflate(inflater, container, false) // инфлейт макета фрагмента
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val eventId = args.eventId
+        val eventId = args.eventId // получение ID события из аргументов фрагмента
 
-        viewModel.event.observe(viewLifecycleOwner) { event ->
+        viewModel.event.observe(viewLifecycleOwner) { event -> // наблюдение за LiveData события в ViewModel
             if (event != null) {
-                binding.eventTitle.text = event.formattedTitle
-                binding.eventDescription.text = event.formattedDescription
-                binding.eventBodyText.text = event.formattedBodyText
-                binding.eventPrice.text = event.price
+                binding.eventTitle.text = event.formattedTitle // установка заголовка события
+                binding.eventDescription.text = event.formattedDescription // установка описания события
+                binding.eventBodyText.text = event.formattedBodyText // установка подробной информации о событии
+                binding.eventPrice.text = event.price // установка цены события
 
-                if (event.images.isNotEmpty()) {
-                    val imageUrl = event.images[0].image
+                if (event.images.isNotEmpty()) { // проверка на наличие изображения для события
+                    val imageUrl = event.images[0].image // получение URL изображения
                     Glide.with(binding.root.context)
                         .load(imageUrl)
                         .placeholder(R.drawable.photonet)
                         .error(R.drawable.photonet)
-                        .into(binding.eventImage)
+                        .into(binding.eventImage) // загрузка изображения с помощью Glide и установка его в ImageView
                 } else {
-                    binding.eventImage.setImageResource(R.drawable.photonet)
+                    binding.eventImage.setImageResource(R.drawable.photonet) // установка изображения-заглушки, если изображения для события нет
                 }
 
                 event.dates?.let { dates ->
                     if (dates.isNotEmpty()) {
-                        binding.eventDates.text = viewModel.getFormattedDates(dates)
+                        binding.eventDates.text = viewModel.getFormattedDates(dates) // установка форматированных дат события
                     }
                 }
 
                 event.place?.let { place ->
-                    binding.eventPlace.text = viewModel.getFormattedPlace(place)
+                    binding.eventPlace.text = viewModel.getFormattedPlace(place) // установка форматированного места проведения события
                 }
             }
         }
@@ -67,6 +67,6 @@ class EventDetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null // очистка binding для избежания утечек памяти
     }
 }

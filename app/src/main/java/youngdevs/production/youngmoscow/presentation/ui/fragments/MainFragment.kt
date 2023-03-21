@@ -31,7 +31,7 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        return binding.root // возвращение корневого View макета фрагмента
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +40,7 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerView.adapter = eventsAdapter
 
+        // Наблюдение за LiveData events в ViewModel и обновление списка событий в RecyclerView при изменении данных
         viewModel.events.observe(viewLifecycleOwner) { events ->
             eventsAdapter.setEvents(events)
         }
@@ -47,12 +48,14 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null // очистка переменной _binding для избежания утечек памяти
     }
 
+    // Обработка нажатия на элемент списка
     override fun onItemClick(event: Event) {
         val eventId = event.id
         val navController = findNavController()
-        navController.navigate(R.id.action_mainFragment_to_eventDetailsFragment, bundleOf("eventId" to eventId))
+        navController.navigate(R.id.action_mainFragment_to_eventDetailsFragment, bundleOf("eventId" to eventId)) // переход к фрагменту EventDetailsFragment с передачей идентификатора события
     }
 }
+
