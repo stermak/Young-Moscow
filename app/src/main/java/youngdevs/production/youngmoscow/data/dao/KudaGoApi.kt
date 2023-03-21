@@ -10,20 +10,19 @@ import youngdevs.production.youngmoscow.data.utilities.ApiResponse
 interface KudaGoApi {
 // Интерфейс KudaGoApi объявляет два метода для работы с API KudaGo.
 
-    @GET("events/")
+    @GET("events/")    // Метод getEvents() отправляет GET запрос на сервер KudaGo для получения списка событий.
+    // Аннотация @Query указывает параметры запроса, в данном случае: fields, actual_since и location.
     suspend fun getEvents(
         @Query("fields") fields: String = "id,title,description,images,dates,place,body_text,price",
-        @Query("actual_since") actualSince: Long,
-        @Query("location") location: String? = null
+        @Query("actual_since") actualSince: Long? = null,
+        @Query("actual_until") actualUntil: Long? = null,
+        @Query("location") location: String? = null,
+        @Query("page_size") pageSize: Int? = null,
+        @Query("page") page: Int? = null
     ): Response<ApiResponse>
-    // Метод getEvents() отправляет GET запрос на сервер KudaGo для получения списка событий.
-    // Аннотация @Query указывает параметры запроса, в данном случае: fields, actual_since и location.
-    // Аргумент fields указывает, какие поля событий должны быть возвращены.
-    // Аргумент actual_since указывает на дату, начиная с которой нужно получать события.
-    // Аргумент location указывает на местоположение событий, если требуется.
 
     @GET("events/{event_id}/")
     suspend fun getEvent(@Path("event_id") eventId: Int): Response<Event>
+}
     // Метод getEvent() отправляет GET запрос на сервер KudaGo для получения информации о событии по ID.
     // Аннотация @Path указывает переменную в URL запроса, которая будет заменена на значение переменной eventId.
-}

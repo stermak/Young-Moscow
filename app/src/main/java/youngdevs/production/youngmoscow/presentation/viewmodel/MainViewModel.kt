@@ -13,17 +13,43 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val repository: KudaGoRepository) : ViewModel() {
 
+    private var loading = false
     private val _events = MutableLiveData<List<Event>>() // LiveData для получения списка событий
     val events: LiveData<List<Event>> get() = _events // LiveData для доступа к списку событий
+
+    private var currentPage = 1
 
     init {
         fetchEvents() // Получаем список событий при создании ViewModel
     }
-
     // Метод для получения списка событий из репозитория
     private fun fetchEvents() {
-        viewModelScope.launch { // запуск корутины
-            _events.value = repository.getEvents() // получение списка событий из репозитория и установка его значения LiveData
+        if (loading) {
+            return
         }
+        loading = true
+        val currentTime = System.currentTimeMillis() / 1000 // текущее время в секундах
+        val oneWeekInSeconds = 7 * 24 * 60 * 60 // количество секунд в одной неделе
+        val actualSince = currentTime
+        val actualUntil = currentTime + oneWeekInSeconds
+        viewModelScope.launch {// запуск корутины
+            val events = repository.getEvents( // получение списка событий из репозитория и установка его значения LiveData
+                pageSize = 50,
+                page = currentPage,
+                actualSince = actualSince,
+                actualUntil = actualUntil
+            )
+            _events.value = events
+            loading = false
+        }
+    }
+
+    fun isLoading(): Boolean {
+        return loading
+    }
+
+    fun loadNextPage() {
+        currentPage++
+        fetchEvents()
     }
 }
