@@ -8,4 +8,8 @@ data class ApiResponse(
     val next: String?,    // Ссылка на следующую страницу
     val previous: String?,// Ссылка на предыдущую страницу
     val results: List<Event> // Список событий
-)
+) {
+    fun hasNextPage(): Boolean {
+        return !next.isNullOrEmpty()
+    }
+}

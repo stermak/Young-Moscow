@@ -17,10 +17,10 @@ class EventsAdapter(private val onItemClickListener: OnItemClickListener) : Recy
 
     // метод для установки списка событий для адаптера
     fun setEvents(newEvents: List<Event>) {
-        events.clear()
         events.addAll(newEvents)
         notifyDataSetChanged()
     }
+
 
     // создание ViewHolder для элемента списка
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {

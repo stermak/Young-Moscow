@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.data.entities.Event
@@ -44,8 +45,19 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         viewModel.events.observe(viewLifecycleOwner) { events ->
             eventsAdapter.setEvents(events)
         }
+        // Загрузка следующей страницы при достижении конца списка
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
+                val lastVisiblePosition = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+                if (lastVisiblePosition + 5 >= totalItemCount && !viewModel.isLoading()) {
+                    viewModel.loadNextPage()
+                }
+            }
+        })
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // очистка переменной _binding для избежания утечек памяти
@@ -58,4 +70,3 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         navController.navigate(R.id.action_mainFragment_to_eventDetailsFragment, bundleOf("eventId" to eventId)) // переход к фрагменту EventDetailsFragment с передачей идентификатора события
     }
 }
-
