@@ -16,6 +16,7 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.SettingsViewModel
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
+    // Создание экземпляра ViewModel с помощью Kotlin property delegates
     private val settingsViewModel: SettingsViewModel by viewModels()
     private var _binding: FragmentSettingsBinding? = null
 
@@ -31,20 +32,26 @@ class SettingsFragment : Fragment() {
         setObserver()
         setEventListener()
 
+        // Вызов метода ViewModel для получения текста приветствия
         settingsViewModel.welcomeText()
 
         return binding.root
     }
 
+    // Установка обработчиков событий для элементов пользовательского интерфейса
     private fun setEventListener() {
         binding.logout.setOnClickListener {
+            // Вызов метода ViewModel для выхода из учетной записи
             settingsViewModel.exit()
+            // Переход на экран входа в приложение
             findNavController().navigate(R.id.loginFragment)
+            // Скрытие нижней навигационной панели
             val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
             bottomNavigation?.visibility = View.GONE
         }
     }
 
+    // Установка наблюдателя на изменения в ViewModel
     private fun setObserver() {
         settingsViewModel.userName.observe(viewLifecycleOwner) {
             binding.welcomeText.text = getString(R.string.settings_welcome) + " " + it

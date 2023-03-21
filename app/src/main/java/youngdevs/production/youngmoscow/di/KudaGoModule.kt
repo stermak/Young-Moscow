@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class KudaGoModule {
 
-
+    // Функция, которая предоставляет экземпляр API для зависимостей
     @Provides
     @Singleton
     fun provideKudaGoApi(): KudaGoApi {
@@ -34,9 +34,11 @@ class KudaGoModule {
             .create(KudaGoApi::class.java)
     }
 
+    // Функция, которая предоставляет экземпляр репозитория для зависимостей
     @Provides
     @Singleton
     fun provideKudaGoRepository(api: KudaGoApi): KudaGoRepository {
         return KudaGoRepository(api)
     }
 }
+

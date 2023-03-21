@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class RepositoryModule {
 
-
+    // Функция, которая предоставляет экземпляр UserRepository для зависимостей
     @Provides
     @Singleton
     fun provideUserRepository(userDao: UserDao): UserRepository {

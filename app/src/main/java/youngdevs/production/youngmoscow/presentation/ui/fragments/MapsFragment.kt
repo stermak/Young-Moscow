@@ -30,6 +30,7 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Инициализация MapView и установка начальной точки камеры на карте
         mapView = binding.mapView
         mapView.map.move(
             CameraPosition(
@@ -45,23 +46,24 @@ class MapsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        return binding.root // возвращение корневого View макета фрагмента
     }
 
     override fun onStop() {
         super.onStop()
-        mapView.onStop()
-        MapKitFactory.getInstance().onStop()
+        mapView.onStop() // остановка MapView
+        MapKitFactory.getInstance().onStop() // остановка MapKit
     }
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart()
-        MapKitFactory.getInstance().onStart()
+        mapView.onStart() // запуск MapView
+        MapKitFactory.getInstance().onStart() // запуск MapKit
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null // очистка переменной _binding для избежания утечек памяти
     }
 }
+
