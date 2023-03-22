@@ -28,16 +28,10 @@ class MainViewModel @Inject constructor(private val repository: KudaGoRepository
             return
         }
         loading = true
-        val currentTime = System.currentTimeMillis() / 1000 // текущее время в секундах
-        val oneWeekInSeconds = 7 * 24 * 60 * 60 // количество секунд в одной неделе
-        val actualSince = currentTime
-        val actualUntil = currentTime + oneWeekInSeconds
         viewModelScope.launch {// запуск корутины
             val events = repository.getEvents( // получение списка событий из репозитория и установка его значения LiveData
                 pageSize = 50,
-                page = currentPage,
-                actualSince = actualSince,
-                actualUntil = actualUntil
+                page = currentPage
             )
             _events.value = events
             loading = false

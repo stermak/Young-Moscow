@@ -9,15 +9,12 @@ class KudaGoRepository(private val api: KudaGoApi) {
     suspend fun getEvents(
         pageSize: Int,
         page: Int,
-        actualSince: Long,
-        actualUntil: Long
     ): List<Event> {
         val response = api.getEvents(
-            actualSince = actualSince,
-            actualUntil = actualUntil,
             location = "msk",
             pageSize = pageSize,
-            page = page
+            page = page,
+            order_by = "-publication_date"
         )
 
         return response.body()?.results ?: emptyList()
