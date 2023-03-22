@@ -24,17 +24,4 @@ class EventDetailsViewModel @Inject constructor(
             _event.value = kudaGoRepository.getEventDetails(eventId) // получаем информацию о событии из репозитория
         }
     }
-
-    // Форматирует даты события и возвращает строку
-    fun getFormattedDates(dates: List<Event.Date>): String {
-        val sdf = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()) // объект для форматирования даты
-        val startDate = dates[0].start * 1000 // начальная дата в миллисекундах
-        val endDate = dates[0].end * 1000 // конечная дата в миллисекундах
-        return "С ${sdf.format(Date(startDate))} по ${sdf.format(Date(endDate))}" // форматируем даты и возвращаем строку
-    }
-
-    // Форматирует место проведения события и возвращает строку
-    fun getFormattedPlace(place: Event.Place): String {
-        return "${place.title}, ${place.address}" // возвращаем строку с названием места и адресом
-    }
 }

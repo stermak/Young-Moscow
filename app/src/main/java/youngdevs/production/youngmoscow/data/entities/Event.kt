@@ -12,8 +12,7 @@ data class Event( // Основной класс, который описыва�
     val title: String, // Название события
     val description: String, // Описание события
     val images: List<Image>, // Список изображений, связанных с событием
-    val dates: List<Date>, // Список дат, когда проходит событие
-    val place: Place, // Место, где проходит событие
+    val site_url: String, // Место, где проходит событие
     val body_text: String, // Текстовое описание события
     val price: String // Цена на событие
 ) : Parcelable { // Интерфейс для передачи объектов через Android-компоненты
@@ -29,30 +28,20 @@ data class Event( // Основной класс, который описыва�
     val formattedTitle: String
         get() = Html.fromHtml(title, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
 
-
     @Parcelize
     data class Image(
         val image: String // URL-адрес изображения
     ) : Parcelable
 
     @Parcelize
-    data class Date(
-        val start: Long, // Время начала события
-        val end: Long // Время окончания события
+    data class SiteUrl(
+        val site_url: String, // Адрес сайта мероприятия
     ) : Parcelable
 
     @Parcelize
-    data class Place(
-        val id: Int, // Уникальный идентификатор места
-        val title: String, // Название места
-        val address: String, // Адрес места
-        val location: Location // Координаты места
-    ) : Parcelable {
-
-        @Parcelize
-        data class Location(
-            val lat: Double, // Широта координат места
-            val lon: Double // Долгота координат места
-        ) : Parcelable
-    }
+    data class Location(
+        val lat: Double, // Широта координат места
+        val lon: Double // Долгота координат места
+    ) : Parcelable
 }
+

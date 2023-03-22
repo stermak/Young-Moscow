@@ -38,7 +38,7 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = eventsAdapter
 
         // Наблюдение за LiveData events в ViewModel и обновление списка событий в RecyclerView при изменении данных

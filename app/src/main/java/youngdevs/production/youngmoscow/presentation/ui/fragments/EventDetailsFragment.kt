@@ -40,6 +40,7 @@ class EventDetailsFragment : Fragment() {
                 binding.eventDescription.text = event.formattedDescription // установка описания события
                 binding.eventBodyText.text = event.formattedBodyText // установка подробной информации о событии
                 binding.eventPrice.text = event.price // установка цены события
+                binding.siteUrl.text = event.site_url // установка ссылки
 
                 if (event.images.isNotEmpty()) { // проверка на наличие изображения для события
                     val imageUrl = event.images[0].image // получение URL изображения
@@ -50,16 +51,6 @@ class EventDetailsFragment : Fragment() {
                         .into(binding.eventImage) // загрузка изображения с помощью Glide и установка его в ImageView
                 } else {
                     binding.eventImage.setImageResource(R.drawable.photonet) // установка изображения-заглушки, если изображения для события нет
-                }
-
-                event.dates?.let { dates ->
-                    if (dates.isNotEmpty()) {
-                        binding.eventDates.text = viewModel.getFormattedDates(dates) // установка форматированных дат события
-                    }
-                }
-
-                event.place?.let { place ->
-                    binding.eventPlace.text = viewModel.getFormattedPlace(place) // установка форматированного места проведения события
                 }
             }
         }

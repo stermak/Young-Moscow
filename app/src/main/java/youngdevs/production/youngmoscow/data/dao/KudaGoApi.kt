@@ -13,12 +13,11 @@ interface KudaGoApi {
     @GET("events/")    // Метод getEvents() отправляет GET запрос на сервер KudaGo для получения списка событий.
     // Аннотация @Query указывает параметры запроса, в данном случае: fields, actual_since и location.
     suspend fun getEvents(
-        @Query("fields") fields: String = "id,title,description,images,dates,place,body_text,price",
-        @Query("actual_since") actualSince: Long? = null,
-        @Query("actual_until") actualUntil: Long? = null,
+        @Query("fields") fields: String = "id,title,description,images,site_url,body_text,price",
         @Query("location") location: String? = null,
         @Query("page_size") pageSize: Int? = null,
-        @Query("page") page: Int? = null
+        @Query("page") page: Int? = null,
+        @Query("order_by") order_by: String? = null
     ): Response<ApiResponse>
 
     @GET("events/{event_id}/")
