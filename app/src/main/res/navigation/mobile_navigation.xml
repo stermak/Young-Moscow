@@ -73,5 +73,13 @@
     <fragment
         android:id="@+id/favouriteEventsFragment"
         android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.FavouriteEventsFragment"
-        android:label="FavouriteEventsFragment" />
+        android:label="FavouriteEventsFragment" >
+        <action
+            android:id="@+id/action_favouriteEventsFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" >
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+        </action>
+    </fragment>
 </navigation>
