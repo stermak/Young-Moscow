@@ -88,10 +88,10 @@
 
                 <TextView
                     android:id="@+id/eventPrice"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:textColor="@color/md_theme_dark_inverseOnSurface"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
