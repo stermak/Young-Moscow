@@ -6,6 +6,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="?attr/actionBarSize"
     android:background="#9DACDD"
     tools:context=".presentation.ui.fragments.SettingsFragment">
 
@@ -17,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_text">
+        app:layout_constraintTop_toBottomOf="@+id/btn_favourite_events">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -70,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logout">
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text">
 
         <ImageView
             android:id="@+id/imageView4"

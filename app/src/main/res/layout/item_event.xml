@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout
-    android:layout_width="411dp"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#9DACDD"
-    android:padding="8dp">
-
-    <ImageView
-        android:id="@+id/eventImage"
-        android:layout_width="395dp"
-        android:layout_height="300dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/image" />
-
-    <TextView
-        android:id="@+id/eventTitle"
-        android:layout_width="395dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        android:textColor="@color/md_theme_dark_inverseOnSurface"
-        android:layout_marginTop="8dp" />
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@drawable/item_event_bg">
 
-    <TextView
-        android:id="@+id/eventDescription"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:textSize="11sp"
-        android:textColor="@color/md_theme_dark_inverseOnSurface"
-        android:layout_marginTop="4dp" />
+        <ImageView
+            android:id="@+id/eventImage"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/image" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/eventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/eventDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
 </layout>

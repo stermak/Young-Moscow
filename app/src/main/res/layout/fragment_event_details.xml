@@ -7,13 +7,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="75dp"
+        android:layout_marginBottom="?attr/actionBarSize"
         android:background="#9DACDD"
         tools:context=".presentation.ui.fragments.EventDetailsFragment">
 
         <ScrollView
-            android:layout_width="411dp"
-            android:layout_height="650dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

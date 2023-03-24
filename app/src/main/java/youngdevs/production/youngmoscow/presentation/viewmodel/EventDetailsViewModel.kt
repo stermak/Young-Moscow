@@ -27,6 +27,4 @@ class EventDetailsViewModel @Inject constructor(
             _event.value = kudaGoRepository.getEventDetails(eventId) // получаем информацию о событии из репозитория
         }
     }
-
-
 }

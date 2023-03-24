@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.databinding.FragmentFavouriteEventsBinding
 import youngdevs.production.youngmoscow.presentation.ui.adapter.FavouriteEventsAdapter
@@ -35,13 +36,17 @@ class FavouriteEventsFragment : Fragment() {
 
         favouriteEventsAdapter = FavouriteEventsAdapter { eventId ->
             // Обработка нажатия на элемент события
-            // Здесь вы можете добавить код для перехода к другому фрагменту или выполнять другие действия
+            val action = FavouriteEventsFragmentDirections.actionFavouriteEventsFragmentToEventDetailsFragment(eventId)
+            findNavController().navigate(action)
         }
         binding.favouriteEventsRecyclerView.adapter = favouriteEventsAdapter
 
-        viewModel.favouriteEvents.observe(viewLifecycleOwner, { events ->
-            favouriteEventsAdapter.submitList(events)
-        })
+
+        viewModel.favouriteEvents.observe(viewLifecycleOwner) { events ->
+            val reversedEvents = events.reversed()
+            favouriteEventsAdapter.submitList(reversedEvents)
+        }
+
     }
 
     override fun onDestroyView() {

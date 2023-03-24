@@ -29,7 +29,8 @@ class FavouriteEventsAdapter(private val onEventClick: (Int) -> Unit) :
             binding.root.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    onEventClick(getItem(position).eventId)
+                    val eventId = getItem(position).eventId
+                    onEventClick(eventId)
                 }
             }
         }
