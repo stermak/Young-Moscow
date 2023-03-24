@@ -2,4 +2,7 @@
 <resources>
     <string name="exit">Exit</string>
     <string name="image">image</string>
+    <string name="Favourites">Избранное</string>
+    <string name="add_to_favourites">Добавить в избранное</string>
+    <string name="remove_from_favourites">Удалить из избранного</string>
 </resources>

@@ -38,8 +38,8 @@
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings">
         <action
-            android:id="@+id/action_navigation_settings_to_mapsFragment"
-            app:destination="@id/mapsFragment" />
+            android:id="@+id/action_settingsFragment_to_favouriteEventsFragment"
+            app:destination="@id/favouriteEventsFragment" />
     </fragment>
 
     <fragment
@@ -70,4 +70,8 @@
             android:name="eventId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/favouriteEventsFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.FavouriteEventsFragment"
+        android:label="FavouriteEventsFragment" />
 </navigation>

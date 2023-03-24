@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#9DACDD"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/favouriteEventImage"
+            android:layout_width="395dp"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/image" />
+
+        <TextView
+            android:id="@+id/favouriteEventTitle"
+            android:layout_width="395dp"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/favouriteEventDescription"
+            android:layout_width="395dp"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="@color/md_theme_dark_inverseOnSurface"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+</layout>
