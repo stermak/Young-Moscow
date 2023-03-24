@@ -14,14 +14,19 @@ class EventDetailsViewModel @Inject constructor(
     private val kudaGoRepository: KudaGoRepository, // зависимость от репозитория KudaGoRepository
     savedStateHandle: SavedStateHandle // handle для сохранения и получения состояния ViewModel
 ) : ViewModel() {
+    val isInFavourite: MutableLiveData<Boolean> = MutableLiveData(false)
 
     private val eventId: Int = savedStateHandle.get<Int>("eventId") ?: 0 // получаем ID события из handle
     private val _event = MutableLiveData<Event>() // LiveData для получения информации о событии
     val event: LiveData<Event> get() = _event // LiveData для доступа к информации о событии
 
+
+
     init {
-        viewModelScope.launch { // запуск корутины
+        viewModelScope.launch {
             _event.value = kudaGoRepository.getEventDetails(eventId) // получаем информацию о событии из репозитория
         }
     }
+
+
 }

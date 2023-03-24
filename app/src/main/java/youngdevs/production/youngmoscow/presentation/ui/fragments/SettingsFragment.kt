@@ -49,7 +49,13 @@ class SettingsFragment : Fragment() {
             val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
             bottomNavigation?.visibility = View.GONE
         }
+
+        // Добавление обработчика нажатия кнопки для перехода к FavouriteEventsFragment
+        binding.btnFavouriteEvents.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_favouriteEventsFragment)
+        }
     }
+
 
     // Установка наблюдателя на изменения в ViewModel
     private fun setObserver() {
