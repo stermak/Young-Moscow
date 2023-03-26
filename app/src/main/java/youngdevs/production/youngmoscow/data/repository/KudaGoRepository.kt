@@ -2,7 +2,6 @@ package youngdevs.production.youngmoscow.data.repository
 
 import youngdevs.production.youngmoscow.data.dao.KudaGoApi
 import youngdevs.production.youngmoscow.data.entities.Event
-import java.util.*
 
 class KudaGoRepository(private val api: KudaGoApi) {
 

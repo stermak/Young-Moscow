@@ -5,4 +5,6 @@
     <string name="Favourites">Избранное</string>
     <string name="add_to_favourites">Добавить в избранное</string>
     <string name="remove_from_favourites">Удалить из избранного</string>
+    <string name="default_web_client_id">71378400789-kj54jpmtec38tvtf0tsd9177ou0ipvk2.apps.googleusercontent.com</string>
+
 </resources>

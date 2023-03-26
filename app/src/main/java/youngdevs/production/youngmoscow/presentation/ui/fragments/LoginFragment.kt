@@ -1,12 +1,17 @@
 package youngdevs.production.youngmoscow.presentation.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -17,6 +22,11 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.LoginViewModel
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
+
+    companion object {
+        private const val RC_SIGN_IN = 9001
+    }
+
 
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
@@ -63,7 +73,34 @@ class LoginFragment : Fragment() {
         binding.registrationButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registrationFragment) // переход к экрану регистрации при нажатии кнопки "Зарегистрироваться"
         }
+        binding.googleLogin.setOnClickListener {
+            signInWithGoogle()
+        }
     }
+
+
+
+    private fun signInWithGoogle() {
+        val signInIntent = viewModel.getGoogleSignInClient(requireActivity()).signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                viewModel.firebaseAuthWithGoogle(account.idToken!!)
+            } catch (e: ApiException) {
+                Log.e("LoginFragment", "signInResult:failed code=" + e.statusCode + " message=" + e.message)
+                Toast.makeText(requireContext(), "Ошибка входа через Google", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

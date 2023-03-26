@@ -1,10 +1,7 @@
 package youngdevs.production.youngmoscow.data.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.room.*
-import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.EventFavourite
 
 @Dao

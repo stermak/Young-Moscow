@@ -5,8 +5,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.data.repository.KudaGoRepository
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel

@@ -3,6 +3,7 @@ package youngdevs.production.youngmoscow.data.repository
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,10 @@ import javax.inject.Singleton
 
 // Этот класс является реализацией UserRepository и используется для работы с пользователями в Firebase.
 @Singleton
-class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : UserRepository {
+class UserRepositoryImpl @Inject constructor(
+    private val userDao: UserDao,
+    private val firebaseAuth: FirebaseAuth
+) : UserRepository {
 
     // Создаем экземпляр класса FirebaseAuth для аутентификации пользователя.
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -105,6 +109,18 @@ class UserRepositoryImpl @Inject constructor(private val userDao: UserDao) : Use
     // Функция getCurrentUser возвращает текущего пользователя из локальной базы данных.
     override suspend fun getCurrentUser(): UserModel? {
         return userDao.getCurrentUser()?.asDomainModel()
+    }
+
+    override suspend fun authenticateWithGoogle(idToken: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            try {
+                val credential = GoogleAuthProvider.getCredential(idToken, null)
+                firebaseAuth.signInWithCredential(credential).await()
+                true
+            } catch (e: Exception) {
+                false
+            }
+        }
     }
 
     // Функция updateUserProfile используется для обновления информации о пользователе в Firebase.

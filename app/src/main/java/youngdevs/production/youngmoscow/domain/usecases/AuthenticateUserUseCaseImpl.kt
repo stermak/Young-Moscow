@@ -23,6 +23,10 @@ class AuthenticateUserUseCaseImpl @Inject constructor(private val userRepository
         return userRepository.getCurrentUser()
     }
 
+    override suspend fun signInWithGoogle(idToken: String): Boolean {
+        return userRepository.authenticateWithGoogle(idToken)
+    }
+
     // Выходит из учетной записи пользователя
     override suspend fun signOut() {
         userRepository.clearUser()
