@@ -11,16 +11,3 @@ fun convertUserDocumentToEntity(id: String, document: DocumentSnapshot): User {
     val email: String = document.data?.get(UserDocumentProperties.email) as String
     return User(id, name, email )
 }
-
-// Функция конвертирует список списков строк в JSON-строку.
-fun converterListOfListToJson(list: List<List<String?>>): String? {
-    return Gson().toJson(list)
-}
-
-// Функция конвертирует JSON-строку в список списков строк.
-fun converterJsonToListOfList(string: String?): List<List<String>> {
-    return Gson().fromJson(
-        string,
-        object : TypeToken<List<List<String>>>() {}.type
-    )
-}

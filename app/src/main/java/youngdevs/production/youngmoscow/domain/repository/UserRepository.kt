@@ -15,6 +15,7 @@ interface UserRepository {
     // Возвращает объект типа UserModel или null, если пользователь не найден
     suspend fun getCurrentUser(): UserModel?
 
+
     suspend fun authenticateWithGoogle(idToken: String): Boolean
 
     // Обновляет профиль пользователя с указанным идентификатором, используя указанное имя и email

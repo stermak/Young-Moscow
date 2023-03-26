@@ -1,5 +1,8 @@
 package youngdevs.production.youngmoscow.presentation.ui.fragments
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,22 +25,10 @@ class MapsFragment : Fragment() {
     private lateinit var mapView: MapView
 
     private val viewModel: MapsViewModel by viewModels()
+    private val locationRequestCode = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Инициализация MapView и установка начальной точки камеры на карте
-        mapView = binding.mapView
-        mapView.map.move(
-            CameraPosition(
-                Point(55.751244, 37.618423),
-                14.0f, 0.0f, 0.0f
-            )
-        )
     }
 
     override fun onCreateView(
@@ -49,21 +40,62 @@ class MapsFragment : Fragment() {
         return binding.root // возвращение корневого View макета фрагмента
     }
 
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop() // остановка MapView
-        MapKitFactory.getInstance().onStop() // остановка MapKit
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mapView = binding.mapView
+
+        if (viewModel.hasLocationPermission()) {
+            moveToCurrentLocation()
+        } else {
+            viewModel.requestLocationPermission(requireActivity())
+        }
+    }
+
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == locationRequestCode) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                moveToCurrentLocation()
+            } else {
+                // Разрешение не предоставлено, показать сообщение об ошибке
+            }
+        }
+    }
+
+    private fun moveToCurrentLocation() {
+        val locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if (viewModel.hasLocationPermission()) {
+            try {
+                val locationProvider = LocationManager.GPS_PROVIDER
+                val lastKnownLocation = locationManager.getLastKnownLocation(locationProvider)
+                if (lastKnownLocation != null) {
+                    mapView.map.move(
+                        CameraPosition(
+                            Point(lastKnownLocation.latitude, lastKnownLocation.longitude),
+                            14.0f, 0.0f, 0.0f
+                        )
+                    )
+                }
+            } catch (e: SecurityException) {
+                // Разрешение не предоставлено или отозвано, показать сообщение об ошибке или выполнить другое действие
+            }
+        }
     }
 
     override fun onStart() {
         super.onStart()
-        mapView.onStart() // запуск MapView
-        MapKitFactory.getInstance().onStart() // запуск MapKit
+        mapView.onStart()
+        MapKitFactory.getInstance().onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView.onStop()
+        MapKitFactory.getInstance().onStop()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // очистка переменной _binding для избежания утечек памяти
+        _binding = null
     }
 }
-
