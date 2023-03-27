@@ -11,31 +11,38 @@ import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.domain.usecases.AuthenticateUserUseCase
 import javax.inject.Inject
 
+// SettingsViewModel - класс ViewModel, который управляет данными экрана настроек
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val authenticateUserUseCase: AuthenticateUserUseCase // зависимость от Use Case, который используется для аутентификации пользователя
+    // Внедрение зависимости для доступа к use-case аутентификации пользователя
+    private val authenticateUserUseCase: AuthenticateUserUseCase
 ) : ViewModel() {
 
-    private var _userName = MutableLiveData<String>() // LiveData для получения имени пользователя
-    val userName: LiveData<String>
-        get() = _userName
+    // Объявление MutableLiveData для отслеживания имени пользователя
+    private var _userName = MutableLiveData<String>()
 
-    // Метод для получения имени пользователя и установки его в LiveData
+    // Объявление LiveData для предоставления имени пользователя
+    val userName: LiveData<String> get() = _userName
+
+    // Функция для получения приветственного текста на основе имени пользователя
     fun welcomeText() {
-        viewModelScope.launch { // запуск корутины
-            authenticateUserUseCase.getCurrentUser()?.let { user -> // получаем текущего пользователя
-                val name = user.name ?: "Unknown" // получаем имя пользователя или устанавливаем "Unknown", если имя не указано
-                _userName.value = name // устанавливаем имя пользователя в LiveData
+        viewModelScope.launch {
+            // Получение текущего пользователя и установка имени в MutableLiveData
+            authenticateUserUseCase.getCurrentUser()?.let { user ->
+                val name = user.name ?: "Unknown"
+                _userName.value = name
             }
         }
     }
 
-    // Метод для выхода из аккаунта пользователя
+    // Функция для выхода из аккаунта
     fun exit() {
-        Firebase.auth.signOut() // выход из аккаунта в Firebase
-        viewModelScope.launch { // запуск корутины
-            authenticateUserUseCase.signOut() // вызов метода выхода из аккаунта в Use Case
+        // Выход из аккаунта в Firebase Auth
+        Firebase.auth.signOut()
+
+        // Выход из аккаунта с использованием use-case аутентификации
+        viewModelScope.launch {
+            authenticateUserUseCase.signOut()
         }
     }
 }
-

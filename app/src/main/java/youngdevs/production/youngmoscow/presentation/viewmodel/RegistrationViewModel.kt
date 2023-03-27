@@ -9,20 +9,26 @@ import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.domain.usecases.AuthenticateUserUseCase
 import javax.inject.Inject
 
+// RegistrationViewModel - класс ViewModel, который управляет регистрацией пользователя
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
-    private val authenticateUserUseCase: AuthenticateUserUseCase // зависимость от Use Case, который используется для регистрации нового пользователя
+    // Внедрение зависимости для доступа к use-case аутентификации пользователя
+    private val authenticateUserUseCase: AuthenticateUserUseCase
 ) : ViewModel() {
 
-    private val _registrationResult = MutableLiveData<Int?>() // LiveData для оповещения об успешной или неуспешной регистрации
+    // Объявление MutableLiveData для отслеживания результата регистрации
+    private val _registrationResult = MutableLiveData<Int?>()
+
+    // Объявление LiveData для предоставления результата регистрации
     val registrationResult: LiveData<Int?>
         get() = _registrationResult
 
-    // Метод для регистрации нового пользователя
+    // Функция для регистрации пользователя с указанными данными
     fun registration(email: String, password: String, repeatPassword: String, name: String) {
-        viewModelScope.launch { // запуск корутины
+        viewModelScope.launch {
+            // Вызов метода use-case для создания аккаунта и установка результата в MutableLiveData
             _registrationResult.value =
-                authenticateUserUseCase.createAccount(email, password, repeatPassword, name) // вызов метода регистрации нового пользователя и установка значения LiveData
+                authenticateUserUseCase.createAccount(email, password, repeatPassword, name)
         }
     }
 }

@@ -13,57 +13,61 @@ import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.FragmentSettingsBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.SettingsViewModel
 
+// Аннотация AndroidEntryPoint говорит Hilt, чтобы инжектировать зависимости в этот фрагмент
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
-    // Создание экземпляра ViewModel с помощью Kotlin property delegates
+    // Инициализируем переменные
     private val settingsViewModel: SettingsViewModel by viewModels()
     private var _binding: FragmentSettingsBinding? = null
-
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    // Этот метод вызывается, когда Android создает макет для фрагмента.
+    // Мы создаем макет из файла разметки и возвращаем его как результат.
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        // Создаем макет из файла разметки и сохраняем ссылку на него в переменную binding.
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
+        // Устанавливаем наблюдателей на объект settingsViewModel, чтобы получать уведомления об изменениях в настройках.
         setObserver()
+
+        // Устанавливаем обработчики событий на кнопки и другие элементы пользовательского интерфейса.
         setEventListener()
 
-        // Вызов метода ViewModel для получения текста приветствия
+        // Вызываем метод welcomeText() в settingsViewModel, чтобы получить приветственный текст.
         settingsViewModel.welcomeText()
 
+        // Возвращаем макет как результат.
         return binding.root
     }
 
-    // Установка обработчиков событий для элементов пользовательского интерфейса
+    // Метод устанавливает обработчики событий на кнопки и другие элементы пользовательского интерфейса.
     private fun setEventListener() {
         binding.logout.setOnClickListener {
-            // Вызов метода ViewModel для выхода из учетной записи
+            // Вызываем метод exit() в settingsViewModel, чтобы выйти из приложения.
             settingsViewModel.exit()
-            // Переход на экран входа в приложение
+            // Навигируем пользователя на экран входа в приложение.
             findNavController().navigate(R.id.loginFragment)
-            // Скрытие нижней навигационной панели
+            // Скрываем нижнюю навигационную панель на экране входа в приложение.
             val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
             bottomNavigation?.visibility = View.GONE
         }
 
-        // Добавление обработчика нажатия кнопки для перехода к FavouriteEventsFragment
         binding.btnFavouriteEvents.setOnClickListener {
+            // Навигируем пользователя на экран избранных событий.
             findNavController().navigate(R.id.action_settingsFragment_to_favouriteEventsFragment)
         }
     }
 
-
-    // Установка наблюдателя на изменения в ViewModel
+    // Метод устанавливает наблюдателя на объект settingsViewModel, чтобы получать уведомления об изменениях в настройках.
     private fun setObserver() {
-        settingsViewModel.userName.observe(viewLifecycleOwner) {
-            binding.welcomeText.text = getString(R.string.settings_welcome) + " " + it
+        settingsViewModel.userName.observe(viewLifecycleOwner) { userName ->
+            // Обновляем текст приветствия на экране настроек.
+            binding.welcomeText.text = getString(R.string.settings_welcome) + " " + userName
         }
     }
 
+    // Метод вызывается, когда фрагмент уничтожается.
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

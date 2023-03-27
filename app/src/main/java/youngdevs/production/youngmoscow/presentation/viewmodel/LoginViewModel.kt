@@ -15,48 +15,49 @@ import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.domain.usecases.AuthenticateUserUseCase
 import javax.inject.Inject
 
+// LoginViewModel - аннотация Hilt, чтобы позволить DI фреймворку внедрять зависимости в этот класс
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authenticateUserUseCase: AuthenticateUserUseCase // зависимость от Use Case, который используется для аутентификации пользователя
+    private val authenticateUserUseCase: AuthenticateUserUseCase // зависимость, которую мы внедряем через конструктор
 ) : ViewModel() {
-    private lateinit var googleSignInClient: GoogleSignInClient
-    private val _isLoginSuccessful = MutableLiveData<Boolean?>() // LiveData для оповещения об успешной или неуспешной аутентификации
+    private lateinit var googleSignInClient: GoogleSignInClient // экземпляр клиента GoogleSignIn, который будет проинициализирован при первом обращении к getGoogleSignInClient()
+    private val _isLoginSuccessful = MutableLiveData<Boolean?>() // LiveData, который сообщает об успешности входа в систему
     val isLoginSuccessful: LiveData<Boolean?>
-        get() = _isLoginSuccessful
+        get() = _isLoginSuccessful // открытый доступ к _isLoginSuccessful
 
-    // Метод для аутентификации пользователя
+    // функция, которая инициирует процесс аутентификации пользователя
     fun login(email: String, password: String) {
-        viewModelScope.launch { // запуск корутины
-            _isLoginSuccessful.value = authenticateUserUseCase.signIn(email, password) // вызов метода аутентификации пользователя и установка значения LiveData
+        viewModelScope.launch {
+            _isLoginSuccessful.value = authenticateUserUseCase.signIn(email, password)
         }
     }
 
-    // Метод для обновления UI на основе текущего пользователя
+    // функция, которая обновляет UI после успешной аутентификации
     fun updateUI(currentUser: FirebaseUser?) {
-        if (currentUser != null) { // если текущий пользователь не null, значит аутентификация прошла успешно
-            _isLoginSuccessful.value = true // установка значения LiveData
+        if (currentUser != null) {
+            _isLoginSuccessful.value = true
         }
     }
 
-
-
+    // функция, которая возвращает клиент GoogleSignIn
     fun getGoogleSignInClient(activity: Activity): GoogleSignInClient {
-        if (!::googleSignInClient.isInitialized) {
+        if (!::googleSignInClient.isInitialized) { // проверяем, был ли клиент GoogleSignIn инициализирован ранее
+            // создаем новый клиент GoogleSignIn с помощью GoogleSignInOptions
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(activity.getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build()
 
-            googleSignInClient = GoogleSignIn.getClient(activity, gso)
+            googleSignInClient = GoogleSignIn.getClient(activity, gso) // инициализируем клиент GoogleSignIn
         }
 
-        return googleSignInClient
+        return googleSignInClient // возвращаем клиент GoogleSignIn
     }
 
+    // функция, которая аутентифицирует пользователя с помощью учетной записи Google
     fun firebaseAuthWithGoogle(idToken: String) {
         viewModelScope.launch {
             _isLoginSuccessful.value = authenticateUserUseCase.signInWithGoogle(idToken)
         }
     }
-
 }

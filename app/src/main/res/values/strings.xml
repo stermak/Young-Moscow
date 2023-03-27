@@ -7,7 +7,6 @@
     <string name="title_profile">Profile</string>
     <string name="add_to_favourites">Добавить в избранное</string>
     <string name="remove_from_favourites">Удалить из избранного</string>
-    <!-- Strings related to login -->
     <string name="username">Username</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -59,8 +58,6 @@
     <string name="title_task">Task</string>
     <string name="title_note">Note</string>
     <string name="title_settings">Settings</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="maps">Maps</string>
     <string name="exit">Exit</string>
     <string name="image">image</string>

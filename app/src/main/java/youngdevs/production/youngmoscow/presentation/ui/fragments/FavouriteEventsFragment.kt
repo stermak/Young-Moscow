@@ -13,20 +13,25 @@ import youngdevs.production.youngmoscow.presentation.ui.adapter.FavouriteEventsA
 import youngdevs.production.youngmoscow.presentation.viewmodel.FavouriteEventsViewModel
 
 
-@AndroidEntryPoint
+// Фрагмент, отображающий список избранных событий
+@AndroidEntryPoint // аннотация для использования Hilt DI
 class FavouriteEventsFragment : Fragment() {
 
+    // Поле для привязки View Binding
     private var _binding: FragmentFavouriteEventsBinding? = null
     private val binding get() = _binding!!
 
+    // ViewModel для работы с данными
     private val viewModel: FavouriteEventsViewModel by viewModels()
 
+    // Адаптер для отображения списка событий
     private lateinit var favouriteEventsAdapter: FavouriteEventsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // Инициализация View Binding
         _binding = FragmentFavouriteEventsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -34,6 +39,7 @@ class FavouriteEventsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Инициализация адаптера и установка его в RecyclerView
         favouriteEventsAdapter = FavouriteEventsAdapter { eventId ->
             // Обработка нажатия на элемент события
             val action = FavouriteEventsFragmentDirections.actionFavouriteEventsFragmentToEventDetailsFragment(eventId)
@@ -41,16 +47,16 @@ class FavouriteEventsFragment : Fragment() {
         }
         binding.favouriteEventsRecyclerView.adapter = favouriteEventsAdapter
 
-
+        // Наблюдение за изменением списка избранных событий и обновление адаптера
         viewModel.favouriteEvents.observe(viewLifecycleOwner) { events ->
-            val reversedEvents = events.reversed()
+            val reversedEvents = events.reversed() // Переворачиваем список, чтобы новые элементы добавлялись вверху
             favouriteEventsAdapter.submitList(reversedEvents)
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Освобождение View Binding
         _binding = null
     }
 }

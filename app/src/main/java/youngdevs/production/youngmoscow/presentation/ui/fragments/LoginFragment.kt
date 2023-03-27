@@ -24,29 +24,29 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.LoginViewModel
 class LoginFragment : Fragment() {
 
     companion object {
-        private const val RC_SIGN_IN = 9001
+        private const val RC_SIGN_IN = 9001 // Код для идентификации GoogleSignInActivity
     }
 
 
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels() // Инициализация ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val auth = Firebase.auth
-        binding = FragmentLoginBinding.inflate(layoutInflater,container,false)
+        val auth = Firebase.auth // Инициализация Firebase Authentication
+        binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
 
         // Проверка, авторизован ли текущий пользователь и обновление UI в зависимости от результата проверки
         val currentUser = auth.currentUser
         viewModel.updateUI(currentUser)
 
-        setObserver() // установка Observer на LiveData isLoginSuccessful в ViewModel
-        setEventListener() // установка обработчиков событий для кнопок
+        setObserver() // Установка Observer на LiveData isLoginSuccessful в ViewModel
+        setEventListener() // Установка обработчиков событий для кнопок
 
-        return binding.root // возвращение корневого View макета фрагмента
+        return binding.root // Возвращение корневого View макета фрагмента
     }
 
     // Наблюдение за LiveData isLoginSuccessful в ViewModel
@@ -67,44 +67,53 @@ class LoginFragment : Fragment() {
     // Установка обработчиков событий для кнопок
     private fun setEventListener() {
         binding.login.setOnClickListener {
-            viewModel.login(binding.username.text.toString(), binding.password.text.toString()) // попытка авторизации с помощью ViewModel
+            viewModel.login(
+                binding.username.text.toString(),
+                binding.password.text.toString()
+            ) // Попытка авторизации с помощью ViewModel
         }
 
         binding.registrationButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment) // переход к экрану регистрации при нажатии кнопки "Зарегистрироваться"
+            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment) // Переход к экрану регистрации при нажатии кнопки "Зарегистрироваться"
         }
         binding.googleLogin.setOnClickListener {
-            signInWithGoogle()
+            signInWithGoogle() // Авторизация через Google
         }
     }
 
 
-
     private fun signInWithGoogle() {
-        val signInIntent = viewModel.getGoogleSignInClient(requireActivity()).signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        val signInIntent =
+            viewModel.getGoogleSignInClient(requireActivity()).signInIntent // Получение GoogleSignInClient и вызов активности для авторизации через Google
+        startActivityForResult(
+            signInIntent,
+            RC_SIGN_IN
+        ) // Запуск активности и передача кода для идентификации
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == RC_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        if (requestCode == RC_SIGN_IN) { // Проверка кода для идентификации
+            val task =
+                GoogleSignIn.getSignedInAccountFromIntent(data) // Получение результата авторизации через Google
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                viewModel.firebaseAuthWithGoogle(account.idToken!!)
+                viewModel.firebaseAuthWithGoogle(account.idToken!!) // Авторизация через Firebase с помощью полученного idToken
             } catch (e: ApiException) {
-                Log.e("LoginFragment", "signInResult:failed code=" + e.statusCode + " message=" + e.message)
-                Toast.makeText(requireContext(), "Ошибка входа через Google", Toast.LENGTH_SHORT).show()
+                Log.e(
+                    "LoginFragment",
+                    "signInResult:failed code=" + e.statusCode + " message=" + e.message
+                ) // Вывод сообщения об ошибке в случае неудачной авторизации
+                Toast.makeText(requireContext(), "Ошибка входа через Google", Toast.LENGTH_SHORT)
+                    .show() // Показ сообщения об ошибке в случае неудачной авторизации
             }
         }
     }
 
 
-
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModelStore.clear() // очистка ViewModelStore для избежания утечек памяти
+        viewModelStore.clear() // Очистка ViewModelStore для избежания утечек памяти
     }
-
 }

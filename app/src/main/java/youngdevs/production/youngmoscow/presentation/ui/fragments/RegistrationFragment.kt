@@ -13,50 +13,53 @@ import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.FragmentRegistrationBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.RegistrationViewModel
 
+// Аннотация AndroidEntryPoint говорит Hilt, чтобы инжектировать зависимости в этот фрагмент
 @AndroidEntryPoint
 class RegistrationFragment : Fragment() {
 
+    // Инициализируем переменные
     private lateinit var binding: FragmentRegistrationBinding
     private val viewModel: RegistrationViewModel by viewModels()
 
+    // Этот метод вызывается, когда Android создает макет для фрагмента.
+    // Мы создаем макет из файла разметки и возвращаем его как результат.
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Загружаем макет фрагмента
+        // Создаем макет из файла разметки и сохраняем ссылку на него в переменную binding.
         binding = FragmentRegistrationBinding.inflate(layoutInflater)
 
-        // Устанавливаем наблюдателя для результата регистрации
+        // Устанавливаем наблюдателей на объект viewModel, чтобы получать уведомления об изменениях в регистрации пользователя.
         setObserver()
 
-        // Устанавливаем слушатель событий для кнопки регистрации
+        // Устанавливаем обработчики событий на кнопки и другие элементы пользовательского интерфейса.
         setEventListener()
 
+        // Возвращаем макет как результат.
         return binding.root
     }
 
-    // Устанавливаем наблюдателя для результата регистрации
+    // Метод устанавливает наблюдателя на объект viewModel, чтобы получать уведомления об изменениях в регистрации пользователя.
     private fun setObserver() {
-        viewModel.registrationResult.observe(viewLifecycleOwner) {
-            if (it != null) {
-                if (it == 1) {
-                    // Переходим на главный экран при успешной регистрации
+        viewModel.registrationResult.observe(viewLifecycleOwner) { registrationResult ->
+            if (registrationResult != null) {
+                if (registrationResult == 1) {
+                    // Навигируем пользователя на главный экран приложения, если регистрация прошла успешно.
                     findNavController().navigate(R.id.action_registrationFragment_to_navigation_main)
-
-                    // Показываем BottomNavigationView
-                    val bottomNavigation =
-                        activity?.findViewById<BottomNavigationView>(R.id.nav_view)
+                    // Показываем нижнюю навигационную панель на главном экране.
+                    val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
                     bottomNavigation?.visibility = View.VISIBLE
                 }
             }
         }
     }
 
-    // Устанавливаем слушатель событий для кнопки регистрации
+    // Метод устанавливает обработчики событий на кнопки и другие элементы пользовательского интерфейса.
     private fun setEventListener() {
         binding.registration.setOnClickListener {
-            // Вызываем метод регистрации пользователя
+            // Вызываем метод регистрации в viewModel с передачей данных из полей ввода.
             viewModel.registration(
                 email = binding.emailField.text.toString().trim(' '),
                 password = binding.passwordRegistrationField.text.toString().trim(' '),
@@ -66,10 +69,10 @@ class RegistrationFragment : Fragment() {
         }
     }
 
+    // Метод вызывается, когда фрагмент уничтожается.
+    // Очищаем viewModelStore от viewModel, чтобы предотвратить утечки памяти.
     override fun onDestroyView() {
         super.onDestroyView()
-        // Очищаем viewModelStore при уничтожении фрагмента
         viewModelStore.clear()
     }
-
 }

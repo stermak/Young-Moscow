@@ -13,16 +13,19 @@ import youngdevs.production.youngmoscow.data.entities.FavouriteDatabase
 import youngdevs.production.youngmoscow.data.repository.FavouriteEventsRepository
 import javax.inject.Singleton
 
+// AppModule - модуль, предоставляющий зависимости для всего приложения
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    // Предоставление DAO для доступа к базе данных избранных событий
     @Singleton
     @Provides
     fun provideFavouriteEventsDao(database: FavouriteDatabase): FavouriteEventsDao {
         return database.favouriteEventsDao()
     }
 
+    // Предоставление экземпляра базы данных избранных событий
     @Singleton
     @Provides
     fun provideAppDatabase(@ApplicationContext appContext: Context): FavouriteDatabase {
@@ -33,6 +36,7 @@ object AppModule {
         ).build()
     }
 
+    // Предоставление репозитория для работы с избранными событиями
     @Singleton
     @Provides
     fun provideFavouriteEventsRepository(favouriteEventsDao: FavouriteEventsDao): FavouriteEventsRepository {

@@ -17,13 +17,18 @@ import youngdevs.production.youngmoscow.databinding.FragmentMainBinding
 import youngdevs.production.youngmoscow.presentation.ui.adapter.EventsAdapter
 import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 
-@AndroidEntryPoint
+// Фрагмент, отображающий список событий
+@AndroidEntryPoint // аннотация для использования Hilt DI
 class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
 
+    // ViewModel для работы с данными
     private val viewModel: MainViewModel by viewModels()
+
+    // Поле для привязки View Binding
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
+    // Адаптер для отображения списка событий
     private val eventsAdapter = EventsAdapter(this)
 
     override fun onCreateView(
@@ -31,13 +36,15 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Инициализация View Binding и возвращение корневого View макета фрагмента
         _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
-        return binding.root // возвращение корневого View макета фрагмента
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Установка LayoutManager и адаптера в RecyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = eventsAdapter
 
@@ -45,6 +52,7 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         viewModel.events.observe(viewLifecycleOwner) { events ->
             eventsAdapter.setEvents(events)
         }
+
         // Загрузка следующей страницы при достижении конца списка
         binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -58,15 +66,18 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
             }
         })
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // очистка переменной _binding для избежания утечек памяти
+        // Очистка переменной _binding для избежания утечек памяти
+        _binding = null
     }
 
     // Обработка нажатия на элемент списка
     override fun onItemClick(event: Event) {
         val eventId = event.id
         val navController = findNavController()
-        navController.navigate(R.id.action_mainFragment_to_eventDetailsFragment, bundleOf("eventId" to eventId)) // переход к фрагменту EventDetailsFragment с передачей идентификатора события
+        // Переход к фрагменту EventDetailsFragment с передачей идентификатора события
+        navController.navigate(R.id.action_mainFragment_to_eventDetailsFragment, bundleOf("eventId" to eventId))
     }
 }

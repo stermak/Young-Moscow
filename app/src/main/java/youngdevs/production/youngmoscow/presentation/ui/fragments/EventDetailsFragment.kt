@@ -18,20 +18,29 @@ import youngdevs.production.youngmoscow.databinding.FragmentEventDetailsBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.EventDetailsViewModel
 import youngdevs.production.youngmoscow.presentation.viewmodel.FavouriteEventsViewModel
 
+// EventDetailsFragment - аннотация AndroidEntryPoint, которая позволяет использовать DI фреймворк Hilt
 @AndroidEntryPoint
 class EventDetailsFragment : Fragment() {
 
-    private val viewModel: EventDetailsViewModel by viewModels() // создание ViewModel для фрагмента
+    // создание ViewModel для фрагмента
+    private val viewModel: EventDetailsViewModel by viewModels()
+
+    // привязка макета фрагмента
     private var _binding: FragmentEventDetailsBinding? = null
     private val binding get() = _binding!!
-    private val favouriteEventsViewModel: FavouriteEventsViewModel by viewModels()
-    private val args: EventDetailsFragmentArgs by navArgs() // получение аргументов фрагмента
 
+    // создание ViewModel для работы с избранными событиями
+    private val favouriteEventsViewModel: FavouriteEventsViewModel by viewModels()
+
+    // получение аргументов фрагмента
+    private val args: EventDetailsFragmentArgs by navArgs()
+
+    // инфлейт макета фрагмента и возврат его View
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEventDetailsBinding.inflate(inflater, container, false) // инфлейт макета фрагмента
+        _binding = FragmentEventDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -40,27 +49,28 @@ class EventDetailsFragment : Fragment() {
 
         val eventId = args.eventId // получение ID события из аргументов фрагмента
 
+        // наблюдение за LiveData в ViewModel, которая сообщает о том, находится ли событие в списке избранных
         viewModel.isInFavourite.observe(viewLifecycleOwner) { isInFavourite ->
             updateFavouritesButtonText(isInFavourite)
         }
 
+        // запуск корутины в lifecycleScope для получения избранного события из базы данных
         lifecycleScope.launch {
             val eventFavourite = favouriteEventsViewModel.getEventById(eventId)
             viewModel.isInFavourite.value = eventFavourite != null
         }
 
-
-        viewModel.event.observe(viewLifecycleOwner) { event -> // наблюдение за LiveData события в ViewModel
+        // наблюдение за LiveData события в ViewModel
+        viewModel.event.observe(viewLifecycleOwner) { event ->
             if (event != null) {
                 binding.eventTitle.text = event.formattedTitle // установка заголовка события
-                binding.eventDescription.text =
-                    event.formattedDescription // установка описания события
-                binding.eventBodyText.text =
-                    event.formattedBodyText // установка подробной информации о событии
+                binding.eventDescription.text = event.formattedDescription // установка описания события
+                binding.eventBodyText.text = event.formattedBodyText // установка подробной информации о событии
                 binding.eventPrice.text = event.price // установка цены события
-                binding.siteUrl.text = event.site_url // установка ссылки
+                binding.siteUrl.text = event.site_url // установка ссылки на сайт
 
-                if (event.images.isNotEmpty()) { // проверка на наличие изображения для события
+                // проверка на наличие изображения для события
+                if (event.images.isNotEmpty()) {
                     val imageUrl = event.images[0].image // получение URL изображения
                     Glide.with(binding.root.context)
                         .load(imageUrl)
@@ -71,6 +81,8 @@ class EventDetailsFragment : Fragment() {
                     binding.eventImage.setImageResource(R.drawable.photonet) // установка изображения-заглушки, если изображения для события нет
                 }
             }
+
+            // обработка клика на кнопке добавления в избранное
             binding.addToFavouritesButton.setOnClickListener {
                 val event = viewModel.event.value
                 if (event != null) {
@@ -82,26 +94,27 @@ class EventDetailsFragment : Fragment() {
                     val eventFavourite = EventFavourite(eventId, eventTitle, eventDescription, imageUrl)
 
                     if (viewModel.isInFavourite.value == true) {
-                        favouriteEventsViewModel.removeFromFavourites(eventId) // передаем eventId вместо eventFavourite
+                        favouriteEventsViewModel.removeFromFavourites(eventId) // удаление из избранного, если уже находится там
                         viewModel.isInFavourite.value = false
                     } else {
-                        favouriteEventsViewModel.addToFavourites(eventFavourite)
+                        favouriteEventsViewModel.addToFavourites(eventFavourite) // добавление в избранное, если еще не находится там
                         viewModel.isInFavourite.value = true
                     }
                 }
-
             }
         }
     }
 
+    // функция для обновления текста кнопки добавления в избранное в зависимости от того, является ли событие избранным
     private fun updateFavouritesButtonText(isInFavourite: Boolean) {
         Log.d("EventDetailsFragment", "isInFavourite: $isInFavourite")
         binding.addToFavouritesButton.text =
             if (isInFavourite) "Удалить из избранного" else "Добавить в избранное"
     }
 
+    // очистка binding для избежания утечек памяти
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // очистка binding для избежания утечек памяти
+        _binding = null
     }
 }
