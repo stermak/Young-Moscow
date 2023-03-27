@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Junges Moskau</string>
+    <string name="title_activity_main">Junges Moskau</string>
+    <string name="title_main">Hauptseite</string>
+    <string name="title_maps">Karten</string>
+    <string name="title_favourites">Favoriten</string>
+    <string name="title_profile">Profil</string>
+    <string name="add_to_favourites">Zu Favoriten hinzufügen</string>
+    <string name="remove_from_favourites">Aus Favoriten entfernen</string>
+    <string name="username">Benutzername</string>
+    <string name="prompt_email">E-Mail</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="prompt_repeat_password">Passwort wiederholen</string>
+    <string name="action_sign_in">Anmelden</string>
+    <string name="google_login">Google-Konto</string>
+    <string name="registration_button">Registrieren</string>
+    <string name="action_sign_in_short">Anmelden</string>
+    <string name="welcome">"Willkommen!"</string>
+    <string name="invalid_username">Ungültiger Benutzername</string>
+    <string name="invalid_password">Passwort muss aus mindestens 5 Zeichen bestehen</string>
+    <string name="login_failed">"Anmeldung fehlgeschlagen"</string>
+    <string-array name="priority_scale">
+        <item>Sehr hohe Priorität</item>
+        <item>Hohe Priorität</item>
+        <item>Standardpriorität</item>
+        <item>Niedrige Priorität</item>
+        <item>Sehr niedrige Priorität</item>
+    </string-array>
+    <string name="cancel">Abbrechen</string>
+    <string name="create_task">Erstellen</string>
+    <string name="settings_welcome">Schön, Sie zu sehen, </string>
+    <string name="language_setting">Sprache</string>
+    <string name="exit_setting">Ausgang</string>
+    <string name="theme_setting">Themen</string>
+    <string name="about_setting">Über</string>
+    <string name="title_task">Aufgabe</string>
+    <string name="title_note">Notiz</string>
+    <string name="title_settings">Einstellungen</string>
+    <string name="maps">Karten</string>
+    <string name="exit">Ausgang</string>
+    <string name="image">Bild</string>
+    <string name="Favourites">Favoriten</string>
+</resources>
