@@ -40,4 +40,14 @@
     <string name="exit">Выход</string>
     <string name="image">Изображение</string>
     <string name="Favourites">Избранное</string>
+    <string name="loginTxtUnderLine">Have an account ?<u> Login</u></string>
+    <string name="signUpTxtUnderLine">Not Have an account ?<u> Sign Up</u></string>
+    <string name="signUpTxt">SIGN UP</string>
+    <string name="usernameTxt">Username</string>
+    <string name="emailTxt">Email</string>
+    <string name="phoneTxt">Phone No.</string>
+    <string name="passwordTxt">Password</string>
+    <string name="contacts">List All Contacts</string>
+    <string name="profile">Profile</string>
+    <string name="saveBtn">Save</string>
 </resources>

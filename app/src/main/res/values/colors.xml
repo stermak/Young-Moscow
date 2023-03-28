@@ -5,6 +5,11 @@
     <color name="blue">#07D2D9</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="bgColor">#F2EBFB</color>
+    <color name="iconColor">#39106E</color>
+    <color name="btnColor">#9345FA</color>
+    <color name="btnColorDark">#5C299F</color>
+    <color name="trans">#00EFEFEF</color>
     <color name="md_theme_light_primary">#6750A4</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#EADDFF</color>

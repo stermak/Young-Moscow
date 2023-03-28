@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:background="#9DACDD"
+        android:background="@color/bgColor"
         tools:context=".presentation.ui.fragments.EventDetailsFragment">
 
         <ScrollView
@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content">
 
             <ImageView
+
                 android:id="@+id/eventImage"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
@@ -32,77 +33,57 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                style="@style/titleStyle"
                 android:id="@+id/eventTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="@color/md_theme_dark_inverseOnSurface"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/eventImage" />
 
-            <TextView
-                android:id="@+id/site_url"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:autoLink="all"
-                android:focusable="true"
-                android:textColor="@color/md_theme_dark_inverseOnSurface"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/eventTitle" />
+                <TextView
+                    style="@style/titleStyle"
+                    android:id="@+id/site_url"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/eventTitle" />
 
             <TextView
+                style="@style/titleStyle"
                 android:id="@+id/eventDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="@color/md_theme_dark_inverseOnSurface"
-                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/site_url" />
 
             <TextView
+                style="@style/titleStyle"
                 android:id="@+id/eventBodyText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:textColor="@color/md_theme_dark_inverseOnSurface"
-                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/eventDescription" />
 
                 <TextView
+                    style="@style/titleStyle"
                     android:id="@+id/eventPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:textColor="@color/md_theme_dark_inverseOnSurface"
-                    android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/eventBodyText" />
 
                 <Button
                     android:id="@+id/addToFavouritesButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_height="70dp"
+                    style="@style/buttonStyle"
+                    android:textSize = "14sp"
                     android:text="@string/add_to_favourites"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/eventBodyText" />

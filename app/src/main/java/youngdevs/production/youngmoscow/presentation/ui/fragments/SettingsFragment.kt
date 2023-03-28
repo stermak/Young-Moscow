@@ -57,6 +57,10 @@ class SettingsFragment : Fragment() {
             // Навигируем пользователя на экран избранных событий.
             findNavController().navigate(R.id.action_settingsFragment_to_favouriteEventsFragment)
         }
+        binding.btnProfile.setOnClickListener {
+            // Навигируем пользователя на экран избранных событий.
+            findNavController().navigate(R.id.action_settingsFragment_to_profileFragment)
+        }
     }
 
     // Метод устанавливает наблюдателя на объект settingsViewModel, чтобы получать уведомления об изменениях в настройках.

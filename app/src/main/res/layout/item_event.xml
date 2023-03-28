@@ -5,7 +5,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp"
-        android:background="@drawable/item_event_bg">
+        android:background="@color/bgColor">
 
         <ImageView
             android:id="@+id/eventImage"
@@ -16,26 +16,16 @@
             android:contentDescription="@string/image" />
 
         <TextView
+            style="@style/titleStyle"
             android:id="@+id/eventTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/md_theme_dark_inverseOnSurface"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_height="wrap_content" />
 
         <TextView
+            style="@style/titleStyle"
             android:id="@+id/eventDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/md_theme_dark_inverseOnSurface"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </layout>

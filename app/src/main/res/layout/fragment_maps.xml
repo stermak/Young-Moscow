@@ -6,7 +6,7 @@
         android:id="@+id/mapsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#9DACDD"
+        android:background="@color/bgColor"
         android:layout_marginBottom="?attr/actionBarSize">
 
         <com.yandex.mapkit.mapview.MapView

@@ -7,7 +7,7 @@
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#9DACDD"
+        android:background="@color/bgColor"
         android:layout_marginBottom="?attr/actionBarSize"
         tools:context=".presentation.ui.fragments.MainFragment">
 
@@ -25,6 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
+            style="@style/titleStyle"
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"

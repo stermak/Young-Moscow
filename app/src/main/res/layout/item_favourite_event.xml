@@ -5,7 +5,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp"
-        android:background="@drawable/item_event_bg">
+        android:background="@color/bgColor">
 
         <ImageView
             android:id="@+id/favouriteEventImage"
@@ -16,21 +16,16 @@
             android:contentDescription="@string/image" />
 
         <TextView
+            style="@style/titleStyle"
             android:id="@+id/favouriteEventTitle"
-            android:layout_width="395dp"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:textColor="@color/md_theme_dark_inverseOnSurface"
-            android:layout_marginTop="8dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
+            style="@style/titleStyle"
             android:id="@+id/favouriteEventDescription"
-            android:layout_width="395dp"
-            android:layout_height="wrap_content"
-            android:textSize="11sp"
-            android:textColor="@color/md_theme_dark_inverseOnSurface"
-            android:layout_marginTop="4dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </layout>
