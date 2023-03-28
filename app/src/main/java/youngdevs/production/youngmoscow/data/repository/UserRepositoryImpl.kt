@@ -30,25 +30,28 @@ class UserRepositoryImpl @Inject constructor(
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     // Функция createAccount используется для создания нового аккаунта пользователя в Firebase.
-    override suspend fun createAccount(email: String, password: String, name: String): Boolean {
+    override suspend fun createAccount(email: String, password: String, name: String, phone: String?): Boolean {
         var dbUser: User? = null
         var isSuccess = false
 
-        // Создаем нового пользователя в Firebase с помощью email и password.
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val userId = auth.currentUser!!.uid
 
-                    // Создаем нового пользователя в Firestore с помощью имени и email.
-                    val newUser = hashMapOf(
+                    val newUser = hashMapOf<String, Any>(
                         "name" to name,
-                        "email" to email,
+                        "email" to email
                     )
+
+                    // Добавляем телефон только если он не равен null
+                    phone?.let {
+                        newUser["phone"] = it
+                    }
+
                     isSuccess = true
 
-                    // Создаем ссылку на коллекцию пользователей в Firestore и добавляем нового пользователя.
-                    dbUser = User(userId, name, email)
+                    dbUser = User(userId, name, email, phone ?: "")
                     val db = Firebase.firestore
                     db.collection(CollectionNames.users).document(userId)
                         .set(newUser)
@@ -60,7 +63,6 @@ class UserRepositoryImpl @Inject constructor(
             }.addOnFailureListener { Exception -> Log.e(TAG, Exception.toString()) }
             .await()
 
-        // Если пользователь был успешно создан в Firebase, добавляем его в локальную базу данных.
         if (isSuccess) {
             withContext(Dispatchers.IO) {
                 userDao.insert(dbUser!!)
@@ -68,6 +70,7 @@ class UserRepositoryImpl @Inject constructor(
         }
         return isSuccess
     }
+
 
     // Функция authenticate используется для аутентификации пользователя в Firebase.
     override suspend fun authenticate(email: String, password: String): Boolean {
@@ -124,10 +127,37 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     // Функция updateUserProfile используется для обновления информации о пользователе в Firebase.
-    override suspend fun updateUserProfile(userId: String, name: String, email: String) {
-        // Эта функция еще не реализована.
-        TODO("Not yet implemented")
+    override suspend fun updateUserProfile(userId: String, name: String, email: String, phone: String) {
+        // Обновление данных пользователя в Firebase и локальной базе данных
+        val userDataToUpdate = hashMapOf<String, Any>(
+            "name" to name,
+            "email" to email,
+            "phone" to phone
+        )
+
+        val db = Firebase.firestore
+        db.collection(CollectionNames.users).document(userId)
+            .update(userDataToUpdate)
+            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+            .await()
+
+        withContext(Dispatchers.IO) {
+            userDao.updateUser(userId, name, email, phone)
+        }
     }
+
+    override suspend fun updateUserPassword(newPassword: String) {
+        auth.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d(TAG, "User password updated.")
+            } else {
+                Log.w(TAG, "Error updating user password", task.exception)
+            }
+        }?.addOnFailureListener { Log.e(TAG, "FailureListener") }?.await()
+    }
+
+
 
     // Функция clearUser очищает локальную базу данных от всех пользователей.
     override suspend fun clearUser() {

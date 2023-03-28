@@ -45,6 +45,7 @@
             <EditText
                 android:id="@+id/usernameEditTxt"
                 style="@style/inputStyle"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_input"

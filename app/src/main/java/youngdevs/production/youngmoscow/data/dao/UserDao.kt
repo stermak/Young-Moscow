@@ -16,10 +16,9 @@ interface UserDao {
     // Аргумент onConflict указывает, что нужно сделать в случае конфликта, т.е. при попытке вставки уже существующей записи.
     // В данном случае указано заменить старую запись на новую.
 
-    @Update
-    suspend fun updateUser(user: User)
-    // Метод updateUser() обновляет данные пользователя в базе данных Room.
-    // Аннотация @Update указывает, что это операция обновления.
+    @Query("UPDATE user SET name = :name, email = :email, phone = :phone WHERE id = :userId")
+    suspend fun updateUser(userId: String, name: String, email: String, phone: String)
+
 
     @Query("SELECT * FROM $USER_TABLE WHERE id = :id")
     fun getById(id: String): Flow<User>
