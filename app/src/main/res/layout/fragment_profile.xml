@@ -14,15 +14,17 @@
         android:paddingBottom="@dimen/fragment_vertical_margin"
         tools:context=".presentation.ui.fragments.ProfileFragment">
 
-
-
-        <LinearLayout
-            android:id="@+id/addLinearLayout"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/container"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:id="@+id/addLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <TextView
                 android:id="@+id/dashHeading"
@@ -102,5 +104,6 @@
                 android:layout_marginTop="@dimen/fragment_vertical_margin" />
 
         </LinearLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

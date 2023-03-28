@@ -65,9 +65,9 @@ class SettingsFragment : Fragment() {
 
     // Метод устанавливает наблюдателя на объект settingsViewModel, чтобы получать уведомления об изменениях в настройках.
     private fun setObserver() {
-        settingsViewModel.userName.observe(viewLifecycleOwner) { userName ->
+        settingsViewModel.userName.observe(viewLifecycleOwner) { name ->
             // Обновляем текст приветствия на экране настроек.
-            binding.welcomeText.text = getString(R.string.settings_welcome) + " " + userName
+            binding.welcomeText.text = getString(R.string.settings_welcome) + " " + name
         }
     }
 
