@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_sightseeingsFragment"
+            app:destination="@id/sightseeingsFragment" />
     </fragment>
 
     <fragment
@@ -89,4 +92,8 @@
         android:id="@+id/profileFragment"
         android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/sightseeingsFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.SightseeingsFragment"
+        android:label="SightseeingsFragment" />
 </navigation>
