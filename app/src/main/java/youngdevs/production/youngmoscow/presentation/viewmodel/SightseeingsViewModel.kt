@@ -10,19 +10,24 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.Sightseeing
-import youngdevs.production.youngmoscow.data.utilities.ImagesService
-import youngdevs.production.youngmoscow.data.utilities.SightseeingsService
+import youngdevs.production.youngmoscow.data.services.ImagesService
+import youngdevs.production.youngmoscow.data.services.SightseeingsService
 import javax.inject.Inject
 
+// Используем HiltViewModel для автоматического внедрения зависимостей с Hilt
 @HiltViewModel
 class SightseeingsViewModel @Inject constructor(
+    // Внедряем сервисы для работы с достопримечательностями и изображениями
     private val sightseeingsService: SightseeingsService,
     private val imagesService: ImagesService
 ) : ViewModel() {
 
+    // Используем MutableLiveData для изменения списка достопримечательностей внутри ViewModel
     private val _sightseeings = MutableLiveData<List<Sightseeing>>()
+    // Объявляем LiveData для предоставления списка достопримечательностей во внешний код
     val sightseeings: LiveData<List<Sightseeing>> = _sightseeings
 
+    // Загружаем список достопримечательностей с использованием корутин
     fun loadSightseeings() {
         viewModelScope.launch {
             try {
@@ -36,6 +41,7 @@ class SightseeingsViewModel @Inject constructor(
         }
     }
 
+    // Загружаем изображение с использованием корутин и обрабатываем исключения
     suspend fun loadImage(imageName: String): Bitmap? {
         return try {
             val response = imagesService.getImage(imageName)

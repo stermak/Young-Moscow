@@ -1,9 +1,12 @@
 package youngdevs.production.youngmoscow.presentation.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,6 +23,8 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 // Фрагмент, отображающий список событий
 @AndroidEntryPoint // аннотация для использования Hilt DI
 class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
+
+    private var isBackPressed = false
 
     // ViewModel для работы с данными
     private val viewModel: MainViewModel by viewModels()
@@ -67,10 +72,14 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         })
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // Очистка переменной _binding для избежания утечек памяти
-        _binding = null
+    fun handleOnBackPressed() {
+        if (isBackPressed) {
+            requireActivity().finish()
+        } else {
+            isBackPressed = true
+            Toast.makeText(requireContext(), "Нажмите еще раз, чтобы выйти", Toast.LENGTH_SHORT).show()
+            Handler(Looper.getMainLooper()).postDelayed({ isBackPressed = false }, 2000)
+        }
     }
 
     // Обработка нажатия на элемент списка
