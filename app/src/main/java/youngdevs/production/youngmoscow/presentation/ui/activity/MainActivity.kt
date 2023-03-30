@@ -3,6 +3,7 @@ package youngdevs.production.youngmoscow.presentation.ui.activity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Инициализация MapKit SDK с использованием ключа API
-        MapKitFactory.setApiKey("f73729a2-ece7-42f6-a70a-20e6e1033123")
         MapKitFactory.initialize(this)
 
         // Инфлейт макета ActivityMainBinding и установка его в качестве контента активности
