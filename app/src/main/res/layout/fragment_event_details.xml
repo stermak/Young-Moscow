@@ -4,90 +4,115 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
         android:background="@color/bgColor"
+        android:layout_marginBottom="?attr/actionBarSize"
         tools:context=".presentation.ui.fragments.EventDetailsFragment">
 
         <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/addToFavouritesButton"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintEnd_toEndOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="411dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <ImageView
-
-                android:id="@+id/eventImage"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                style="@style/titleStyle"
-                android:id="@+id/eventTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/eventImage" />
+                <ImageView
+                    android:id="@+id/eventImage"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
                 <TextView
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    style="@style/titleStyle"
+                    android:id="@+id/eventTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/eventImage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
                     style="@style/titleStyle"
                     android:id="@+id/site_url"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:autoLink="all"
                     android:focusable="true"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/eventTitle"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/eventTitle" />
-
-            <TextView
-                style="@style/titleStyle"
-                android:id="@+id/eventDescription"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/site_url" />
-
-            <TextView
-                style="@style/titleStyle"
-                android:id="@+id/eventBodyText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/eventDescription" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"/>
 
                 <TextView
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    style="@style/titleStyle"
+                    android:id="@+id/eventDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/site_url"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    style="@style/titleStyle"
+                    android:id="@+id/eventBodyText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/eventDescription"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp"/>
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
                     style="@style/titleStyle"
                     android:id="@+id/eventPrice"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/eventBodyText" />
+                    app:layout_constraintTop_toBottomOf="@id/eventBodyText"
+                    android:layout_marginTop="16dp"/>
 
-                <Button
-                    android:id="@+id/addToFavouritesButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="70dp"
-                    style="@style/buttonStyle"
-                    android:textSize = "14sp"
-                    android:text="@string/add_to_favourites"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/eventBodyText" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/addToFavouritesButton"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            style="@style/buttonStyle"
+            android:textSize="14sp"
+            android:text="@string/add_to_favourites"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="16dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
+
