@@ -53,8 +53,8 @@ class LoginFragment : Fragment() {
     private fun setObserver() {
         viewModel.isLoginSuccessful.observe(viewLifecycleOwner) {
             if (it != null) {
+                Log.d("LoginFragment", "isLoginSuccessful changed to $it") // добавляем вызов Log.d() для вывода информации об изменении значения LiveData в лог
                 if (it == true) {
-                    // Если пользователь успешно авторизован, переход к главному экрану приложения и отображение BottomNavigationView
                     findNavController().navigate(R.id.action_loginFragment_to_navigation_main)
                     val bottomNavigation =
                         activity?.findViewById<BottomNavigationView>(R.id.nav_view)
@@ -63,6 +63,7 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
 
     // Установка обработчиков событий для кнопок
     private fun setEventListener() {
@@ -83,33 +84,28 @@ class LoginFragment : Fragment() {
 
 
     private fun signInWithGoogle() {
-        val signInIntent =
-            viewModel.getGoogleSignInClient(requireActivity()).signInIntent // Получение GoogleSignInClient и вызов активности для авторизации через Google
-        startActivityForResult(
-            signInIntent,
-            RC_SIGN_IN
-        ) // Запуск активности и передача кода для идентификации
+        val signInIntent = viewModel.getGoogleSignInClient(requireActivity()).signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+        Log.d("LoginFragment", "Starting Google Sign-In activity") // добавляем вызов Log.d() для вывода информации о запуске активности в лог
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == RC_SIGN_IN) { // Проверка кода для идентификации
-            val task =
-                GoogleSignIn.getSignedInAccountFromIntent(data) // Получение результата авторизации через Google
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                viewModel.firebaseAuthWithGoogle(account.idToken!!) // Авторизация через Firebase с помощью полученного idToken
+                viewModel.firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Log.e(
-                    "LoginFragment",
-                    "signInResult:failed code=" + e.statusCode + " message=" + e.message
-                ) // Вывод сообщения об ошибке в случае неудачной авторизации
+                Log.e("LoginFragment", "Google sign in failed", e) // добавляем вызов Log.e() для вывода ошибки в лог
                 Toast.makeText(requireContext(), "Ошибка входа через Google", Toast.LENGTH_SHORT)
-                    .show() // Показ сообщения об ошибке в случае неудачной авторизации
+                    .show()
             }
         }
     }
+
 
 
     override fun onDestroyView() {
