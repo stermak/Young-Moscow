@@ -3,12 +3,10 @@ package youngdevs.production.youngmoscow.presentation.ui.activity
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.yandex.mapkit.MapKitFactory
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.ActivityMainBinding
@@ -21,9 +19,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Инициализация MapKit SDK с использованием ключа API
-        MapKitFactory.initialize(this)
 
         // Инфлейт макета ActivityMainBinding и установка его в качестве контента активности
         binding = ActivityMainBinding.inflate(layoutInflater)

@@ -9,11 +9,6 @@
         android:layout_height="match_parent"
         android:background="@color/bgColor">
 
-        <com.yandex.mapkit.mapview.MapView
-            android:id="@+id/mapView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"

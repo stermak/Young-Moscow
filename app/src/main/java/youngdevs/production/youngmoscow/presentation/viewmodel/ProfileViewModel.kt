@@ -2,7 +2,6 @@ package youngdevs.production.youngmoscow.presentation.viewmodel
 
 import android.content.Context
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
