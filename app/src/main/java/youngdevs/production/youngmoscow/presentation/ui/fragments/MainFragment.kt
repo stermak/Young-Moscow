@@ -23,19 +23,14 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 // Фрагмент, отображающий список событий
 @AndroidEntryPoint // аннотация для использования Hilt DI
 class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
-
     private var isBackPressed = false
-
     // ViewModel для работы с данными
     private val viewModel: MainViewModel by viewModels()
-
     // Поле для привязки View Binding
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-
     // Адаптер для отображения списка событий
     private val eventsAdapter = EventsAdapter(this)
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
