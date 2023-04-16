@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.databinding.FragmentMapsBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.MapsViewModel
+import javax.inject.Inject
 
 // Фрагмент, отображающий карту и текущее местоположение пользователя
 @AndroidEntryPoint // аннотация для использования Hilt DI
@@ -22,7 +24,8 @@ class MapsFragment : Fragment() {
     // ViewModel для работы с данными
     private val viewModel: MapsViewModel by viewModels()
 
-
+    @Inject
+    lateinit var googleMap: GoogleMap
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Инициализация View Binding и возвращение корневого View макета фрагмента
