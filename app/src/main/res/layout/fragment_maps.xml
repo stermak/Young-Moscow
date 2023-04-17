@@ -9,23 +9,10 @@
         android:background="@color/bgColor"
         android:layout_marginBottom="?attr/actionBarSize">
 
-
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <TextView
-            android:id="@+id/login_logo"
-            style="@style/titleStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/app_name"
-            android:textSize="34sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp" />
-
     </FrameLayout>
-
 </layout>

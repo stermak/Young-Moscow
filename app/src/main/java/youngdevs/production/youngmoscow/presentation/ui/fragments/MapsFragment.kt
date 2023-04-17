@@ -4,36 +4,41 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.gms.common.api.ApiException
+import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.model.RectangularBounds
-import com.google.android.libraries.places.api.model.TypeFilter
-import com.google.android.libraries.places.api.net.FetchPlaceRequest
-import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
-import com.google.maps.android.PolyUtil
-import com.google.maps.android.SphericalUtil
-import com.google.maps.model.DirectionsResult
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.maps.GeoApiContext
+import com.google.maps.NearbySearchRequest
+import com.google.maps.model.PlacesSearchResponse
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.FragmentMapsBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.MapsViewModel
+import java.io.IOException
 
 // Фрагмент, отображающий карту и текущее местоположение пользователя
 @AndroidEntryPoint
@@ -47,95 +52,64 @@ class MapsFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MapsViewModel by viewModels()
     private lateinit var googleMap: GoogleMap
-
-    @SuppressLint("PotentialBehaviorOverride")
-    private val callback = OnMapReadyCallback { googleMap ->
-        this.googleMap = googleMap
-        viewModel.locationPermission.observe(viewLifecycleOwner) { isGranted ->
-            if (isGranted) {
-                enableUserLocation()
-            }
-        }
-        googleMap.setOnPoiClickListener { poi ->
-            val poiMarker = googleMap.addMarker(MarkerOptions().position(poi.latLng).title(poi.name))
-            poiMarker?.showInfoWindow()
-
-            val destination = poi.latLng
-            viewModel.getDirections(
-                currentLocation = viewModel.currentLocation.value?.toLatLng() ?: LatLng(0.0, 0.0),
-                destination = destination,
-                apiKey = getString(R.string.google_maps_key)
-            ).observe(viewLifecycleOwner) { directions ->
-                drawRoute(directions)
-            }
-
-        }
-
-        googleMap.setOnMarkerClickListener { marker ->
-            val destination = marker.position
-            viewModel.getDirections(
-                currentLocation = (viewModel.currentLocation.value ?: LatLng(0.0, 0.0)) as LatLng,
-                destination = destination,
-                apiKey = getString(R.string.google_maps_key)
-            ).observe(viewLifecycleOwner) { directions ->
-                drawRoute(directions)
-            }
-            true
-        }
-        findPlaces(googleMap, Place.Type.MUSEUM, 1000)
-        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
-        val moscowLatLng = LatLng(55.7522200, 37.6155600)
-        val zoomLevel = 10f
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscowLatLng, zoomLevel))
-    }
-
-    private fun findPlaces(googleMap: GoogleMap, type: Place.Type, radius: Int) {
-        val placesClient = Places.createClient(requireContext())
-        val currentLatLng = viewModel.currentLocation.value?.let { LatLng(it.latitude, it.longitude) } ?: LatLng(0.0, 0.0)
-        val point1 = SphericalUtil.computeOffset(currentLatLng, radius.toDouble(), 0.0)
-        val point2 = SphericalUtil.computeOffset(currentLatLng, radius.toDouble(), 180.0)
-        val southWest = if (point1.latitude < point2.latitude) point1 else point2
-        val northEast = if (point1.latitude < point2.latitude) point2 else point1
-        val locationBias = RectangularBounds.newInstance(southWest, northEast)
-
-        val request = FindAutocompletePredictionsRequest.builder()
-            .setLocationBias(locationBias)
-            .setCountries("RU") // Optional: limit search to a specific country
-            .setTypeFilter(TypeFilter.ESTABLISHMENT)
-            .setQuery(type.toString())
-            .build()
-
-        placesClient.findAutocompletePredictions(request).addOnSuccessListener { response ->
-            for (prediction in response.autocompletePredictions) {
-                val placeId = prediction.placeId
-                val placeFields = listOf(Place.Field.NAME, Place.Field.LAT_LNG)
-                val fetchPlaceRequest = FetchPlaceRequest.newInstance(placeId, placeFields)
-
-                placesClient.fetchPlace(fetchPlaceRequest).addOnSuccessListener { fetchPlaceResponse ->
-                    val place = fetchPlaceResponse.place
-                    if (place.types?.contains(type) == true) {
-                        googleMap.addMarker(MarkerOptions().position(place.latLng ?: LatLng(0.0, 0.0)).title(place.name))
-                    }
-                }.addOnFailureListener { exception ->
-                    if (exception is ApiException) {
-                        Log.e("MapsFragment", "Place not found: ${exception.statusCode}")
-                    }
-                }
-            }
-        }
-    }
-
-    private fun drawRoute(directions: DirectionsResult) {
-        val path = PolyUtil.decode(directions.routes[0].overviewPolyline.encodedPath)
-        val polylineOptions = PolylineOptions().addAll(path).color(Color.BLUE).width(10f)
-        googleMap.addPolyline(polylineOptions)
-    }
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var placesClient: PlacesClient
+    private lateinit var geoApiContext: GeoApiContext
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
         Places.initialize(requireContext(), getString(R.string.google_maps_key))
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        placesClient = Places.createClient(requireContext())
+        geoApiContext = GeoApiContext.Builder()
+            .apiKey(getString(R.string.google_maps_key))
+            .build()
         return binding.root
     }
+
+    @SuppressLint("PotentialBehaviorOverride", "MissingPermission")
+
+    private val callback = OnMapReadyCallback { googleMap ->
+        this.googleMap = googleMap
+
+        viewModel.locationPermission.observe(viewLifecycleOwner) { isGranted ->
+            if (isGranted) {
+                googleMap.isMyLocationEnabled = true
+                googleMap.uiSettings.isMyLocationButtonEnabled = true
+                getLastKnownLocation()
+            }
+        }
+
+        googleMap.setOnMarkerClickListener { marker ->
+            val markerLocation = marker.position
+            showRouteToPlace(markerLocation)
+            true
+        }
+
+        showLandmarks()
+    }
+
+
+    private fun getLastKnownLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+            location?.let {
+                val currentLatLng = LatLng(it.latitude, it.longitude)
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+            }
+        }
+    }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -155,43 +129,101 @@ class MapsFragment : Fragment() {
         }
     }
 
-    fun Location.toLatLng(): LatLng {
-        return LatLng(this.latitude, this.longitude)
+
+    @SuppressLint("MissingPermission")
+    private fun showLandmarks() {
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+            location?.let {
+                val currentLatLng = LatLng(it.latitude, it.longitude)
+                val placeTypes = listOf(
+                    com.google.maps.model.PlaceType.PARK,
+                    com.google.maps.model.PlaceType.MUSEUM,
+                    com.google.maps.model.PlaceType.ART_GALLERY
+                )
+
+                for (type in placeTypes) {
+                    val request = NearbySearchRequest(geoApiContext)
+                    request.location(com.google.maps.model.LatLng(currentLatLng.latitude, currentLatLng.longitude))
+                    request.radius(1000) // Радиус в метрах, установите подходящее значение
+                    request.type(type)
+
+                    lifecycleScope.launch {
+                        try {
+                            val placesResponse = withContext(Dispatchers.IO) { request.await() }
+
+                            for (result in placesResponse.results) {
+                                val latLng = LatLng(result.geometry.location.lat, result.geometry.location.lng)
+                                googleMap.addMarker(MarkerOptions().position(latLng).title(result.name))
+                            }
+                        } catch (e: Exception) {
+                            Log.e("MapsFragment", "Exception: %s", e)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    private var currentPolyline: Polyline? = null
+
+    @SuppressLint("MissingPermission")
+    private fun showRouteToPlace(destination: LatLng) {
+        val path = ArrayList<LatLng>()
+        currentPolyline?.remove()
+        activity?.runOnUiThread {
+            val lineOptions = PolylineOptions().addAll(path).width(10f).color(Color.BLUE)
+            currentPolyline = googleMap.addPolyline(lineOptions)
+        }
+
+        // Получить текущее местоположение и показать маршрут от текущего местоположения до маркера
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+            location?.let {
+                val origin = LatLng(it.latitude, it.longitude)
+                val directionsRequest = "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=${getString(R.string.google_maps_key)}"
+                val directionsClient = OkHttpClient()
+                val request = Request.Builder().url(directionsRequest).build()
+
+                directionsClient.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        Log.e("MapsFragment", "Error getting directions", e)
+                    }
+
+                    override fun onResponse(call: Call, response: Response) {
+                        response.body?.let { responseBody ->
+                            val jsonResponse = JSONObject(responseBody.string())
+                            val routes = jsonResponse.getJSONArray("routes")
+                            if (routes.length() > 0) {
+                                val route = routes.getJSONObject(0)
+                                val legs = route.getJSONArray("legs")
+                                val steps = legs.getJSONObject(0).getJSONArray("steps")
+
+                                for (i in 0 until steps.length()) {
+                                    val step = steps.getJSONObject(i)
+                                    val points = step.getJSONObject("polyline").getString("points")
+                                    path.addAll(viewModel.decodePoly(points))
+                                }
+
+                                activity?.runOnUiThread {
+                                    val lineOptions = PolylineOptions().addAll(path).width(10f).color(
+                                        Color.BLUE)
+                                    googleMap.addPolyline(lineOptions)
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+        }
     }
 
     private fun requestLocationPermission() {
         requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
     }
 
-    private fun enableUserLocation() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            googleMap.isMyLocationEnabled = true
-            viewModel.getLastKnownLocation(requireContext()).addOnSuccessListener { location ->
-                location?.let {
-                    viewModel.updateCurrentLocation(it)
-                }
-            }
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         binding.mapView.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.mapView.onResume()
-    }
-
-    override fun onPause() {
-        binding.mapView.onPause()
-        super.onPause()
-    }
-
-    override fun onStop() {
-        binding.mapView.onStop()
-        super.onStop()
     }
 
     override fun onDestroyView() {
@@ -202,10 +234,5 @@ class MapsFragment : Fragment() {
     override fun onDestroy() {
         _binding?.mapView?.onDestroy()
         super.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        binding.mapView.onLowMemory()
     }
 }
