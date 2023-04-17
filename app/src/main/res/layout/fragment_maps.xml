@@ -6,7 +6,9 @@
         android:id="@+id/mapsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgColor">
+        android:background="@color/bgColor"
+        android:layout_marginBottom="?attr/actionBarSize">
+
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"

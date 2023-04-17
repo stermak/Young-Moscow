@@ -51,4 +51,6 @@
     <string name="profile">Profile</string>
     <string name="saveBtn">Save</string>
     <string name="sightseeings">Sight Seeings</string>
+    <string name="google_maps_key">AIzaSyAvSFt5zVRWD5KyTvVpECH52KLms-U4olY</string>
+
 </resources>

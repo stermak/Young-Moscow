@@ -3,7 +3,7 @@ package youngdevs.production.youngmoscow.data.utilities
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.util.*
+import java.util.Date
 
 // Этот класс является классом-конвертером для Room, который позволяет Room сохранять и извлекать данные из базы данных в формате, который не поддерживается по умолчанию.
 class Converters {
