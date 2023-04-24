@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_focused="true" android:drawable="@drawable/phone_focused"/>
-    <item android:state_focused="false" android:drawable="@drawable/phone"/>
+    <item android:drawable="@drawable/phone_focused" android:state_focused="true" />
+    <item android:drawable="@drawable/phone" android:state_focused="false" />
 
 </selector>

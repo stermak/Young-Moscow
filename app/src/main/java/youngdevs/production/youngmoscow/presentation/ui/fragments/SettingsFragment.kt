@@ -24,7 +24,11 @@ class SettingsFragment : Fragment() {
 
     // Этот метод вызывается, когда Android создает макет для фрагмента.
     // Мы создаем макет из файла разметки и возвращаем его как результат.
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Создаем макет из файла разметки и сохраняем ссылку на него в переменную binding.
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 

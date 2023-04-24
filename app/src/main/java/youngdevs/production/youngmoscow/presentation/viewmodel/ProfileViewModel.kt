@@ -33,7 +33,12 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
     }
 
     // Обработать изменения профиля
-    fun saveProfileChanges(userRepository: UserRepositoryImpl, binding: FragmentProfileBinding, fragmentManager: FragmentManager, context: Context) {
+    fun saveProfileChanges(
+        userRepository: UserRepositoryImpl,
+        binding: FragmentProfileBinding,
+        fragmentManager: FragmentManager,
+        context: Context
+    ) {
         viewModelScope.launch {
             val userId = userRepository.getCurrentUser()?.id ?: return@launch
             val name = binding.usernameEditTxt.text.toString()
@@ -44,7 +49,8 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
             if (password.isNotEmpty()) {
                 // Если пользователь хочет изменить пароль, запускаем диалог подтверждения
                 val dialog = ReauthenticateDialogFragment()
-                dialog.setReauthenticateListener(object : ReauthenticateDialogFragment.ReauthenticateListener {
+                dialog.setReauthenticateListener(object :
+                    ReauthenticateDialogFragment.ReauthenticateListener {
                     override fun onReauthenticate(currentPassword: String) {
                         reauthenticateUser(currentPassword, userRepository, binding, context) {
                             viewModelScope.launch {
@@ -61,13 +67,24 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
     }
 
     // Сохранить измененные данные профиля
-    private fun saveUserData(userRepository: UserRepositoryImpl, name: String, email: String, phone: String, userId: String, context: Context) {
+    private fun saveUserData(
+        userRepository: UserRepositoryImpl,
+        name: String,
+        email: String,
+        phone: String,
+        userId: String,
+        context: Context
+    ) {
         viewModelScope.launch {
             try {
                 userRepository.updateUserProfile(userId, name, email, phone)
                 Toast.makeText(context, "Профиль успешно обновлен", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                Toast.makeText(context, "Ошибка при обновлении профиля: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "Ошибка при обновлении профиля: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
@@ -93,7 +110,11 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
                 saveUserData(userRepository, name, email, phone, userId, context)
             }
             ?.addOnFailureListener { exception ->
-                Toast.makeText(context, "Ошибка аутентификации: ${exception.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    context,
+                    "Ошибка аутентификации: ${exception.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
     }
 }

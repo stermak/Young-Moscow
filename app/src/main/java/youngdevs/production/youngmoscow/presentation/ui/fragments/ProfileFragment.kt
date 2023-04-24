@@ -40,7 +40,12 @@ class ProfileFragment : Fragment() {
 
         // Обработчик нажатия на кнопку сохранения профиля
         binding.saveProfile.setOnClickListener {
-            viewModel.saveProfileChanges(userRepository, binding, childFragmentManager, requireContext())
+            viewModel.saveProfileChanges(
+                userRepository,
+                binding,
+                childFragmentManager,
+                requireContext()
+            )
         }
     }
 

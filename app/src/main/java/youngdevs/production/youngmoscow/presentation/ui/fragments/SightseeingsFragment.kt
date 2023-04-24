@@ -28,7 +28,11 @@ class SightseeingsFragment : Fragment() {
     private lateinit var sightseeingsAdapter: SightseeingsAdapter
 
     // Создаем представление фрагмента, связываем его с макетом и возвращаем его
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentSightseeingsBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -42,14 +42,18 @@ class FavouriteEventsFragment : Fragment() {
         // Инициализация адаптера и установка его в RecyclerView
         favouriteEventsAdapter = FavouriteEventsAdapter { eventId ->
             // Обработка нажатия на элемент события
-            val action = FavouriteEventsFragmentDirections.actionFavouriteEventsFragmentToEventDetailsFragment(eventId)
+            val action =
+                FavouriteEventsFragmentDirections.actionFavouriteEventsFragmentToEventDetailsFragment(
+                    eventId
+                )
             findNavController().navigate(action)
         }
         binding.favouriteEventsRecyclerView.adapter = favouriteEventsAdapter
 
         // Наблюдение за изменением списка избранных событий и обновление адаптера
         viewModel.favouriteEvents.observe(viewLifecycleOwner) { events ->
-            val reversedEvents = events.reversed() // Переворачиваем список, чтобы новые элементы добавлялись вверху
+            val reversedEvents =
+                events.reversed() // Переворачиваем список, чтобы новые элементы добавлялись вверху
             favouriteEventsAdapter.submitList(reversedEvents)
         }
     }

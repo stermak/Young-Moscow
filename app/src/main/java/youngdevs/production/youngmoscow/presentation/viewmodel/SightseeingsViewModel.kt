@@ -24,6 +24,7 @@ class SightseeingsViewModel @Inject constructor(
 
     // Используем MutableLiveData для изменения списка достопримечательностей внутри ViewModel
     private val _sightseeings = MutableLiveData<List<Sightseeing>>()
+
     // Объявляем LiveData для предоставления списка достопримечательностей во внешний код
     val sightseeings: LiveData<List<Sightseeing>> = _sightseeings
 

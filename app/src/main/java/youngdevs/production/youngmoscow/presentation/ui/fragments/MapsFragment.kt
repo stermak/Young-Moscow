@@ -24,16 +24,15 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.maps.GeoApiContext
 import com.google.maps.NearbySearchRequest
-import com.google.maps.model.PlacesSearchResponse
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.FragmentMapsBinding
@@ -56,10 +55,15 @@ class MapsFragment : Fragment() {
     private lateinit var placesClient: PlacesClient
     private lateinit var geoApiContext: GeoApiContext
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
         Places.initialize(requireContext(), getString(R.string.google_maps_key))
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
         placesClient = Places.createClient(requireContext())
         geoApiContext = GeoApiContext.Builder()
             .apiKey(getString(R.string.google_maps_key))
@@ -110,20 +114,27 @@ class MapsFragment : Fragment() {
     }
 
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(callback)
 
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             viewModel.setLocationPermission(true)
         } else {
             requestLocationPermission()
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             viewModel.setLocationPermission(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
         }
@@ -143,7 +154,12 @@ class MapsFragment : Fragment() {
 
                 for (type in placeTypes) {
                     val request = NearbySearchRequest(geoApiContext)
-                    request.location(com.google.maps.model.LatLng(currentLatLng.latitude, currentLatLng.longitude))
+                    request.location(
+                        com.google.maps.model.LatLng(
+                            currentLatLng.latitude,
+                            currentLatLng.longitude
+                        )
+                    )
                     request.radius(1000) // Радиус в метрах, установите подходящее значение
                     request.type(type)
 
@@ -152,8 +168,13 @@ class MapsFragment : Fragment() {
                             val placesResponse = withContext(Dispatchers.IO) { request.await() }
 
                             for (result in placesResponse.results) {
-                                val latLng = LatLng(result.geometry.location.lat, result.geometry.location.lng)
-                                googleMap.addMarker(MarkerOptions().position(latLng).title(result.name))
+                                val latLng = LatLng(
+                                    result.geometry.location.lat,
+                                    result.geometry.location.lng
+                                )
+                                googleMap.addMarker(
+                                    MarkerOptions().position(latLng).title(result.name)
+                                )
                             }
                         } catch (e: Exception) {
                             Log.e("MapsFragment", "Exception: %s", e)
@@ -180,7 +201,10 @@ class MapsFragment : Fragment() {
         fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
             location?.let {
                 val origin = LatLng(it.latitude, it.longitude)
-                val directionsRequest = "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=${getString(R.string.google_maps_key)}"
+                val directionsRequest =
+                    "https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&key=${
+                        getString(R.string.google_maps_key)
+                    }"
                 val directionsClient = OkHttpClient()
                 val request = Request.Builder().url(directionsRequest).build()
 
@@ -205,8 +229,10 @@ class MapsFragment : Fragment() {
                                 }
 
                                 activity?.runOnUiThread {
-                                    val lineOptions = PolylineOptions().addAll(path).width(10f).color(
-                                        Color.BLUE)
+                                    val lineOptions =
+                                        PolylineOptions().addAll(path).width(10f).color(
+                                            Color.BLUE
+                                        )
                                     googleMap.addPolyline(lineOptions)
                                 }
                             }
@@ -218,7 +244,10 @@ class MapsFragment : Fragment() {
     }
 
     private fun requestLocationPermission() {
-        requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
     }
 
     override fun onStart() {

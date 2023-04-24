@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_focused="true" android:drawable="@drawable/rounded_person_focused"/>
-    <item android:state_focused="false" android:drawable="@drawable/round_person"/>
+    <item android:drawable="@drawable/rounded_person_focused" android:state_focused="true" />
+    <item android:drawable="@drawable/round_person" android:state_focused="false" />
 
 </selector>

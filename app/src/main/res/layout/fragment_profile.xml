@@ -18,8 +18,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/addLinearLayout"
@@ -27,84 +27,85 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/dashHeading"
-                style="@style/titleStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Your Profile"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="35sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/dashHeading"
+                    style="@style/titleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Profile"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/profilePic"
-                android:layout_width="match_parent"
-                android:layout_height="196dp"
-                app:layout_constraintTop_toBottomOf="@id/dashHeading"
-                app:srcCompat="@drawable/userpic" />
+                <ImageView
+                    android:id="@+id/profilePic"
+                    android:layout_width="match_parent"
+                    android:layout_height="196dp"
+                    app:layout_constraintTop_toBottomOf="@id/dashHeading"
+                    app:srcCompat="@drawable/userpic" />
 
-            <EditText
-                android:id="@+id/usernameEditTxt"
-                style="@style/inputStyle"
-                android:layout_marginTop="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/custom_user_icon"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="@string/usernameTxt"
-                android:inputType="textPersonName" />
+                <EditText
+                    android:id="@+id/usernameEditTxt"
+                    style="@style/inputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/custom_user_icon"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/usernameTxt"
+                    android:inputType="textPersonName" />
 
-            <EditText
-                android:id="@+id/emailEditTxt"
-                style="@style/inputStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofilledHighlight="@color/trans"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/custom_email_icon"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="@string/emailTxt"
-                android:inputType="textPersonName" />
+                <EditText
+                    android:id="@+id/emailEditTxt"
+                    style="@style/inputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofilledHighlight="@color/trans"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/custom_email_icon"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/emailTxt"
+                    android:inputType="textPersonName" />
 
-            <EditText
-                android:id="@+id/phoneEditTxt"
-                style="@style/inputStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofilledHighlight="@color/trans"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/custom_phone_icon"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="@string/phoneTxt"
-                android:inputType="phone|text" />
+                <EditText
+                    android:id="@+id/phoneEditTxt"
+                    style="@style/inputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofilledHighlight="@color/trans"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/custom_phone_icon"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/phoneTxt"
+                    android:inputType="phone|text" />
 
-            <EditText
-                android:id="@+id/passwordEditTxt"
-                style="@style/inputStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofilledHighlight="@color/trans"
-                android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/custom_pass_icon"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:hint="@string/passwordTxt"
-                android:inputType="text" />
-            <Button
-                android:id="@+id/saveProfile"
-                style="@style/buttonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/saveBtn"
-                android:layout_marginTop="@dimen/fragment_vertical_margin" />
+                <EditText
+                    android:id="@+id/passwordEditTxt"
+                    style="@style/inputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofilledHighlight="@color/trans"
+                    android:background="@drawable/custom_input"
+                    android:drawableStart="@drawable/custom_pass_icon"
+                    android:drawablePadding="10dp"
+                    android:ems="10"
+                    android:hint="@string/passwordTxt"
+                    android:inputType="text" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/saveProfile"
+                    style="@style/buttonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fragment_vertical_margin"
+                    android:text="@string/saveBtn" />
+
+            </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

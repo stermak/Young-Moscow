@@ -21,7 +21,8 @@ class LoginViewModel @Inject constructor(
     private val authenticateUserUseCase: AuthenticateUserUseCase // зависимость, которую мы внедряем через конструктор
 ) : ViewModel() {
     private lateinit var googleSignInClient: GoogleSignInClient // экземпляр клиента GoogleSignIn, который будет проинициализирован при первом обращении к getGoogleSignInClient()
-    private val _isLoginSuccessful = MutableLiveData<Boolean?>() // LiveData, который сообщает об успешности входа в систему
+    private val _isLoginSuccessful =
+        MutableLiveData<Boolean?>() // LiveData, который сообщает об успешности входа в систему
     val isLoginSuccessful: LiveData<Boolean?>
         get() = _isLoginSuccessful // открытый доступ к _isLoginSuccessful
 
@@ -48,7 +49,8 @@ class LoginViewModel @Inject constructor(
                 .requestEmail()
                 .build()
 
-            googleSignInClient = GoogleSignIn.getClient(activity, gso) // инициализируем клиент GoogleSignIn
+            googleSignInClient =
+                GoogleSignIn.getClient(activity, gso) // инициализируем клиент GoogleSignIn
         }
 
         return googleSignInClient // возвращаем клиент GoogleSignIn

@@ -8,7 +8,8 @@ import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.databinding.ItemEventBinding
 
-class EventsAdapter(private val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
+class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
     private val events = mutableListOf<Event>() // список событий для адаптера
 
     interface OnItemClickListener {
@@ -24,7 +25,11 @@ class EventsAdapter(private val onItemClickListener: OnItemClickListener) : Recy
 
     // создание ViewHolder для элемента списка
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false) // раздувание макета элемента списка
+        val binding = ItemEventBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        ) // раздувание макета элемента списка
         return EventViewHolder(binding) // возвращение ViewHolder для элемента списка
     }
 
@@ -41,7 +46,8 @@ class EventsAdapter(private val onItemClickListener: OnItemClickListener) : Recy
     override fun getItemCount() = events.size // возвращает количество элементов в списке
 
     // класс ViewHolder для элемента списка
-    inner class EventViewHolder(private val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class EventViewHolder(private val binding: ItemEventBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         // метод для привязки данных события к элементу списка
         fun bind(event: Event) {
             binding.eventTitle.text = event.formattedTitle

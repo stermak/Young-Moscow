@@ -22,6 +22,7 @@ class MainViewModel @Inject constructor(private val repository: KudaGoRepository
     init {
         fetchEvents() // Получаем список событий при создании ViewModel
     }
+
     // Метод для получения списка событий из репозитория
     private fun fetchEvents() {
         if (loading) {
@@ -29,10 +30,11 @@ class MainViewModel @Inject constructor(private val repository: KudaGoRepository
         }
         loading = true
         viewModelScope.launch {// запуск корутины
-            val events = repository.getEvents( // получение списка событий из репозитория и установка его значения LiveData
-                pageSize = 50,
-                page = currentPage
-            )
+            val events =
+                repository.getEvents( // получение списка событий из репозитория и установка его значения LiveData
+                    pageSize = 50,
+                    page = currentPage
+                )
             _events.value = events
             loading = false
         }

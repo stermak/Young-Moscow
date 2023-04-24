@@ -64,8 +64,10 @@ class EventDetailsFragment : Fragment() {
         viewModel.event.observe(viewLifecycleOwner) { event ->
             if (event != null) {
                 binding.eventTitle.text = event.formattedTitle // установка заголовка события
-                binding.eventDescription.text = event.formattedDescription // установка описания события
-                binding.eventBodyText.text = event.formattedBodyText // установка подробной информации о событии
+                binding.eventDescription.text =
+                    event.formattedDescription // установка описания события
+                binding.eventBodyText.text =
+                    event.formattedBodyText // установка подробной информации о событии
                 binding.eventPrice.text = event.price // установка цены события
                 binding.siteUrl.text = event.site_url // установка ссылки на сайт
 
@@ -91,7 +93,8 @@ class EventDetailsFragment : Fragment() {
                     val eventDescription = event.formattedDescription
                     val imageUrl = if (event.images.isNotEmpty()) event.images[0].image else ""
 
-                    val eventFavourite = EventFavourite(eventId, eventTitle, eventDescription, imageUrl)
+                    val eventFavourite =
+                        EventFavourite(eventId, eventTitle, eventDescription, imageUrl)
 
                     if (viewModel.isInFavourite.value == true) {
                         favouriteEventsViewModel.removeFromFavourites(eventId) // удаление из избранного, если уже находится там

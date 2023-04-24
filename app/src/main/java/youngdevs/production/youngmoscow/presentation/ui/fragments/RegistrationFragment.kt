@@ -49,7 +49,8 @@ class RegistrationFragment : Fragment() {
                     // Навигируем пользователя на главный экран приложения, если регистрация прошла успешно.
                     findNavController().navigate(R.id.action_registrationFragment_to_navigation_main)
                     // Показываем нижнюю навигационную панель на главном экране.
-                    val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
+                    val bottomNavigation =
+                        activity?.findViewById<BottomNavigationView>(R.id.nav_view)
                     bottomNavigation?.visibility = View.VISIBLE
                 }
             }

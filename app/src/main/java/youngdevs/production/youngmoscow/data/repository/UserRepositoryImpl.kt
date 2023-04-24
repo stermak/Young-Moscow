@@ -30,7 +30,12 @@ class UserRepositoryImpl @Inject constructor(
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     // Функция createAccount используется для создания нового аккаунта пользователя в Firebase.
-    override suspend fun createAccount(email: String, password: String, name: String, phone: String?): Boolean {
+    override suspend fun createAccount(
+        email: String,
+        password: String,
+        name: String,
+        phone: String?
+    ): Boolean {
         var dbUser: User? = null
         var isSuccess = false
 
@@ -109,6 +114,7 @@ class UserRepositoryImpl @Inject constructor(
         }
         return isSuccess
     }
+
     // Функция getCurrentUser возвращает текущего пользователя из локальной базы данных.
     override suspend fun getCurrentUser(): UserModel? {
         return userDao.getCurrentUser()?.asDomainModel()
@@ -127,7 +133,12 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     // Функция updateUserProfile используется для обновления информации о пользователе в Firebase.
-    override suspend fun updateUserProfile(userId: String, name: String, email: String, phone: String) {
+    override suspend fun updateUserProfile(
+        userId: String,
+        name: String,
+        email: String,
+        phone: String
+    ) {
         // Обновление данных пользователя в Firebase и локальной базе данных
         val userDataToUpdate = hashMapOf<String, Any>(
             "name" to name,
@@ -156,7 +167,6 @@ class UserRepositoryImpl @Inject constructor(
             }
         }?.addOnFailureListener { Log.e(TAG, "FailureListener") }?.await()
     }
-
 
 
     // Функция clearUser очищает локальную базу данных от всех пользователей.

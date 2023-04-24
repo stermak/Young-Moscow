@@ -1,9 +1,0 @@
-[
-  {
-    "featureType": "poi",
-    "elementType": "labels",
-    "stylers": [
-      { "visibility": "on" }
-    ]
-  }
-]

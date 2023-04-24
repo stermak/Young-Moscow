@@ -16,7 +16,8 @@ class FavouriteEventsAdapter(private val onEventClick: (Int) -> Unit) :
 
     // Создание ViewHolder для элементов списка избранных событий
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteEventsViewHolder {
-        val binding = ItemFavouriteEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemFavouriteEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FavouriteEventsViewHolder(binding)
     }
 

@@ -23,5 +23,5 @@ interface KudaGoApi {
     @GET("events/{event_id}/")
     suspend fun getEvent(@Path("event_id") eventId: Int): Response<Event>
 }
-    // Метод getEvent() отправляет GET запрос на сервер KudaGo для получения информации о событии по ID.
-    // Аннотация @Path указывает переменную в URL запроса, которая будет заменена на значение переменной eventId.
+// Метод getEvent() отправляет GET запрос на сервер KudaGo для получения информации о событии по ID.
+// Аннотация @Path указывает переменную в URL запроса, которая будет заменена на значение переменной eventId.

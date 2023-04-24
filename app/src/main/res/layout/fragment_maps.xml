@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
         android:id="@+id/mapsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgColor"
-        android:layout_marginBottom="?attr/actionBarSize">
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:background="@color/bgColor">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"

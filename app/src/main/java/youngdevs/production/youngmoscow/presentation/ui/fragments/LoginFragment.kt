@@ -53,7 +53,10 @@ class LoginFragment : Fragment() {
     private fun setObserver() {
         viewModel.isLoginSuccessful.observe(viewLifecycleOwner) {
             if (it != null) {
-                Log.d("LoginFragment", "isLoginSuccessful changed to $it") // добавляем вызов Log.d() для вывода информации об изменении значения LiveData в лог
+                Log.d(
+                    "LoginFragment",
+                    "isLoginSuccessful changed to $it"
+                ) // добавляем вызов Log.d() для вывода информации об изменении значения LiveData в лог
                 if (it == true) {
                     findNavController().navigate(R.id.action_loginFragment_to_navigation_main)
                     val bottomNavigation =
@@ -86,7 +89,10 @@ class LoginFragment : Fragment() {
     private fun signInWithGoogle() {
         val signInIntent = viewModel.getGoogleSignInClient(requireActivity()).signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
-        Log.d("LoginFragment", "Starting Google Sign-In activity") // добавляем вызов Log.d() для вывода информации о запуске активности в лог
+        Log.d(
+            "LoginFragment",
+            "Starting Google Sign-In activity"
+        ) // добавляем вызов Log.d() для вывода информации о запуске активности в лог
     }
 
 
@@ -99,13 +105,16 @@ class LoginFragment : Fragment() {
                 val account = task.getResult(ApiException::class.java)!!
                 viewModel.firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Log.e("LoginFragment", "Google sign in failed", e) // добавляем вызов Log.e() для вывода ошибки в лог
+                Log.e(
+                    "LoginFragment",
+                    "Google sign in failed",
+                    e
+                ) // добавляем вызов Log.e() для вывода ошибки в лог
                 Toast.makeText(requireContext(), "Ошибка входа через Google", Toast.LENGTH_SHORT)
                     .show()
             }
         }
     }
-
 
 
     override fun onDestroyView() {

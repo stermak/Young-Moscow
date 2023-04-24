@@ -24,11 +24,14 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 @AndroidEntryPoint // аннотация для использования Hilt DI
 class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
     private var isBackPressed = false
+
     // ViewModel для работы с данными
     private val viewModel: MainViewModel by viewModels()
+
     // Поле для привязки View Binding
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
     // Адаптер для отображения списка событий
     private val eventsAdapter = EventsAdapter(this)
     override fun onCreateView(
@@ -45,7 +48,8 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         // Установка LayoutManager и адаптера в RecyclerView
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = eventsAdapter
 
         // Наблюдение за LiveData events в ViewModel и обновление списка событий в RecyclerView при изменении данных
@@ -72,7 +76,8 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
             requireActivity().finish()
         } else {
             isBackPressed = true
-            Toast.makeText(requireContext(), "Нажмите еще раз, чтобы выйти", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Нажмите еще раз, чтобы выйти", Toast.LENGTH_SHORT)
+                .show()
             Handler(Looper.getMainLooper()).postDelayed({ isBackPressed = false }, 2000)
         }
     }
@@ -82,6 +87,9 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         val eventId = event.id
         val navController = findNavController()
         // Переход к фрагменту EventDetailsFragment с передачей идентификатора события
-        navController.navigate(R.id.action_mainFragment_to_eventDetailsFragment, bundleOf("eventId" to eventId))
+        navController.navigate(
+            R.id.action_mainFragment_to_eventDetailsFragment,
+            bundleOf("eventId" to eventId)
+        )
     }
 }
