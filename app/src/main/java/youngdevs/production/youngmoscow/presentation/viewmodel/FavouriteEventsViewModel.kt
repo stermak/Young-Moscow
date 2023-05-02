@@ -4,20 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.EventFavourite
 import youngdevs.production.youngmoscow.data.repository.FavouriteEventsRepository
-import javax.inject.Inject
 
 // FavouriteEventsViewModel - класс ViewModel, который хранит и управляет данными избранных событий
 @HiltViewModel
-class FavouriteEventsViewModel @Inject constructor(
+class FavouriteEventsViewModel
+@Inject
+constructor(
     // Внедрение зависимости для доступа к репозиторию избранных событий
     private val favouriteEventsRepository: FavouriteEventsRepository
 ) : ViewModel() {
 
     // Объявление LiveData для отслеживания списка избранных событий
-    val favouriteEvents: LiveData<List<EventFavourite>> = favouriteEventsRepository.favouriteEvents
+    val favouriteEvents: LiveData<List<EventFavourite>> =
+        favouriteEventsRepository.favouriteEvents
 
     // Функция для добавления события в избранное
     fun addToFavourites(eventFavourite: EventFavourite) {

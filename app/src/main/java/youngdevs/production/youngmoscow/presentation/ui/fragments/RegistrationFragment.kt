@@ -31,40 +31,58 @@ class RegistrationFragment : Fragment() {
         // Создаем макет из файла разметки и сохраняем ссылку на него в переменную binding.
         binding = FragmentRegistrationBinding.inflate(layoutInflater)
 
-        // Устанавливаем наблюдателей на объект viewModel, чтобы получать уведомления об изменениях в регистрации пользователя.
+        // Устанавливаем наблюдателей на объект viewModel, чтобы получать уведомления об изменениях
+        // в регистрации пользователя.
         setObserver()
 
-        // Устанавливаем обработчики событий на кнопки и другие элементы пользовательского интерфейса.
+        // Устанавливаем обработчики событий на кнопки и другие элементы пользовательского
+        // интерфейса.
         setEventListener()
 
         // Возвращаем макет как результат.
         return binding.root
     }
 
-    // Метод устанавливает наблюдателя на объект viewModel, чтобы получать уведомления об изменениях в регистрации пользователя.
+    // Метод устанавливает наблюдателя на объект viewModel, чтобы получать уведомления об изменениях
+    // в регистрации пользователя.
     private fun setObserver() {
-        viewModel.registrationResult.observe(viewLifecycleOwner) { registrationResult ->
+        viewModel.registrationResult.observe(viewLifecycleOwner) {
+                registrationResult ->
             if (registrationResult != null) {
                 if (registrationResult == 1) {
-                    // Навигируем пользователя на главный экран приложения, если регистрация прошла успешно.
-                    findNavController().navigate(R.id.action_registrationFragment_to_navigation_main)
+                    // Навигируем пользователя на главный экран приложения, если регистрация прошла
+                    // успешно.
+                    findNavController()
+                        .navigate(
+                            R.id
+                                .action_registrationFragment_to_navigation_main
+                        )
                     // Показываем нижнюю навигационную панель на главном экране.
                     val bottomNavigation =
-                        activity?.findViewById<BottomNavigationView>(R.id.nav_view)
+                        activity?.findViewById<BottomNavigationView>(
+                            R.id.nav_view
+                        )
                     bottomNavigation?.visibility = View.VISIBLE
                 }
             }
         }
     }
 
-    // Метод устанавливает обработчики событий на кнопки и другие элементы пользовательского интерфейса.
+    // Метод устанавливает обработчики событий на кнопки и другие элементы пользовательского
+    // интерфейса.
     private fun setEventListener() {
         binding.registration.setOnClickListener {
             // Вызываем метод регистрации в viewModel с передачей данных из полей ввода.
             viewModel.registration(
                 email = binding.emailField.text.toString().trim(' '),
-                password = binding.passwordRegistrationField.text.toString().trim(' '),
-                repeatPassword = binding.repeatPasswordRegistrationField.text.toString().trim(' '),
+                password =
+                binding.passwordRegistrationField.text
+                    .toString()
+                    .trim(' '),
+                repeatPassword =
+                binding.repeatPasswordRegistrationField.text
+                    .toString()
+                    .trim(' '),
                 name = binding.usernameField.text.toString().trim(' ')
             )
         }

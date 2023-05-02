@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import youngdevs.production.youngmoscow.data.repository.UserRepositoryImpl
 import youngdevs.production.youngmoscow.databinding.FragmentProfileBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.ProfileViewModel
-import javax.inject.Inject
 
 // Используем AndroidEntryPoint для автоматического внедрения зависимостей с Hilt
 @AndroidEntryPoint
@@ -48,5 +48,4 @@ class ProfileFragment : Fragment() {
             )
         }
     }
-
 }

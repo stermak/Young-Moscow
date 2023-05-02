@@ -1,11 +1,12 @@
 package youngdevs.production.youngmoscow.domain.usecases
 
+import javax.inject.Inject
 import youngdevs.production.youngmoscow.domain.models.UserModel
 import youngdevs.production.youngmoscow.domain.repository.UserRepository
-import javax.inject.Inject
 
-
-class AuthenticateUserUseCaseImpl @Inject constructor(private val userRepository: UserRepository) :
+class AuthenticateUserUseCaseImpl
+@Inject
+constructor(private val userRepository: UserRepository) :
     AuthenticateUserUseCase {
 
     // Аутентифицирует пользователя с указанным email и паролем в приложении
@@ -13,8 +14,7 @@ class AuthenticateUserUseCaseImpl @Inject constructor(private val userRepository
     override suspend fun signIn(email: String, password: String): Boolean {
         return if (email != "" && password != "")
             userRepository.authenticate(email, password)
-        else
-            false
+        else false
     }
 
     // Получает информацию о текущем пользователе
@@ -32,7 +32,8 @@ class AuthenticateUserUseCaseImpl @Inject constructor(private val userRepository
         userRepository.clearUser()
     }
 
-    // Создает новую учетную запись пользователя в приложении, используя указанный email, пароль, имя и подтверждение пароля
+    // Создает новую учетную запись пользователя в приложении, используя указанный email, пароль,
+    // имя и подтверждение пароля
     // Возвращает код результата, который может иметь следующие значения:
     // 1 - успешное создание учетной записи
     // 0 - не удалось создать учетную запись из-за ошибок валидации данных
@@ -46,9 +47,7 @@ class AuthenticateUserUseCaseImpl @Inject constructor(private val userRepository
         return if (password == repeatPassword) {
             if (userRepository.createAccount(email, password, name)) {
                 1
-            } else
-                0
-        } else
-            -1
+            } else 0
+        } else -1
     }
 }

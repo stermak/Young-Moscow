@@ -8,7 +8,8 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import youngdevs.production.youngmoscow.data.entities.Sightseeing
 
-// Определение интерфейса SightseeingsService для работы с API, предоставляющего информацию о достопримечательностях
+// Определение интерфейса SightseeingsService для работы с API, предоставляющего информацию о
+// достопримечательностях
 interface SightseeingsService {
     @GET("/api/sightseeings")
     suspend fun getSightseeings(): List<Sightseeing>
@@ -17,10 +18,13 @@ interface SightseeingsService {
 // Определение интерфейса ImagesService для работы с API, предоставляющего доступ к изображениям
 interface ImagesService {
     @GET("/api/images/{imageName}")
-    suspend fun getImage(@Path("imageName") imageName: String): Response<ResponseBody>
+    suspend fun getImage(
+        @Path("imageName") imageName: String
+    ): Response<ResponseBody>
 }
 
-// Объект RetrofitClient предоставляет доступ к Retrofit, который используется для выполнения запросов к API
+// Объект RetrofitClient предоставляет доступ к Retrofit, который используется для выполнения
+// запросов к API
 object RetrofitClient {
     private const val BASE_URL = "http://188.244.41.200:12345/"
 
@@ -32,12 +36,14 @@ object RetrofitClient {
             .build()
     }
 
-    // Создание объекта SightseeingsService, который будет использоваться для выполнения запросов к API достопримечательностей
+    // Создание объекта SightseeingsService, который будет использоваться для выполнения запросов к
+    // API достопримечательностей
     val sightseeingsService: SightseeingsService by lazy {
         retrofit.create(SightseeingsService::class.java)
     }
 
-    // Создание объекта ImagesService, который будет использоваться для выполнения запросов к API изображений
+    // Создание объекта ImagesService, который будет использоваться для выполнения запросов к API
+    // изображений
     val imagesService: ImagesService by lazy {
         retrofit.create(ImagesService::class.java)
     }

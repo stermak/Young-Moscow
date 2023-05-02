@@ -6,9 +6,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import youngdevs.production.youngmoscow.data.YoungMoscowDatabase
 import youngdevs.production.youngmoscow.data.dao.UserDao
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -21,7 +21,9 @@ object DatabaseModule {
             appContext,
             YoungMoscowDatabase::class.java,
             "young_moscow.db"
-        ).fallbackToDestructiveMigration().build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     // Функция, которая предоставляет объект DAO для работы с таблицей пользователей

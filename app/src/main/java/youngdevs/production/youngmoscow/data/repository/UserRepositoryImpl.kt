@@ -6,6 +6,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -16,12 +18,13 @@ import youngdevs.production.youngmoscow.data.utilities.CollectionNames
 import youngdevs.production.youngmoscow.data.utilities.convertUserDocumentToEntity
 import youngdevs.production.youngmoscow.domain.models.UserModel
 import youngdevs.production.youngmoscow.domain.repository.UserRepository
-import javax.inject.Inject
-import javax.inject.Singleton
 
-// Этот класс является реализацией UserRepository и используется для работы с пользователями в Firebase.
+// Этот класс является реализацией UserRepository и используется для работы с пользователями в
+// Firebase.
 @Singleton
-class UserRepositoryImpl @Inject constructor(
+class UserRepositoryImpl
+@Inject
+constructor(
     private val userDao: UserDao,
     private val firebaseAuth: FirebaseAuth
 ) : UserRepository {
@@ -39,53 +42,58 @@ class UserRepositoryImpl @Inject constructor(
         var dbUser: User? = null
         var isSuccess = false
 
-        auth.createUserWithEmailAndPassword(email, password)
+        auth
+            .createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val userId = auth.currentUser!!.uid
 
-                    val newUser = hashMapOf<String, Any>(
-                        "name" to name,
-                        "email" to email
-                    )
+                    val newUser =
+                        hashMapOf<String, Any>(
+                            "name" to name,
+                            "email" to email
+                        )
 
                     // Добавляем телефон только если он не равен null
-                    phone?.let {
-                        newUser["phone"] = it
-                    }
+                    phone?.let { newUser["phone"] = it }
 
                     isSuccess = true
 
                     dbUser = User(userId, name, email, phone ?: "")
                     val db = Firebase.firestore
-                    db.collection(CollectionNames.users).document(userId)
+                    db.collection(CollectionNames.users)
+                        .document(userId)
                         .set(newUser)
-                        .addOnSuccessListener {
-                            isSuccess = true
+                        .addOnSuccessListener { isSuccess = true }
+                        .addOnFailureListener {
+                            Log.e(TAG, "Error writing document")
                         }
-                        .addOnFailureListener { Log.e(TAG, "Error writing document") }
                 }
-            }.addOnFailureListener { Exception -> Log.e(TAG, Exception.toString()) }
+            }
+            .addOnFailureListener { Exception ->
+                Log.e(TAG, Exception.toString())
+            }
             .await()
 
         if (isSuccess) {
-            withContext(Dispatchers.IO) {
-                userDao.insert(dbUser!!)
-            }
+            withContext(Dispatchers.IO) { userDao.insert(dbUser!!) }
         }
         return isSuccess
     }
 
-
     // Функция authenticate используется для аутентификации пользователя в Firebase.
-    override suspend fun authenticate(email: String, password: String): Boolean {
+    override suspend fun authenticate(
+        email: String,
+        password: String
+    ): Boolean {
 
         var isSuccess = false
         val db = Firebase.firestore
         var id: String? = null
 
         // Аутентифицируем пользователя с помощью email и password в Firebase.
-        auth.signInWithEmailAndPassword(email, password)
+        auth
+            .signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
@@ -95,23 +103,23 @@ class UserRepositoryImpl @Inject constructor(
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                 }
             }
-            .addOnFailureListener { Log.e(TAG, "FailureListener") }.await()
+            .addOnFailureListener { Log.e(TAG, "FailureListener") }
+            .await()
 
         var user: User? = null
 
         // Получаем информацию о пользователе из Firestore и конвертируем ее в объект User.
-        db.collection(CollectionNames.users).document(auth.currentUser?.uid!!).get()
+        db.collection(CollectionNames.users)
+            .document(auth.currentUser?.uid!!)
+            .get()
             .addOnSuccessListener {
-                it?.let {
-                    user = convertUserDocumentToEntity(id!!, it)
-                }
+                it?.let { user = convertUserDocumentToEntity(id!!, it) }
             }
-            .addOnFailureListener { Log.e(TAG, "FailureListener") }.await()
+            .addOnFailureListener { Log.e(TAG, "FailureListener") }
+            .await()
 
         // Добавляем пользователя в локальную базу данных.
-        withContext(Dispatchers.IO) {
-            userDao.insert(user!!)
-        }
+        withContext(Dispatchers.IO) { userDao.insert(user!!) }
         return isSuccess
     }
 
@@ -123,7 +131,8 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun authenticateWithGoogle(idToken: String): Boolean {
         return withContext(Dispatchers.IO) {
             try {
-                val credential = GoogleAuthProvider.getCredential(idToken, null)
+                val credential =
+                    GoogleAuthProvider.getCredential(idToken, null)
                 firebaseAuth.signInWithCredential(credential).await()
                 true
             } catch (e: Exception) {
@@ -140,17 +149,23 @@ class UserRepositoryImpl @Inject constructor(
         phone: String
     ) {
         // Обновление данных пользователя в Firebase и локальной базе данных
-        val userDataToUpdate = hashMapOf<String, Any>(
-            "name" to name,
-            "email" to email,
-            "phone" to phone
-        )
+        val userDataToUpdate =
+            hashMapOf<String, Any>(
+                "name" to name,
+                "email" to email,
+                "phone" to phone
+            )
 
         val db = Firebase.firestore
-        db.collection(CollectionNames.users).document(userId)
+        db.collection(CollectionNames.users)
+            .document(userId)
             .update(userDataToUpdate)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully updated!")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error updating document", e)
+            }
             .await()
 
         withContext(Dispatchers.IO) {
@@ -159,20 +174,25 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateUserPassword(newPassword: String) {
-        auth.currentUser?.updatePassword(newPassword)?.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.d(TAG, "User password updated.")
-            } else {
-                Log.w(TAG, "Error updating user password", task.exception)
+        auth.currentUser
+            ?.updatePassword(newPassword)
+            ?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User password updated.")
+                } else {
+                    Log.w(
+                        TAG,
+                        "Error updating user password",
+                        task.exception
+                    )
+                }
             }
-        }?.addOnFailureListener { Log.e(TAG, "FailureListener") }?.await()
+            ?.addOnFailureListener { Log.e(TAG, "FailureListener") }
+            ?.await()
     }
-
 
     // Функция clearUser очищает локальную базу данных от всех пользователей.
     override suspend fun clearUser() {
-        withContext(Dispatchers.IO) {
-            userDao.clear()
-        }
+        withContext(Dispatchers.IO) { userDao.clear() }
     }
 }

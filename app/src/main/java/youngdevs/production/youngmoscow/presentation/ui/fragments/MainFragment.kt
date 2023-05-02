@@ -30,7 +30,8 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
 
     // Поле для привязки View Binding
     private var _binding: FragmentMainBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = _binding!!
 
     // Адаптер для отображения списка событий
     private val eventsAdapter = EventsAdapter(this)
@@ -40,7 +41,8 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Инициализация View Binding и возвращение корневого View макета фрагмента
-        _binding = FragmentMainBinding.inflate(layoutInflater, container, false)
+        _binding =
+            FragmentMainBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -49,26 +51,43 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
 
         // Установка LayoutManager и адаптера в RecyclerView
         binding.recyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
         binding.recyclerView.adapter = eventsAdapter
 
-        // Наблюдение за LiveData events в ViewModel и обновление списка событий в RecyclerView при изменении данных
+        // Наблюдение за LiveData events в ViewModel и обновление списка событий в RecyclerView при
+        // изменении данных
         viewModel.events.observe(viewLifecycleOwner) { events ->
             eventsAdapter.setEvents(events)
         }
 
         // Загрузка следующей страницы при достижении конца списка
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val layoutManager = binding.recyclerView.layoutManager as LinearLayoutManager
-                val lastVisiblePosition = layoutManager.findLastVisibleItemPosition()
-                val totalItemCount = layoutManager.itemCount
-                if (lastVisiblePosition + 5 >= totalItemCount && !viewModel.isLoading()) {
-                    viewModel.loadNextPage()
+        binding.recyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(
+                    recyclerView: RecyclerView,
+                    dx: Int,
+                    dy: Int
+                ) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager =
+                        binding.recyclerView.layoutManager
+                                as LinearLayoutManager
+                    val lastVisiblePosition =
+                        layoutManager.findLastVisibleItemPosition()
+                    val totalItemCount = layoutManager.itemCount
+                    if (
+                        lastVisiblePosition + 5 >= totalItemCount &&
+                        !viewModel.isLoading()
+                    ) {
+                        viewModel.loadNextPage()
+                    }
                 }
             }
-        })
+        )
     }
 
     fun handleOnBackPressed() {
@@ -76,9 +95,14 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
             requireActivity().finish()
         } else {
             isBackPressed = true
-            Toast.makeText(requireContext(), "Нажмите еще раз, чтобы выйти", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                requireContext(),
+                "Нажмите еще раз, чтобы выйти",
+                Toast.LENGTH_SHORT
+            )
                 .show()
-            Handler(Looper.getMainLooper()).postDelayed({ isBackPressed = false }, 2000)
+            Handler(Looper.getMainLooper())
+                .postDelayed({ isBackPressed = false }, 2000)
         }
     }
 

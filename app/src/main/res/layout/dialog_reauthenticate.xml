@@ -14,7 +14,7 @@
             style="@style/inputStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Текущий пароль"
+            android:hint="@string/CurrentPassword"
             android:inputType="textPassword" />
 
     </LinearLayout>

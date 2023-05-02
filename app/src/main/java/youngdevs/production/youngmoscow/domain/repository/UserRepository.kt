@@ -22,11 +22,15 @@ interface UserRepository {
 
     suspend fun updateUserPassword(newPassword: String)
 
-
     suspend fun authenticateWithGoogle(idToken: String): Boolean
 
     // Обновляет профиль пользователя с указанным идентификатором, используя указанное имя и email
-    suspend fun updateUserProfile(userId: String, name: String, email: String, phone: String)
+    suspend fun updateUserProfile(
+        userId: String,
+        name: String,
+        email: String,
+        phone: String
+    )
 
     // Удаляет информацию о текущем пользователе
     suspend fun clearUser()

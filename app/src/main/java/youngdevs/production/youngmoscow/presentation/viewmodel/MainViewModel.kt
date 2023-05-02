@@ -5,17 +5,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.data.repository.KudaGoRepository
-import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val repository: KudaGoRepository) : ViewModel() {
+class MainViewModel
+@Inject
+constructor(private val repository: KudaGoRepository) : ViewModel() {
 
     private var loading = false
-    private val _events = MutableLiveData<List<Event>>() // LiveData для получения списка событий
-    val events: LiveData<List<Event>> get() = _events // LiveData для доступа к списку событий
+    private val _events =
+        MutableLiveData<
+                List<Event>
+                >() // LiveData для получения списка событий
+    val events: LiveData<List<Event>>
+        get() = _events // LiveData для доступа к списку событий
 
     private var currentPage = 1
 
@@ -29,12 +35,14 @@ class MainViewModel @Inject constructor(private val repository: KudaGoRepository
             return
         }
         loading = true
-        viewModelScope.launch {// запуск корутины
+        viewModelScope.launch { // запуск корутины
             val events =
-                repository.getEvents( // получение списка событий из репозитория и установка его значения LiveData
-                    pageSize = 50,
-                    page = currentPage
-                )
+                repository
+                    .getEvents( // получение списка событий из репозитория и установка его значения
+                        // LiveData
+                        pageSize = 50,
+                        page = currentPage
+                    )
             _events.value = events
             loading = false
         }

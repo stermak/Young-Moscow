@@ -24,12 +24,13 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.LoginViewModel
 class LoginFragment : Fragment() {
 
     companion object {
-        private const val RC_SIGN_IN = 9001 // Код для идентификации GoogleSignInActivity
+        private const val RC_SIGN_IN =
+            9001 // Код для идентификации GoogleSignInActivity
     }
 
-
     private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by viewModels() // Инициализация ViewModel
+    private val viewModel: LoginViewModel by
+    viewModels() // Инициализация ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,9 +38,11 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val auth = Firebase.auth // Инициализация Firebase Authentication
-        binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
+        binding =
+            FragmentLoginBinding.inflate(layoutInflater, container, false)
 
-        // Проверка, авторизован ли текущий пользователь и обновление UI в зависимости от результата проверки
+        // Проверка, авторизован ли текущий пользователь и обновление UI в зависимости от результата
+        // проверки
         val currentUser = auth.currentUser
         viewModel.updateUI(currentUser)
 
@@ -56,17 +59,22 @@ class LoginFragment : Fragment() {
                 Log.d(
                     "LoginFragment",
                     "isLoginSuccessful changed to $it"
-                ) // добавляем вызов Log.d() для вывода информации об изменении значения LiveData в лог
+                ) // добавляем вызов Log.d() для вывода информации об изменении значения LiveData в
+                // лог
                 if (it == true) {
-                    findNavController().navigate(R.id.action_loginFragment_to_navigation_main)
+                    findNavController()
+                        .navigate(
+                            R.id.action_loginFragment_to_navigation_main
+                        )
                     val bottomNavigation =
-                        activity?.findViewById<BottomNavigationView>(R.id.nav_view)
+                        activity?.findViewById<BottomNavigationView>(
+                            R.id.nav_view
+                        )
                     bottomNavigation?.visibility = View.VISIBLE
                 }
             }
         }
     }
-
 
     // Установка обработчиков событий для кнопок
     private fun setEventListener() {
@@ -78,16 +86,19 @@ class LoginFragment : Fragment() {
         }
 
         binding.registrationButton.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment) // Переход к экрану регистрации при нажатии кнопки "Зарегистрироваться"
+            findNavController()
+                .navigate(
+                    R.id.action_loginFragment_to_registrationFragment
+                ) // Переход к экрану регистрации при нажатии кнопки "Зарегистрироваться"
         }
         binding.googleLogin.setOnClickListener {
             signInWithGoogle() // Авторизация через Google
         }
     }
 
-
     private fun signInWithGoogle() {
-        val signInIntent = viewModel.getGoogleSignInClient(requireActivity()).signInIntent
+        val signInIntent =
+            viewModel.getGoogleSignInClient(requireActivity()).signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
         Log.d(
             "LoginFragment",
@@ -95,8 +106,11 @@ class LoginFragment : Fragment() {
         ) // добавляем вызов Log.d() для вывода информации о запуске активности в лог
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
@@ -110,15 +124,19 @@ class LoginFragment : Fragment() {
                     "Google sign in failed",
                     e
                 ) // добавляем вызов Log.e() для вывода ошибки в лог
-                Toast.makeText(requireContext(), "Ошибка входа через Google", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    requireContext(),
+                    "Ошибка входа через Google",
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModelStore.clear() // Очистка ViewModelStore для избежания утечек памяти
+        viewModelStore
+            .clear() // Очистка ViewModelStore для избежания утечек памяти
     }
 }

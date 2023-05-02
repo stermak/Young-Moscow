@@ -18,7 +18,10 @@ class ReauthenticateDialogFragment : DialogFragment() {
     private lateinit var binding: DialogReauthenticateBinding
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = DialogReauthenticateBinding.inflate(requireActivity().layoutInflater)
+        binding =
+            DialogReauthenticateBinding.inflate(
+                requireActivity().layoutInflater
+            )
 
         return AlertDialog.Builder(requireContext())
             .setTitle("Введите текущий пароль")

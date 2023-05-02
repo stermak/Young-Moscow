@@ -8,15 +8,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.Sightseeing
 import youngdevs.production.youngmoscow.data.services.ImagesService
 import youngdevs.production.youngmoscow.data.services.SightseeingsService
-import javax.inject.Inject
 
 // Используем HiltViewModel для автоматического внедрения зависимостей с Hilt
 @HiltViewModel
-class SightseeingsViewModel @Inject constructor(
+class SightseeingsViewModel
+@Inject
+constructor(
     // Внедряем сервисы для работы с достопримечательностями и изображениями
     private val sightseeingsService: SightseeingsService,
     private val imagesService: ImagesService
@@ -34,9 +36,16 @@ class SightseeingsViewModel @Inject constructor(
             try {
                 val sightseeings = sightseeingsService.getSightseeings()
                 _sightseeings.value = sightseeings
-                Log.d("SightseeingsViewModel", "Loaded ${sightseeings.size} sightseeings")
+                Log.d(
+                    "SightseeingsViewModel",
+                    "Loaded ${sightseeings.size} sightseeings"
+                )
             } catch (e: Exception) {
-                Log.e("SightseeingsViewModel", "Failed to load sightseeings", e)
+                Log.e(
+                    "SightseeingsViewModel",
+                    "Failed to load sightseeings",
+                    e
+                )
                 // Обработка ошибки
             }
         }

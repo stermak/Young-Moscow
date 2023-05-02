@@ -13,7 +13,8 @@ interface FavouriteEventsDao {
     fun getAllFavouriteEvents(): LiveData<List<EventFavourite>>
 
     // Вставка события в таблицу favourite_events
-    // Если событие с таким же идентификатором уже существует, оно будет заменено (OnConflictStrategy.REPLACE)
+    // Если событие с таким же идентификатором уже существует, оно будет заменено
+    // (OnConflictStrategy.REPLACE)
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToFavourites(event: EventFavourite)
 

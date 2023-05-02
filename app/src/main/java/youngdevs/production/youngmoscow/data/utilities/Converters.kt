@@ -5,7 +5,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.util.Date
 
-// Этот класс является классом-конвертером для Room, который позволяет Room сохранять и извлекать данные из базы данных в формате, который не поддерживается по умолчанию.
+// Этот класс является классом-конвертером для Room, который позволяет Room сохранять и извлекать
+// данные из базы данных в формате, который не поддерживается по умолчанию.
 class Converters {
     // Эта функция конвертирует список списков строк в JSON-строку.
     @TypeConverter
@@ -16,10 +17,11 @@ class Converters {
     // Эта функция конвертирует JSON-строку в список списков строк.
     @TypeConverter
     fun converterJsonToListOfList(string: String): List<List<String>> {
-        return Gson().fromJson(
-            string,
-            object : TypeToken<List<List<String>>>() {}.type
-        )
+        return Gson()
+            .fromJson(
+                string,
+                object : TypeToken<List<List<String>>>() {}.type
+            )
     }
 
     // Эта функция конвертирует список строк в JSON-строку.
@@ -31,10 +33,8 @@ class Converters {
     // Эта функция конвертирует JSON-строку в список строк.
     @TypeConverter
     fun converterJsonToList(string: String): List<String> {
-        return Gson().fromJson(
-            string,
-            object : TypeToken<List<String>>() {}.type
-        )
+        return Gson()
+            .fromJson(string, object : TypeToken<List<String>>() {}.type)
     }
 
     // Эта функция конвертирует время в формате Unix (тип Long) в объект класса Date.

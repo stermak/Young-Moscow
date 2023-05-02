@@ -7,18 +7,25 @@ import youngdevs.production.youngmoscow.data.utilities.USER_TABLE
 
 @Dao
 interface UserDao {
-// Аннотация @Dao указывает, что это интерфейс для работы с базой данных Room.
+    // Аннотация @Dao указывает, что это интерфейс для работы с базой данных Room.
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User)
     // Метод insert() добавляет пользователя в базу данных Room.
     // Аннотация @Insert указывает, что это операция вставки.
-    // Аргумент onConflict указывает, что нужно сделать в случае конфликта, т.е. при попытке вставки уже существующей записи.
+    // Аргумент onConflict указывает, что нужно сделать в случае конфликта, т.е. при попытке вставки
+    // уже существующей записи.
     // В данном случае указано заменить старую запись на новую.
 
-    @Query("UPDATE user SET name = :name, email = :email, phone = :phone WHERE id = :userId")
-    suspend fun updateUser(userId: String, name: String, email: String, phone: String)
-
+    @Query(
+        "UPDATE user SET name = :name, email = :email, phone = :phone WHERE id = :userId"
+    )
+    suspend fun updateUser(
+        userId: String,
+        name: String,
+        email: String,
+        phone: String
+    )
 
     @Query("SELECT * FROM $USER_TABLE WHERE id = :id")
     fun getById(id: String): Flow<User>
@@ -31,8 +38,7 @@ interface UserDao {
     // Метод getCurrentUser() получает текущего пользователя из базы данных Room.
     // Аннотация @Query указывает SQL-запрос для получения данных.
 
-    @Query("DELETE FROM  $USER_TABLE")
-    suspend fun clear()
+    @Query("DELETE FROM  $USER_TABLE") suspend fun clear()
     // Метод clear() удаляет все данные о пользователях из базы данных Room.
     // Аннотация @Query указывает SQL-запрос для удаления данных.
 }

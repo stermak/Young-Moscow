@@ -16,7 +16,9 @@ object LocationModule {
 
     @Provides
     @Singleton
-    fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
+    fun provideFusedLocationProviderClient(
+        @ApplicationContext context: Context
+    ): FusedLocationProviderClient {
         return LocationServices.getFusedLocationProviderClient(context)
     }
 }

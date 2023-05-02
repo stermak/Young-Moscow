@@ -20,7 +20,8 @@ class SettingsFragment : Fragment() {
     // Инициализируем переменные
     private val settingsViewModel: SettingsViewModel by viewModels()
     private var _binding: FragmentSettingsBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = _binding!!
 
     // Этот метод вызывается, когда Android создает макет для фрагмента.
     // Мы создаем макет из файла разметки и возвращаем его как результат.
@@ -30,12 +31,15 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Создаем макет из файла разметки и сохраняем ссылку на него в переменную binding.
-        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        _binding =
+            FragmentSettingsBinding.inflate(inflater, container, false)
 
-        // Устанавливаем наблюдателей на объект settingsViewModel, чтобы получать уведомления об изменениях в настройках.
+        // Устанавливаем наблюдателей на объект settingsViewModel, чтобы получать уведомления об
+        // изменениях в настройках.
         setObserver()
 
-        // Устанавливаем обработчики событий на кнопки и другие элементы пользовательского интерфейса.
+        // Устанавливаем обработчики событий на кнопки и другие элементы пользовательского
+        // интерфейса.
         setEventListener()
 
         // Вызываем метод welcomeText() в settingsViewModel, чтобы получить приветственный текст.
@@ -45,7 +49,8 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
-    // Метод устанавливает обработчики событий на кнопки и другие элементы пользовательского интерфейса.
+    // Метод устанавливает обработчики событий на кнопки и другие элементы пользовательского
+    // интерфейса.
     private fun setEventListener() {
         binding.logout.setOnClickListener {
             // Вызываем метод exit() в settingsViewModel, чтобы выйти из приложения.
@@ -53,29 +58,39 @@ class SettingsFragment : Fragment() {
             // Навигируем пользователя на экран входа в приложение.
             findNavController().navigate(R.id.loginFragment)
             // Скрываем нижнюю навигационную панель на экране входа в приложение.
-            val bottomNavigation = activity?.findViewById<BottomNavigationView>(R.id.nav_view)
+            val bottomNavigation =
+                activity?.findViewById<BottomNavigationView>(R.id.nav_view)
             bottomNavigation?.visibility = View.GONE
         }
 
         binding.btnFavouriteEvents.setOnClickListener {
             // Навигируем пользователя на экран избранных событий.
-            findNavController().navigate(R.id.action_settingsFragment_to_favouriteEventsFragment)
+            findNavController()
+                .navigate(
+                    R.id.action_settingsFragment_to_favouriteEventsFragment
+                )
         }
         binding.btnProfile.setOnClickListener {
             // Навигируем пользователя на экран избранных событий.
-            findNavController().navigate(R.id.action_settingsFragment_to_profileFragment)
+            findNavController()
+                .navigate(R.id.action_settingsFragment_to_profileFragment)
         }
         binding.btnSightseeings.setOnClickListener {
             // Навигируем пользователя на экран избранных событий.
-            findNavController().navigate(R.id.action_settingsFragment_to_sightseeingsFragment)
+            findNavController()
+                .navigate(
+                    R.id.action_settingsFragment_to_sightseeingsFragment
+                )
         }
     }
 
-    // Метод устанавливает наблюдателя на объект settingsViewModel, чтобы получать уведомления об изменениях в настройках.
+    // Метод устанавливает наблюдателя на объект settingsViewModel, чтобы получать уведомления об
+    // изменениях в настройках.
     private fun setObserver() {
         settingsViewModel.userName.observe(viewLifecycleOwner) { name ->
             // Обновляем текст приветствия на экране настроек.
-            binding.welcomeText.text = getString(R.string.settings_welcome) + " " + name
+            binding.welcomeText.text =
+                getString(R.string.settings_welcome) + " " + name
         }
     }
 

@@ -7,13 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.domain.usecases.AuthenticateUserUseCase
-import javax.inject.Inject
 
 // SettingsViewModel - класс ViewModel, который управляет данными экрана настроек
 @HiltViewModel
-class SettingsViewModel @Inject constructor(
+class SettingsViewModel
+@Inject
+constructor(
     // Внедрение зависимости для доступа к use-case аутентификации пользователя
     private val authenticateUserUseCase: AuthenticateUserUseCase
 ) : ViewModel() {
@@ -22,7 +24,8 @@ class SettingsViewModel @Inject constructor(
     private var _userName = MutableLiveData<String>()
 
     // Объявление LiveData для предоставления имени пользователя
-    val userName: LiveData<String> get() = _userName
+    val userName: LiveData<String>
+        get() = _userName
 
     // Функция для получения приветственного текста на основе имени пользователя
     fun welcomeText() {
@@ -41,8 +44,6 @@ class SettingsViewModel @Inject constructor(
         Firebase.auth.signOut()
 
         // Выход из аккаунта с использованием use-case аутентификации
-        viewModelScope.launch {
-            authenticateUserUseCase.signOut()
-        }
+        viewModelScope.launch { authenticateUserUseCase.signOut() }
     }
 }

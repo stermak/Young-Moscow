@@ -41,10 +41,12 @@ class MapsFragment : Fragment() {
     }
 
     private var _binding: FragmentMapsBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = _binding!!
     private val viewModel: MapsViewModel by viewModels()
     private lateinit var googleMap: GoogleMap
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private lateinit var fusedLocationProviderClient:
+            FusedLocationProviderClient
     private lateinit var placesClient: PlacesClient
     private lateinit var geoApiContext: GeoApiContext
 
@@ -53,22 +55,29 @@ class MapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
-        Places.initialize(requireContext(), getString(R.string.google_maps_key))
+        _binding =
+            FragmentMapsBinding.inflate(layoutInflater, container, false)
+        Places.initialize(
+            requireContext(),
+            getString(R.string.google_maps_key)
+        )
         fusedLocationProviderClient =
-            LocationServices.getFusedLocationProviderClient(requireContext())
+            LocationServices.getFusedLocationProviderClient(
+                requireContext()
+            )
         placesClient = Places.createClient(requireContext())
-        geoApiContext = GeoApiContext.Builder()
-            .apiKey(getString(R.string.google_maps_key))
-            .build()
+        geoApiContext =
+            GeoApiContext.Builder()
+                .apiKey(getString(R.string.google_maps_key))
+                .build()
         return binding.root
     }
-
 
     @SuppressLint("MissingPermission", "PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
         this.googleMap = googleMap
-        viewModel.locationPermission.observe(viewLifecycleOwner) { isGranted ->
+        viewModel.locationPermission.observe(viewLifecycleOwner) {
+                isGranted ->
             if (isGranted) {
                 if (hasLocationPermission()) {
                     googleMap.isMyLocationEnabled = true
@@ -84,72 +93,98 @@ class MapsFragment : Fragment() {
         }
     }
 
-
     private fun addMarkerAndRoute(latLng: LatLng) {
-        googleMap.clear() // Очистка карты от предыдущих маркеров и маршрутов
+        googleMap
+            .clear() // Очистка карты от предыдущих маркеров и маршрутов
         val marker = MarkerOptions().position(latLng).title("Маркер")
         googleMap.addMarker(marker)
 
         getLastKnownLocation { location ->
             if (location != null) {
-                val currentLatLng = LatLng(location.latitude, location.longitude)
+                val currentLatLng =
+                    LatLng(location.latitude, location.longitude)
                 getRoute(currentLatLng, latLng)
             }
         }
     }
 
-
     private fun getLastKnownLocation(callback: (Location?) -> Unit) {
-        if (ActivityCompat.checkSelfPermission(
+        if (
+            ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             return
         }
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                location ->
             callback(location)
         }
     }
 
     private fun getRoute(origin: LatLng, destination: LatLng) {
-        val directionsApiRequest = DirectionsApi.newRequest(geoApiContext)
-            .mode(TravelMode.WALKING) // Выберите режим передвижения (например, WALKING, DRIVING, и т.д.)
-            .origin(com.google.maps.model.LatLng(origin.latitude, origin.longitude))
-            .destination(com.google.maps.model.LatLng(destination.latitude, destination.longitude))
+        val directionsApiRequest =
+            DirectionsApi.newRequest(geoApiContext)
+                .mode(
+                    TravelMode.WALKING
+                ) // Выберите режим передвижения (например, WALKING, DRIVING, и т.д.)
+                .origin(
+                    com.google.maps.model.LatLng(
+                        origin.latitude,
+                        origin.longitude
+                    )
+                )
+                .destination(
+                    com.google.maps.model.LatLng(
+                        destination.latitude,
+                        destination.longitude
+                    )
+                )
 
-        directionsApiRequest.setCallback(object : PendingResult.Callback<DirectionsResult> {
-            override fun onResult(result: DirectionsResult) {
-                val path: MutableList<List<LatLng>> = ArrayList()
-                if (result.routes.isNotEmpty() && result.routes[0].legs.isNotEmpty()) {
-                    for (route in result.routes) {
-                        for (leg in route.legs) {
-                            for (step in leg.steps) {
-                                path.add(PolyUtil.decode(step.polyline.encodedPath))
+        directionsApiRequest.setCallback(
+            object : PendingResult.Callback<DirectionsResult> {
+                override fun onResult(result: DirectionsResult) {
+                    val path: MutableList<List<LatLng>> = ArrayList()
+                    if (
+                        result.routes.isNotEmpty() &&
+                        result.routes[0].legs.isNotEmpty()
+                    ) {
+                        for (route in result.routes) {
+                            for (leg in route.legs) {
+                                for (step in leg.steps) {
+                                    path.add(
+                                        PolyUtil.decode(
+                                            step.polyline.encodedPath
+                                        )
+                                    )
+                                }
                             }
+                        }
+                    }
+
+                    if (path.isNotEmpty()) {
+                        activity?.runOnUiThread {
+                            val polylineOptions =
+                                PolylineOptions()
+                                    .addAll(path.flatten())
+                                    .color(Color.BLUE)
+                                    .width(10f)
+
+                            googleMap.addPolyline(polylineOptions)
                         }
                     }
                 }
 
-                if (path.isNotEmpty()) {
-                    activity?.runOnUiThread {
-                        val polylineOptions = PolylineOptions()
-                            .addAll(path.flatten())
-                            .color(Color.BLUE)
-                            .width(10f)
-
-                        googleMap.addPolyline(polylineOptions)
-                    }
+                override fun onFailure(e: Throwable) {
+                    // Обработка ошибки
                 }
             }
-
-            override fun onFailure(e: Throwable) {
-                // Обработка ошибки
-            }
-        })
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -157,7 +192,8 @@ class MapsFragment : Fragment() {
         binding.mapView.onCreate(savedInstanceState)
         binding.mapView.getMapAsync(callback)
 
-        if (ContextCompat.checkSelfPermission(
+        if (
+            ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
@@ -175,7 +211,10 @@ class MapsFragment : Fragment() {
         grantResults: IntArray
     ) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            viewModel.setLocationPermission(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            viewModel.setLocationPermission(
+                grantResults.isNotEmpty() &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED
+            )
         }
     }
 
@@ -192,7 +231,6 @@ class MapsFragment : Fragment() {
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
     }
-
 
     override fun onStart() {
         super.onStart()

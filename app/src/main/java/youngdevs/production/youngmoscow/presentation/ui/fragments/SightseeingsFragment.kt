@@ -22,7 +22,8 @@ class SightseeingsFragment : Fragment() {
 
     // Используем nullable переменную для связывания и делегат для безопасного доступа к ней
     private var _binding: FragmentSightseeingsBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = _binding!!
 
     // Объявляем адаптер для списка достопримечательностей
     private lateinit var sightseeingsAdapter: SightseeingsAdapter
@@ -33,23 +34,28 @@ class SightseeingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSightseeingsBinding.inflate(inflater, container, false)
+        _binding =
+            FragmentSightseeingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    // Когда представление создано, настраиваем адаптер, привязываем его к RecyclerView и настраиваем ViewModel
+    // Когда представление создано, настраиваем адаптер, привязываем его к RecyclerView и
+    // настраиваем ViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Инициализируем адаптер достопримечательностей
-        sightseeingsAdapter = SightseeingsAdapter(viewLifecycleOwner.lifecycleScope)
+        sightseeingsAdapter =
+            SightseeingsAdapter(viewLifecycleOwner.lifecycleScope)
 
         // Настраиваем RecyclerView с LinearLayoutManager и устанавливаем адаптер
-        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = sightseeingsAdapter
 
         // Обрабатываем изменения данных в ViewModel и обновляем адаптер
-        viewModel.sightseeings.observe(viewLifecycleOwner) { sightseeings ->
+        viewModel.sightseeings.observe(viewLifecycleOwner) { sightseeings
+            ->
             sightseeingsAdapter.submitList(sightseeings)
         }
 

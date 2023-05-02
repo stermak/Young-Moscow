@@ -10,10 +10,13 @@ import youngdevs.production.youngmoscow.databinding.ItemEventBinding
 
 class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
-    private val events = mutableListOf<Event>() // список событий для адаптера
+    private val events =
+        mutableListOf<Event>() // список событий для адаптера
 
     interface OnItemClickListener {
-        fun onItemClick(event: Event) // интерфейс для реализации обработчика клика на элементе списка
+        fun onItemClick(
+            event: Event
+        ) // интерфейс для реализации обработчика клика на элементе списка
     }
 
     // метод для установки списка событий для адаптера
@@ -22,15 +25,20 @@ class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
         notifyDataSetChanged()
     }
 
-
     // создание ViewHolder для элемента списка
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val binding = ItemEventBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        ) // раздувание макета элемента списка
-        return EventViewHolder(binding) // возвращение ViewHolder для элемента списка
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): EventViewHolder {
+        val binding =
+            ItemEventBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ) // раздувание макета элемента списка
+        return EventViewHolder(
+            binding
+        ) // возвращение ViewHolder для элемента списка
     }
 
     // привязка данных к ViewHolder
@@ -38,12 +46,16 @@ class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
         val event = events[position] // получение текущего события
         holder.bind(event) // привязка данных события к ViewHolder
 
-        holder.itemView.setOnClickListener { // установка обработчика клика на элемент списка
-            onItemClickListener.onItemClick(event) // вызов метода из интерфейса для обработки клика на элементе списка
-        }
+        holder.itemView
+            .setOnClickListener { // установка обработчика клика на элемент списка
+                onItemClickListener.onItemClick(
+                    event
+                ) // вызов метода из интерфейса для обработки клика на элементе списка
+            }
     }
 
-    override fun getItemCount() = events.size // возвращает количество элементов в списке
+    override fun getItemCount() =
+        events.size // возвращает количество элементов в списке
 
     // класс ViewHolder для элемента списка
     inner class EventViewHolder(private val binding: ItemEventBinding) :
@@ -53,15 +65,22 @@ class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
             binding.eventTitle.text = event.formattedTitle
             binding.eventDescription.text = event.formattedDescription
 
-            if (event.images.isNotEmpty()) { // проверка на наличие изображения для события
-                val imageUrl = event.images[0].image // получение URL изображения
+            if (
+                event.images.isNotEmpty()
+            ) { // проверка на наличие изображения для события
+                val imageUrl =
+                    event.images[0].image // получение URL изображения
                 Glide.with(binding.root.context)
                     .load(imageUrl)
                     .placeholder(R.drawable.photonet)
                     .error(R.drawable.photonet)
-                    .into(binding.eventImage) // загрузка изображения с помощью Glide и установка его в ImageView
+                    .into(
+                        binding.eventImage
+                    ) // загрузка изображения с помощью Glide и установка его в ImageView
             } else {
-                binding.eventImage.setImageResource(R.drawable.photonet) // установка изображения-заглушки, если изображения для события нет
+                binding.eventImage.setImageResource(
+                    R.drawable.photonet
+                ) // установка изображения-заглушки, если изображения для события нет
             }
         }
     }

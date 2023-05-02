@@ -8,19 +8,22 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import youngdevs.production.youngmoscow.data.repository.UserRepositoryImpl
 import youngdevs.production.youngmoscow.databinding.FragmentProfileBinding
 import youngdevs.production.youngmoscow.presentation.ui.fragments.ReauthenticateDialogFragment
-import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor() : ViewModel() {
 
     // Загрузить данные пользователя в UI
-    fun loadUserData(userRepository: UserRepositoryImpl, binding: FragmentProfileBinding) {
+    fun loadUserData(
+        userRepository: UserRepositoryImpl,
+        binding: FragmentProfileBinding
+    ) {
         viewModelScope.launch {
             userRepository.getCurrentUser()?.let { userModel ->
                 withContext(Dispatchers.Main) {
@@ -40,7 +43,8 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
         context: Context
     ) {
         viewModelScope.launch {
-            val userId = userRepository.getCurrentUser()?.id ?: return@launch
+            val userId =
+                userRepository.getCurrentUser()?.id ?: return@launch
             val name = binding.usernameEditTxt.text.toString()
             val email = binding.emailEditTxt.text.toString()
             val phone = binding.phoneEditTxt.text.toString()
@@ -49,19 +53,37 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
             if (password.isNotEmpty()) {
                 // Если пользователь хочет изменить пароль, запускаем диалог подтверждения
                 val dialog = ReauthenticateDialogFragment()
-                dialog.setReauthenticateListener(object :
-                    ReauthenticateDialogFragment.ReauthenticateListener {
-                    override fun onReauthenticate(currentPassword: String) {
-                        reauthenticateUser(currentPassword, userRepository, binding, context) {
-                            viewModelScope.launch {
-                                userRepository.updateUserPassword(password)
+                dialog.setReauthenticateListener(
+                    object :
+                        ReauthenticateDialogFragment.ReauthenticateListener {
+                        override fun onReauthenticate(
+                            currentPassword: String
+                        ) {
+                            reauthenticateUser(
+                                currentPassword,
+                                userRepository,
+                                binding,
+                                context
+                            ) {
+                                viewModelScope.launch {
+                                    userRepository.updateUserPassword(
+                                        password
+                                    )
+                                }
                             }
                         }
                     }
-                })
+                )
                 dialog.show(fragmentManager, "ReauthenticateDialog")
             } else {
-                saveUserData(userRepository, name, email, phone, userId, context)
+                saveUserData(
+                    userRepository,
+                    name,
+                    email,
+                    phone,
+                    userId,
+                    context
+                )
             }
         }
     }
@@ -77,14 +99,25 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
     ) {
         viewModelScope.launch {
             try {
-                userRepository.updateUserProfile(userId, name, email, phone)
-                Toast.makeText(context, "Профиль успешно обновлен", Toast.LENGTH_SHORT).show()
+                userRepository.updateUserProfile(
+                    userId,
+                    name,
+                    email,
+                    phone
+                )
+                Toast.makeText(
+                    context,
+                    "Профиль успешно обновлен",
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
             } catch (e: Exception) {
                 Toast.makeText(
                     context,
                     "Ошибка при обновлении профиля: ${e.message}",
                     Toast.LENGTH_SHORT
-                ).show()
+                )
+                    .show()
             }
         }
     }
@@ -98,23 +131,33 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
         onSuccess: () -> Unit
     ) {
         val user = FirebaseAuth.getInstance().currentUser
-        val credentials = EmailAuthProvider.getCredential(user?.email!!, currentPassword)
+        val credentials =
+            EmailAuthProvider.getCredential(user?.email!!, currentPassword)
 
-        user?.reauthenticate(credentials)
+        user
+            ?.reauthenticate(credentials)
             ?.addOnSuccessListener {
                 onSuccess()
                 val name = binding.usernameEditTxt.text.toString()
                 val email = binding.emailEditTxt.text.toString()
                 val phone = binding.phoneEditTxt.text.toString()
                 val userId = user.uid
-                saveUserData(userRepository, name, email, phone, userId, context)
+                saveUserData(
+                    userRepository,
+                    name,
+                    email,
+                    phone,
+                    userId,
+                    context
+                )
             }
             ?.addOnFailureListener { exception ->
                 Toast.makeText(
                     context,
                     "Ошибка аутентификации: ${exception.message}",
                     Toast.LENGTH_LONG
-                ).show()
+                )
+                    .show()
             }
     }
 }
