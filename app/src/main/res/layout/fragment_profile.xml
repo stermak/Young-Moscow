@@ -32,10 +32,10 @@
                     style="@style/titleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/your_profile"
+                    android:text="Профиль"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="35sp"
+                    android:textSize="28sp"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
@@ -52,11 +52,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/custom_user_icon"
+                    android:drawableStart="@drawable/login_user"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="@string/usernameTxt"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/login_grey"/>
 
                 <EditText
                     android:id="@+id/emailEditTxt"
@@ -65,11 +66,12 @@
                     android:layout_height="wrap_content"
                     android:autofilledHighlight="@color/trans"
                     android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/custom_email_icon"
+                    android:drawableStart="@drawable/login_mail"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="@string/emailTxt"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/login_grey"/>
 
                 <EditText
                     android:id="@+id/phoneEditTxt"
@@ -82,7 +84,8 @@
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="@string/phoneTxt"
-                    android:inputType="phone|text" />
+                    android:inputType="phone|text"
+                    android:textColorHint="@color/login_grey"/>
 
                 <EditText
                     android:id="@+id/passwordEditTxt"
@@ -91,11 +94,12 @@
                     android:layout_height="wrap_content"
                     android:autofilledHighlight="@color/trans"
                     android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/custom_pass_icon"
+                    android:drawableStart="@drawable/login_lock"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="@string/passwordTxt"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColorHint="@color/login_grey"/>
 
                 <Button
                     android:id="@+id/saveProfile"

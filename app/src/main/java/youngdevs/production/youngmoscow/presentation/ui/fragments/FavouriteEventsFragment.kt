@@ -64,6 +64,24 @@ class FavouriteEventsFragment : Fragment() {
                 events
                     .reversed() // Переворачиваем список, чтобы новые элементы добавлялись вверху
             favouriteEventsAdapter.submitList(reversedEvents)
+            // Обновляем видимость
+            if (reversedEvents.isEmpty()) {
+                binding.favouriteEventsRecyclerView.visibility = View.GONE
+                binding.standing.visibility = View.VISIBLE
+                binding.sitting.visibility = View.VISIBLE
+                binding.noSavedFavourites.visibility = View.VISIBLE
+                binding.findAndSaveEvents.visibility = View.VISIBLE
+                binding.imageView8.visibility = View.VISIBLE
+                binding.imageView9.visibility = View.VISIBLE
+            } else {
+                binding.favouriteEventsRecyclerView.visibility = View.VISIBLE
+                binding.standing.visibility = View.GONE
+                binding.sitting.visibility = View.GONE
+                binding.noSavedFavourites.visibility = View.GONE
+                binding.findAndSaveEvents.visibility = View.GONE
+                binding.imageView8.visibility = View.GONE
+                binding.imageView9.visibility = View.GONE
+            }
         }
     }
 
