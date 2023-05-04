@@ -39,7 +39,7 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Инициализация View Binding и возвращение корневого View макета фрагмента
         _binding =
             FragmentMainBinding.inflate(layoutInflater, container, false)

@@ -32,7 +32,7 @@
                     style="@style/titleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Профиль"
+                    android:text="@string/Profile"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="28sp"

@@ -135,7 +135,7 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
             EmailAuthProvider.getCredential(user?.email!!, currentPassword)
 
         user
-            ?.reauthenticate(credentials)
+            .reauthenticate(credentials)
             ?.addOnSuccessListener {
                 onSuccess()
                 val name = binding.usernameEditTxt.text.toString()
