@@ -10,10 +10,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.domain.usecases.AuthenticateUserUseCase
+import javax.inject.Inject
 
 // LoginViewModel - аннотация Hilt, чтобы позволить DI фреймворку внедрять зависимости в этот класс
 @HiltViewModel

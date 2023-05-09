@@ -8,10 +8,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import youngdevs.production.youngmoscow.data.dao.FavouriteEventsDao
 import youngdevs.production.youngmoscow.data.entities.FavouriteDatabase
 import youngdevs.production.youngmoscow.data.repository.FavouriteEventsRepository
+import javax.inject.Singleton
 
 // AppModule - модуль, предоставляющий зависимости для всего приложения
 @Module

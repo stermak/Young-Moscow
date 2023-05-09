@@ -1,8 +1,8 @@
 package youngdevs.production.youngmoscow.data.repository
 
-import javax.inject.Singleton
 import youngdevs.production.youngmoscow.data.dao.FavouriteEventsDao
 import youngdevs.production.youngmoscow.data.entities.EventFavourite
+import javax.inject.Singleton
 
 // Определение класса репозитория FavouriteEventsRepository, который обеспечивает доступ к данным
 // и предоставляет методы для работы с таблицей EventFavourite в базе данных

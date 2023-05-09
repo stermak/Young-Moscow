@@ -1,13 +1,14 @@
-package youngdevs.production.youngmoscow.data.repository
+package youngdevs.production.youngmoscow.domain.repository
 
 import android.content.ContentValues.TAG
+import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import javax.inject.Inject
-import javax.inject.Singleton
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -17,7 +18,8 @@ import youngdevs.production.youngmoscow.data.entities.asDomainModel
 import youngdevs.production.youngmoscow.data.utilities.CollectionNames
 import youngdevs.production.youngmoscow.data.utilities.convertUserDocumentToEntity
 import youngdevs.production.youngmoscow.domain.models.UserModel
-import youngdevs.production.youngmoscow.domain.repository.UserRepository
+import javax.inject.Inject
+import javax.inject.Singleton
 
 // Этот класс является реализацией UserRepository и используется для работы с пользователями в
 // Firebase.
@@ -194,5 +196,26 @@ constructor(
     // Функция clearUser очищает локальную базу данных от всех пользователей.
     override suspend fun clearUser() {
         withContext(Dispatchers.IO) { userDao.clear() }
+    }
+
+
+    suspend fun uploadProfileImage(imageUri: Uri): String = withContext(Dispatchers.IO) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
+        val storageRef = FirebaseStorage.getInstance().reference.child("profile_images/$userId")
+        val uploadTask = storageRef.putFile(imageUri)
+
+        val snapshot = uploadTask.await()
+        val downloadUrl = snapshot.metadata?.reference?.downloadUrl
+        downloadUrl?.await().toString()
+    }
+
+    suspend fun updateProfileImage(imageUrl: String) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
+        val db = Firebase.firestore
+        val userDocument = db.collection(CollectionNames.users).document(userId)
+        userDocument.update("profileImage", imageUrl)
+            .addOnSuccessListener { Log.d(TAG, "Profile image updated successfully") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error updating profile image", e) }
+            .await()
     }
 }

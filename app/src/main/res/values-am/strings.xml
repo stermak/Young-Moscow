@@ -27,11 +27,13 @@
     <string name="sightseeings">የእይታ እይታዎች</string>
     <string name="google_maps_key">AizaSyAvSFt5zVRWD5KyTvVpECH52KLms-U4olY</string>
     <string name="CurrentPassword">የአሁኑ ሚስጥራዊ ማለፊያ ቁልፍ</string>
-    <string name="Favourite">Избранное</string>
-    <string name="HaventSavedEvent">Нет сохранённых событий</string>
-    <string name="FindInterestingEvent">Найдите интересные события и добавьте их в избранное</string>
-    <string name="Welcome">Добро пожаловать</string>
-    <string name="LoginInYourAcc">войдите в свой аккаунт</string>
-    <string name="Profile">Профиль</string>
-    <string name="Registration">Регистрация</string>
+    <string name="Favourite">ተወዳጆች</string>
+    <string name="HaventSavedEvent">ምንም የተቀመጡ ክስተቶች የሉም</string>
+    <string name="FindInterestingEvent">አስደሳች ክስተቶችን ያግኙ እና ወደ ተወዳጆችዎ ያክሏቸው</string>
+    <string name="Welcome">እንኳን ደህና መጣህ</string>
+    <string name="LoginInYourAcc">ወደ መለያዎ ይግቡ</string>
+    <string name="Profile">መገለጫ</string>
+    <string name="Registration">ምዝገባ</string>
+    <string name="RegisterYouAcc">መለያዎን ያስመዝግቡ</string>
+    <string name="upload_photo">Загрузите фото</string>
 </resources>

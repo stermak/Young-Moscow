@@ -4,10 +4,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import youngdevs.production.youngmoscow.data.services.ImagesService
 import youngdevs.production.youngmoscow.data.services.RetrofitClient
 import youngdevs.production.youngmoscow.data.services.SightseeingsService
+import javax.inject.Singleton
 
 // Определение модуля NetworkModule для предоставления зависимостей, связанных с сетью
 @Module

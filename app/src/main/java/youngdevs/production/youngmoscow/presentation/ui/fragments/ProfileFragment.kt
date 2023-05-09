@@ -1,5 +1,7 @@
 package youngdevs.production.youngmoscow.presentation.ui.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,14 +9,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-import youngdevs.production.youngmoscow.data.repository.UserRepositoryImpl
+import youngdevs.production.youngmoscow.domain.repository.UserRepositoryImpl
 import youngdevs.production.youngmoscow.databinding.FragmentProfileBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.ProfileViewModel
+import javax.inject.Inject
 
 // Используем AndroidEntryPoint для автоматического внедрения зависимостей с Hilt
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
+    companion object {
+        private const val SELECT_IMAGE_REQUEST_CODE = 100
+    }
 
     @Inject // использование Dependency Injection для userRepository
     lateinit var userRepository: UserRepositoryImpl
@@ -34,11 +39,7 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Загрузите данные пользователя
         viewModel.loadUserData(userRepository, binding)
-
-        // Обработчик нажатия на кнопку сохранения профиля
         binding.saveProfile.setOnClickListener {
             viewModel.saveProfileChanges(
                 userRepository,
@@ -46,6 +47,26 @@ class ProfileFragment : Fragment() {
                 childFragmentManager,
                 requireContext()
             )
+        }
+        binding.uploadPhotoButton.setOnClickListener {
+            selectImageFromGallery()
+        }
+    }
+
+    private fun selectImageFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, SELECT_IMAGE_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            val selectedImage = data.data
+            selectedImage?.let {
+                binding.profilePic.setImageURI(selectedImage)
+                viewModel.uploadProfileImage(userRepository, it, requireContext())
+            }
         }
     }
 }

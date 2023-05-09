@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.FragmentRegistrationBinding
@@ -46,27 +47,34 @@ class RegistrationFragment : Fragment() {
     // Метод устанавливает наблюдателя на объект viewModel, чтобы получать уведомления об изменениях
     // в регистрации пользователя.
     private fun setObserver() {
-        viewModel.registrationResult.observe(viewLifecycleOwner) {
-                registrationResult ->
+        viewModel.registrationResult.observe(viewLifecycleOwner) { registrationResult ->
             if (registrationResult != null) {
                 if (registrationResult == 1) {
-                    // Навигируем пользователя на главный экран приложения, если регистрация прошла
-                    // успешно.
-                    findNavController()
-                        .navigate(
-                            R.id
-                                .action_registrationFragment_to_navigation_main
-                        )
-                    // Показываем нижнюю навигационную панель на главном экране.
-                    val bottomNavigation =
-                        activity?.findViewById<BottomNavigationView>(
-                            R.id.nav_view
-                        )
-                    bottomNavigation?.visibility = View.VISIBLE
+                    // Регистрация прошла успешно, но вместо перехода к следующему экрану,
+                    // мы ждем успешного входа в систему с помощью AuthStateListener ниже
                 }
             }
         }
+
+        // Наблюдаем за состоянием аутентификации пользователя
+        FirebaseAuth.getInstance().addAuthStateListener { firebaseAuth ->
+            if (firebaseAuth.currentUser != null) {
+                // Пользователь успешно вошел в систему, переходим на следующий экран
+                findNavController()
+                    .navigate(
+                        R.id
+                            .action_registrationFragment_to_navigation_main
+                    )
+
+                val bottomNavigation =
+                    activity?.findViewById<BottomNavigationView>(
+                        R.id.nav_view
+                    )
+                bottomNavigation?.visibility = View.VISIBLE
+            }
+        }
     }
+
 
     // Метод устанавливает обработчики событий на кнопки и другие элементы пользовательского
     // интерфейса.

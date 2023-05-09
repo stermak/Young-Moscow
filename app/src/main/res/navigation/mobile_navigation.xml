@@ -6,6 +6,7 @@
 
 
     <activity
+        android:id="@+id/activityMain"
         android:name="youngdevs.production.youngmoscow.presentation.ui.activity.MainActivity"
         android:label="MainActivity" />
 
@@ -24,7 +25,8 @@
     <fragment
         android:id="@+id/registrationFragment"
         android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.RegistrationFragment"
-        android:label="RegistrationFragment">
+        android:label="RegistrationFragment"
+        tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_navigation_main"
             app:destination="@id/mainFragment" />

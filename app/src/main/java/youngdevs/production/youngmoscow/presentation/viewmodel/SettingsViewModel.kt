@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.domain.usecases.AuthenticateUserUseCase
+import javax.inject.Inject
 
 // SettingsViewModel - класс ViewModel, который управляет данными экрана настроек
 @HiltViewModel

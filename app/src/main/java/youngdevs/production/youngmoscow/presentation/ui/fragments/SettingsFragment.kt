@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.FragmentSettingsBinding
@@ -18,6 +19,7 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.SettingsViewModel
 class SettingsFragment : Fragment() {
 
     // Инициализируем переменные
+    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
     private val settingsViewModel: SettingsViewModel by viewModels()
     private var _binding: FragmentSettingsBinding? = null
     private val binding
@@ -25,6 +27,16 @@ class SettingsFragment : Fragment() {
 
     // Этот метод вызывается, когда Android создает макет для фрагмента.
     // Мы создаем макет из файла разметки и возвращаем его как результат.
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
+            if (firebaseAuth.currentUser != null) {
+                // Обновляем имя пользователя
+                settingsViewModel.welcomeText()
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -92,6 +104,16 @@ class SettingsFragment : Fragment() {
             binding.welcomeText.text =
                 getString(R.string.settings_welcome) + " " + name
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        FirebaseAuth.getInstance().addAuthStateListener(authStateListener)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        FirebaseAuth.getInstance().removeAuthStateListener(authStateListener)
     }
 
     // Метод вызывается, когда фрагмент уничтожается.

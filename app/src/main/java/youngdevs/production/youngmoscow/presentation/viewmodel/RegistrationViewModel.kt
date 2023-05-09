@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.domain.usecases.AuthenticateUserUseCase
+import javax.inject.Inject
 
 // RegistrationViewModel - класс ViewModel, который управляет регистрацией пользователя
 @HiltViewModel

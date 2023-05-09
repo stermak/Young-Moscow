@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Young Moscow</string>
-    <string name="title_activity_main">Young Moscow</string>
-    <string name="title_main">Main</string>
-    <string name="add_to_favourites">Add to Favourites</string>
-    <string name="username">Username</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="prompt_repeat_password">Repeat password</string>
+    <string name="app_name">Mosku gaztea</string>
+    <string name="title_activity_main">Mosku gaztea</string>
+    <string name="title_main">Nagusia</string>
+    <string name="add_to_favourites">Gehitu gogokoetara</string>
+    <string name="username">Erabiltzaile izena</string>
+    <string name="prompt_email">Posta elektronikoa</string>
+    <string name="prompt_password">Pasahitza</string>
+    <string name="prompt_repeat_password">Errepikatu pasahitza</string>
     <string name="action_sign_in">Login</string>
     <string name="google_login">Google account</string>
     <string name="registration_button">Registration</string>
@@ -18,10 +18,10 @@
     <string name="exit">Exit</string>
     <string name="image">image</string>
     <string name="Favourites">Favourites</string>
-    <string name="usernameTxt">Username</string>
-    <string name="emailTxt">Email</string>
+    <string name="usernameTxt">Erabiltzaile izena</string>
+    <string name="emailTxt">Posta elektronikoa</string>
     <string name="phoneTxt">Phone No.</string>
-    <string name="passwordTxt">Password</string>
+    <string name="passwordTxt">Pasahitza</string>
     <string name="profile">Profile</string>
     <string name="saveBtn">Save</string>
     <string name="sightseeings">Sight Seeings</string>
@@ -34,5 +34,6 @@
     <string name="LoginInYourAcc">войдите в свой аккаунт</string>
     <string name="Profile">Профиль</string>
     <string name="Registration">Регистрация</string>
+    <string name="RegisterYouAcc">зарегистрируйте свой аккаунт</string>
     <string name="upload_photo">Загрузите фото</string>
 </resources>

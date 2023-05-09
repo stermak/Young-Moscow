@@ -6,9 +6,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import youngdevs.production.youngmoscow.data.YoungMoscowDatabase
 import youngdevs.production.youngmoscow.data.dao.UserDao
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

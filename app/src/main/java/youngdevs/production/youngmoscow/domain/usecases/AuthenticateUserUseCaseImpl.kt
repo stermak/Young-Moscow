@@ -1,8 +1,8 @@
 package youngdevs.production.youngmoscow.domain.usecases
 
-import javax.inject.Inject
 import youngdevs.production.youngmoscow.domain.models.UserModel
 import youngdevs.production.youngmoscow.domain.repository.UserRepository
+import javax.inject.Inject
 
 class AuthenticateUserUseCaseImpl
 @Inject
@@ -45,9 +45,19 @@ constructor(private val userRepository: UserRepository) :
         name: String
     ): Int {
         return if (password == repeatPassword) {
-            if (userRepository.createAccount(email, password, name)) {
-                1
-            } else 0
-        } else -1
+            try {
+                if (userRepository.createAccount(email, password, name)) {
+                    1
+                } else {
+                    0
+                }
+            } catch (e: Exception) {
+                // Здесь вы можете добавить логирование ошибки, чтобы получить более подробную информацию о проблеме
+                -1
+            }
+        } else {
+            -1
+        }
     }
+
 }

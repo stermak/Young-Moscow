@@ -27,11 +27,13 @@
     <string name="sightseeings">Besienswaardighede</string>
     <string name="google_maps_key">AIzaSyAvSFt5zVRWD5KyTvVpECH52KLms-U4olY</string>
     <string name="CurrentPassword">huidige Sleutelwoord</string>
-    <string name="Favourite">Избранное</string>
-    <string name="HaventSavedEvent">Нет сохранённых событий</string>
-    <string name="FindInterestingEvent">Найдите интересные события и добавьте их в избранное</string>
-    <string name="Welcome">Добро пожаловать</string>
-    <string name="LoginInYourAcc">войдите в свой аккаунт</string>
-    <string name="Profile">Профиль</string>
-    <string name="Registration">Регистрация</string>
+    <string name="Favourite">Gunstelinge</string>
+    <string name="HaventSavedEvent">Geen gestoorde gebeurtenisse nie</string>
+    <string name="FindInterestingEvent">Vind interessante geleenthede en voeg dit by jou gunstelinge</string>
+    <string name="Welcome">Welkom</string>
+    <string name="LoginInYourAcc">Teken in op jou rekening</string>
+    <string name="Profile">Profiel</string>
+    <string name="Registration">Registrasie</string>
+    <string name="RegisterYouAcc">registreer jou rekening</string>
+    <string name="upload_photo">Загрузите фото</string>
 </resources>
