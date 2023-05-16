@@ -6,8 +6,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import youngdevs.production.youngmoscow.data.dao.UserDao
-import youngdevs.production.youngmoscow.domain.repository.UserRepositoryImpl
 import youngdevs.production.youngmoscow.domain.repository.UserRepository
+import youngdevs.production.youngmoscow.domain.repository.UserRepositoryImpl
 import javax.inject.Singleton
 
 @Module

@@ -14,9 +14,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import youngdevs.production.youngmoscow.R
-import youngdevs.production.youngmoscow.domain.repository.UserRepositoryImpl
 import youngdevs.production.youngmoscow.databinding.FragmentProfileBinding
 import youngdevs.production.youngmoscow.domain.models.UserModel
+import youngdevs.production.youngmoscow.domain.repository.UserRepositoryImpl
 import youngdevs.production.youngmoscow.presentation.ui.fragments.ReauthenticateDialogFragment
 import javax.inject.Inject
 
@@ -34,12 +34,14 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
                 userRepository.updateProfileImage(downloadUrl)
                 Toast.makeText(context, "Фото профиля обновлено", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
-                Toast.makeText(context, "Ошибка при обновлении фото профиля: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "Ошибка при обновлении фото профиля: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
-
-
 
 
     // Загрузить данные пользователя в UI
@@ -66,7 +68,6 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
             }
         }
     }
-
 
 
     // Обработать изменения профиля
@@ -170,7 +171,7 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
 
         user
             .reauthenticate(credentials)
-            ?.addOnSuccessListener {
+            .addOnSuccessListener {
                 onSuccess()
                 val name = binding.usernameEditTxt.text.toString()
                 val email = binding.emailEditTxt.text.toString()

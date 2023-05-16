@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -48,18 +49,49 @@ class RegistrationFragment : Fragment() {
     // в регистрации пользователя.
     private fun setObserver() {
         viewModel.registrationResult.observe(viewLifecycleOwner) { registrationResult ->
-            if (registrationResult != null) {
-                if (registrationResult == 1) {
-                    // Регистрация прошла успешно, но вместо перехода к следующему экрану,
-                    // мы ждем успешного входа в систему с помощью AuthStateListener ниже
+            when (registrationResult) {
+                1 -> {
+                    // Регистрация прошла успешно, перенаправляем пользователя на другой экран
+                    findNavController().navigate(R.id.action_registrationFragment_to_navigation_main)
+                }
+
+                0 -> {
+                    // Пользователь с таким email уже существует
+                    Toast.makeText(
+                        context,
+                        "Пользователь с таким email уже существует",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                -1 -> {
+                    // Пароли не совпадают
+                    Toast.makeText(context, "Пароли не совпадают", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
-        // Наблюдаем за состоянием аутентификации пользователя
+        viewModel.accountExists.observe(viewLifecycleOwner) { exists ->
+            if (exists) {
+                Toast.makeText(
+                    context,
+                    "Пользователь с таким email уже существует",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val email = binding.emailField.text.toString().trim(' ')
+                viewModel.registration(
+                    email = email,
+                    password = binding.passwordRegistrationField.text.toString().trim(' '),
+                    repeatPassword = binding.repeatPasswordRegistrationField.text.toString()
+                        .trim(' '),
+                    name = binding.usernameField.text.toString().trim(' ')
+                )
+            }
+        }
+
         FirebaseAuth.getInstance().addAuthStateListener { firebaseAuth ->
             if (firebaseAuth.currentUser != null) {
-                // Пользователь успешно вошел в систему, переходим на следующий экран
                 findNavController()
                     .navigate(
                         R.id
@@ -80,21 +112,14 @@ class RegistrationFragment : Fragment() {
     // интерфейса.
     private fun setEventListener() {
         binding.registration.setOnClickListener {
-            // Вызываем метод регистрации в viewModel с передачей данных из полей ввода.
-            viewModel.registration(
-                email = binding.emailField.text.toString().trim(' '),
-                password =
-                binding.passwordRegistrationField.text
-                    .toString()
-                    .trim(' '),
-                repeatPassword =
-                binding.repeatPasswordRegistrationField.text
-                    .toString()
-                    .trim(' '),
-                name = binding.usernameField.text.toString().trim(' ')
-            )
+            val email = binding.emailField.text.toString().trim(' ')
+            val password = binding.passwordRegistrationField.text.toString().trim(' ')
+            val repeatPassword = binding.repeatPasswordRegistrationField.text.toString().trim(' ')
+            val name = binding.usernameField.text.toString().trim(' ')
+            viewModel.registration(email, password, repeatPassword, name)
         }
     }
+
 
     // Метод вызывается, когда фрагмент уничтожается.
     // Очищаем viewModelStore от viewModel, чтобы предотвратить утечки памяти.

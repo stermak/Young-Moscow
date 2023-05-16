@@ -25,6 +25,7 @@ constructor(
 ) : ViewModel() {
     private lateinit var googleSignInClient:
             GoogleSignInClient // экземпляр клиента GoogleSignIn, который будет проинициализирован при
+
     // первом обращении к getGoogleSignInClient()
     private val _isLoginSuccessful =
         MutableLiveData<

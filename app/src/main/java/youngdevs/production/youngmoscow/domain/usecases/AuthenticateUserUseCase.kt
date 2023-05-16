@@ -28,4 +28,7 @@ interface AuthenticateUserUseCase {
         repeatPassword: String,
         name: String
     ): Int
+
+    suspend fun checkAccountExists(email: String): Boolean
+
 }

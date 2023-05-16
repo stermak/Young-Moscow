@@ -5,7 +5,6 @@ import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -82,6 +81,13 @@ constructor(
         }
         return isSuccess
     }
+
+    override suspend fun checkAccountExists(email: String): Boolean {
+        val auth = FirebaseAuth.getInstance()
+        val signInMethods = auth.fetchSignInMethodsForEmail(email).await().signInMethods
+        return signInMethods != null && signInMethods.isNotEmpty()
+    }
+
 
     // Функция authenticate используется для аутентификации пользователя в Firebase.
     override suspend fun authenticate(
@@ -200,7 +206,8 @@ constructor(
 
 
     suspend fun uploadProfileImage(imageUri: Uri): String = withContext(Dispatchers.IO) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
+        val userId =
+            FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
         val storageRef = FirebaseStorage.getInstance().reference.child("profile_images/$userId")
         val uploadTask = storageRef.putFile(imageUri)
 
@@ -210,7 +217,8 @@ constructor(
     }
 
     suspend fun updateProfileImage(imageUrl: String) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
+        val userId =
+            FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
         val db = Firebase.firestore
         val userDocument = db.collection(CollectionNames.users).document(userId)
         userDocument.update("profileImage", imageUrl)

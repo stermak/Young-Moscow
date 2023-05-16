@@ -38,7 +38,8 @@ interface UserDao {
     // Метод getCurrentUser() получает текущего пользователя из базы данных Room.
     // Аннотация @Query указывает SQL-запрос для получения данных.
 
-    @Query("DELETE FROM  $USER_TABLE") suspend fun clear()
+    @Query("DELETE FROM  $USER_TABLE")
+    suspend fun clear()
     // Метод clear() удаляет все данные о пользователях из базы данных Room.
     // Аннотация @Query указывает SQL-запрос для удаления данных.
 }

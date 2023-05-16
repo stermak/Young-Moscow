@@ -12,6 +12,11 @@ interface UserRepository {
         phone: String? = null
     ): Boolean
 
+    // Проверяет, существует ли уже аккаунт с указанным email
+// Возвращает значение типа Boolean, которое указывает на существование аккаунта
+    suspend fun checkAccountExists(email: String): Boolean
+
+
     // Аутентифицирует пользователя в приложении, используя указанный email и пароль
     // Возвращает значение типа Boolean, которое указывает на успешность операции
     suspend fun authenticate(email: String, password: String): Boolean

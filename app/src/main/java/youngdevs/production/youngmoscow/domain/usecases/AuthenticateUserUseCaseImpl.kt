@@ -60,4 +60,8 @@ constructor(private val userRepository: UserRepository) :
         }
     }
 
+    override suspend fun checkAccountExists(email: String): Boolean {
+        return userRepository.checkAccountExists(email)
+    }
+
 }

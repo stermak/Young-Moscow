@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import youngdevs.production.youngmoscow.domain.repository.UserRepositoryImpl
 import youngdevs.production.youngmoscow.databinding.FragmentProfileBinding
+import youngdevs.production.youngmoscow.domain.repository.UserRepositoryImpl
 import youngdevs.production.youngmoscow.presentation.viewmodel.ProfileViewModel
 import javax.inject.Inject
 

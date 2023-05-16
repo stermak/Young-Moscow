@@ -76,8 +76,7 @@ class MapsFragment : Fragment() {
     @SuppressLint("MissingPermission", "PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
         this.googleMap = googleMap
-        viewModel.locationPermission.observe(viewLifecycleOwner) {
-                isGranted ->
+        viewModel.locationPermission.observe(viewLifecycleOwner) { isGranted ->
             if (isGranted) {
                 if (hasLocationPermission()) {
                     googleMap.isMyLocationEnabled = true
@@ -121,8 +120,7 @@ class MapsFragment : Fragment() {
         ) {
             return
         }
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                location ->
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
             callback(location)
         }
     }
