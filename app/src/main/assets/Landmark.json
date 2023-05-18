@@ -390,5 +390,327 @@
       "latitude": 55.7499,
       "longitude": 37.6046
     }
+  },
+  {
+    "name": "Донской монастырь",
+    "location": {
+      "latitude": 55.7039,
+      "longitude": 37.6115
+    }
+  },
+  {
+    "name": "Тульская площадь",
+    "location": {
+      "latitude": 55.7093,
+      "longitude": 37.6221
+    }
+  },
+  {
+    "name": "Коломенская набережная",
+    "location": {
+      "latitude": 55.6824,
+      "longitude": 37.6639
+    }
+  },
+  {
+    "name": "Музей-заповедник Царицыно",
+    "location": {
+      "latitude": 55.6213,
+      "longitude": 37.6782
+    }
+  },
+  {
+    "name": "Коломенское",
+    "location": {
+      "latitude": 55.6772,
+      "longitude": 37.6673
+    }
+  },
+  {
+    "name": "Тропарево-Никулино",
+    "location": {
+      "latitude": 55.6708,
+      "longitude": 37.4927
+    }
+  },
+  {
+    "name": "Ломоносовский проспект",
+    "location": {
+      "latitude": 55.6826,
+      "longitude": 37.5197
+    }
+  },
+  {
+    "name": "Парк Дружбы",
+    "location": {
+      "latitude": 55.6867,
+      "longitude": 37.4708
+    }
+  },
+  {
+    "name": "Гагаринский парк",
+    "location": {
+      "latitude": 55.7099,
+      "longitude": 37.5687
+    }
+  },
+  {
+    "name": "Теплый Стан",
+    "location": {
+      "latitude": 55.6372,
+      "longitude": 37.5252
+    }
+  },
+  {
+    "name": "Тропаревский лесопарк",
+    "location": {
+      "latitude": 55.6653,
+      "longitude": 37.5018
+    }
+  },
+  {
+    "name": "Парк 850-летия Москвы",
+    "location": {
+      "latitude": 55.6169,
+      "longitude": 37.6102
+    }
+  },
+  {
+    "name": "Киевский вокзал",
+    "location": {
+      "latitude": 55.7439,
+      "longitude": 37.566
+    }
+  },
+  {
+    "name": "Донской парк",
+    "location": {
+      "latitude": 55.705,
+      "longitude": 37.6106
+    }
+  },
+  {
+    "name": "Поклонная гора",
+    "location": {
+      "latitude": 55.7297,
+      "longitude": 37.5021
+    }
+  },
+  {
+    "name": "Лужники",
+    "location": {
+      "latitude": 55.7157,
+      "longitude": 37.5539
+    }
+  },
+  {
+    "name": "Новодевичье кладбище",
+    "location": {
+      "latitude": 55.7264,
+      "longitude": 37.5584
+    }
+  },
+  {
+    "name": "Битцевский парк",
+    "location": {
+      "latitude": 55.5769,
+      "longitude": 37.554
+    }
+  },
+  {
+    "name": "Олимпийская деревня",
+    "location": {
+      "latitude": 55.7142,
+      "longitude": 37.5163
+    }
+  },
+  {
+    "name": "Теплый Стан",
+    "location": {
+      "latitude": 55.6188,
+      "longitude": 37.5169
+    }
+  },
+  {
+    "name": "Южное Бутово",
+    "location": {
+      "latitude": 55.534,
+      "longitude": 37.5263
+    }
+  },
+  {
+    "name": "Бутовский парк",
+    "location": {
+      "latitude": 55.5353,
+      "longitude": 37.5377
+    }
+  },
+  {
+    "name": "Лесопарк Подмосковья",
+    "location": {
+      "latitude": 55.5429,
+      "longitude": 37.4994
+    }
+  },
+  {
+    "name": "Северное Бутово",
+    "location": {
+      "latitude": 55.5524,
+      "longitude": 37.5369
+    }
+  },
+  {
+    "name": "Андреевский лес",
+    "location": {
+      "latitude": 55.5444,
+      "longitude": 37.4462
+    }
+  },
+  {
+    "name": "Москва-Сити",
+    "location": {
+      "latitude": 55.7473,
+      "longitude": 37.5374
+    }
+  },
+  {
+    "name": "Пресненский парк",
+    "location": {
+      "latitude": 55.7516,
+      "longitude": 37.5426
+    }
+  },
+  {
+    "name": "Мосфильмовская улица",
+    "location": {
+      "latitude": 55.7242,
+      "longitude": 37.4979
+    }
+  },
+  {
+    "name": "Музей Победы",
+    "location": {
+      "latitude": 55.7367,
+      "longitude": 37.5065
+    }
+  },
+  {
+    "name": "Кутузовский проспект",
+    "location": {
+      "latitude": 55.7434,
+      "longitude": 37.5126
+    }
+  },
+  {
+    "name": "Северное Тушино",
+    "location": {
+      "latitude": 55.8553,
+      "longitude": 37.4337
+    }
+  },
+  {
+    "name": "Сколково",
+    "location": {
+      "latitude": 55.7276,
+      "longitude": 37.3709
+    }
+  },
+  {
+    "name": "Московский государственный университет путей сообщения",
+    "location": {
+      "latitude": 55.7215,
+      "longitude": 37.5126
+    }
+  },
+  {
+    "name": "Филевский парк",
+    "location": {
+      "latitude": 55.7374,
+      "longitude": 37.4727
+    }
+  },
+  {
+    "name": "Тропаревская усадьба",
+    "location": {
+      "latitude": 55.6622,
+      "longitude": 37.5014
+    }
+  },
+  {
+    "name": "Лесопарк Тропарево",
+    "location": {
+      "latitude": 55.6661,
+      "longitude": 37.4905
+    }
+  },
+  {
+    "name": "Парк имени 850-летия Москвы",
+    "location": {
+      "latitude": 55.6204,
+      "longitude": 37.6233
+    }
+  },
+  {
+    "name": "Московский государственный университет имени М.В. Ломоносова",
+    "location": {
+      "latitude": 55.7028,
+      "longitude": 37.5315
+    }
+  },
+  {
+    "name": "Парк Культуры и Отдыха имени Горького",
+    "location": {
+      "latitude": 55.7298,
+      "longitude": 37.6035
+    }
+  },
+  {
+    "name": "Солнцево",
+    "location": {
+      "latitude": 55.6513,
+      "longitude": 37.4063
+    }
+  },
+  {
+    "name": "Крылатское",
+    "location": {
+      "latitude": 55.7585,
+      "longitude": 37.4163
+    }
+  },
+  {
+    "name": "Крылатский сквер",
+    "location": {
+      "latitude": 55.7606,
+      "longitude": 37.4124
+    }
+  },
+  {
+    "name": "Сквер Лебеди",
+    "location": {
+      "latitude": 55.6598,
+      "longitude": 37.4166
+    }
+  },
+  {
+    "name": "Алексеевский лесопарк",
+    "location": {
+      "latitude": 55.84,
+      "longitude": 37.6172
+    }
+  },
+  {
+    "name": "Лесопарк Измайлово",
+    "location": {
+      "latitude": 55.7935,
+      "longitude": 37.7716
+    }
+  },
+  {
+    "name": "Парк 850-летия Москвы",
+    "location": {
+      "latitude": 55.6183,
+      "longitude": 37.6231
+    }
   }
 ]
