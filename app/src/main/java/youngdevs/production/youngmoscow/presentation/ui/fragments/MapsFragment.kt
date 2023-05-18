@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,13 +16,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.google.maps.DirectionsApi
 import com.google.maps.GeoApiContext
 import com.google.maps.PendingResult
@@ -30,6 +35,7 @@ import com.google.maps.model.DirectionsResult
 import com.google.maps.model.TravelMode
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
+import youngdevs.production.youngmoscow.data.entities.Landmark
 import youngdevs.production.youngmoscow.databinding.FragmentMapsBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.MapsViewModel
 
@@ -45,10 +51,10 @@ class MapsFragment : Fragment() {
         get() = _binding!!
     private val viewModel: MapsViewModel by viewModels()
     private lateinit var googleMap: GoogleMap
-    private lateinit var fusedLocationProviderClient:
-            FusedLocationProviderClient
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var placesClient: PlacesClient
     private lateinit var geoApiContext: GeoApiContext
+    private var userMarker: Marker? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,12 +82,24 @@ class MapsFragment : Fragment() {
     @SuppressLint("MissingPermission", "PotentialBehaviorOverride")
     private val callback = OnMapReadyCallback { googleMap ->
         this.googleMap = googleMap
+        val moscowLatLng = LatLng(55.751244, 37.618423)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscowLatLng, 10f))
+
         viewModel.locationPermission.observe(viewLifecycleOwner) { isGranted ->
             if (isGranted) {
                 if (hasLocationPermission()) {
                     googleMap.isMyLocationEnabled = true
                     googleMap.uiSettings.isMyLocationButtonEnabled = true
                     getLastKnownLocation {}
+
+                    val landmarksJson = context?.assets?.open("Landmark.json")?.bufferedReader().use { it?.readText() }
+                    val landmarksType = object : TypeToken<List<Landmark>>() {}.type
+                    val landmarks: List<Landmark> = Gson().fromJson(landmarksJson, landmarksType)
+
+                    landmarks.forEach { landmark -> Log.d("DEBUG_TAG", "Landmark: $landmark") }
+
+                    addLandmarks(landmarks)
+
                 }
             }
 
@@ -93,8 +111,6 @@ class MapsFragment : Fragment() {
     }
 
     private fun addMarkerAndRoute(latLng: LatLng) {
-        googleMap
-            .clear() // Очистка карты от предыдущих маркеров и маршрутов
         val marker = MarkerOptions().position(latLng).title("Маркер")
         googleMap.addMarker(marker)
 
@@ -106,6 +122,7 @@ class MapsFragment : Fragment() {
             }
         }
     }
+
 
     private fun getLastKnownLocation(callback: (Location?) -> Unit) {
         if (
@@ -229,6 +246,16 @@ class MapsFragment : Fragment() {
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
     }
+
+    private fun addLandmarks(landmarks: List<Landmark>) {
+        for (landmark in landmarks) {
+            val latLng = LatLng(landmark.location.latitude, landmark.location.longitude)
+            val marker = MarkerOptions().position(latLng).title(landmark.name)
+            googleMap.addMarker(marker)
+        }
+    }
+
+
 
     override fun onStart() {
         super.onStart()

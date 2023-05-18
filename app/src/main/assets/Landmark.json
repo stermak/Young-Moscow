@@ -1,0 +1,394 @@
+[
+  {
+    "name": "Центральный детский магазин",
+    "location": {
+      "latitude": 55.7648,
+      "longitude": 37.6171
+    }
+  },
+  {
+    "name": "Московский зоопарк",
+    "location": {
+      "latitude": 55.7621,
+      "longitude": 37.5772
+    }
+  },
+  {
+    "name": "Музей космонавтики",
+    "location": {
+      "latitude": 55.8216,
+      "longitude": 37.645
+    }
+  },
+  {
+    "name": "ВДНХ",
+    "location": {
+      "latitude": 55.8313,
+      "longitude": 37.6303
+    }
+  },
+  {
+    "name": "Библиотека им. Ленина",
+    "location": {
+      "latitude": 55.7505,
+      "longitude": 37.6107
+    }
+  },
+  {
+    "name": "Красная площадь",
+    "location": {
+      "latitude": 55.7539,
+      "longitude": 37.6208
+    }
+  },
+  {
+    "name": "Московский Кремль",
+    "location": {
+      "latitude": 55.7517,
+      "longitude": 37.6176
+    }
+  },
+  {
+    "name": "Собор Василия Блаженного",
+    "location": {
+      "latitude": 55.7528,
+      "longitude": 37.6232
+    }
+  },
+  {
+    "name": "Болшой театр",
+    "location": {
+      "latitude": 55.7601,
+      "longitude": 37.6186
+    }
+  },
+  {
+    "name": "Тверская улица",
+    "location": {
+      "latitude": 55.7581,
+      "longitude": 37.6144
+    }
+  },
+  {
+    "name": "Музей Пушкина",
+    "location": {
+      "latitude": 55.7485,
+      "longitude": 37.6041
+    }
+  },
+  {
+    "name": "Третьяковская галерея",
+    "location": {
+      "latitude": 55.7414,
+      "longitude": 37.6208
+    }
+  },
+  {
+    "name": "Музей истории москвы",
+    "location": {
+      "latitude": 55.7487,
+      "longitude": 37.6041
+    }
+  },
+  {
+    "name": "Александровский сад",
+    "location": {
+      "latitude": 55.7523,
+      "longitude": 37.6138
+    }
+  },
+  {
+    "name": "ГУМ",
+    "location": {
+      "latitude": 55.7547,
+      "longitude": 37.6209
+    }
+  },
+  {
+    "name": "Парк Горького",
+    "location": {
+      "latitude": 55.7297,
+      "longitude": 37.6003
+    }
+  },
+  {
+    "name": "Каток в Парке Горького",
+    "location": {
+      "latitude": 55.7282,
+      "longitude": 37.5958
+    }
+  },
+  {
+    "name": "Государственная Третьяковская галерея на Крымском Валу",
+    "location": {
+      "latitude": 55.741,
+      "longitude": 37.6208
+    }
+  },
+  {
+    "name": "Музей современного искусства Гараж",
+    "location": {
+      "latitude": 55.7285,
+      "longitude": 37.6005
+    }
+  },
+  {
+    "name": "Царицынский музей-заповедник",
+    "location": {
+      "latitude": 55.6109,
+      "longitude": 37.6696
+    }
+  },
+  {
+    "name": "Музей-заповедник Коломенское",
+    "location": {
+      "latitude": 55.6732,
+      "longitude": 37.6692
+    }
+  },
+  {
+    "name": "Дом-музей Антона Чехова",
+    "location": {
+      "latitude": 55.747,
+      "longitude": 37.6052
+    }
+  },
+  {
+    "name": "Музей Пастилы в Коломне",
+    "location": {
+      "latitude": 55.0963,
+      "longitude": 38.7686
+    }
+  },
+  {
+    "name": "Московская духовная академия",
+    "location": {
+      "latitude": 55.8791,
+      "longitude": 37.2941
+    }
+  },
+  {
+    "name": "Музей-усадьба Останкино",
+    "location": {
+      "latitude": 55.8209,
+      "longitude": 37.6393
+    }
+  },
+  {
+    "name": "Храм Христа Спасителя",
+    "location": {
+      "latitude": 55.7459,
+      "longitude": 37.6033
+    }
+  },
+  {
+    "name": "Пушкинский музей",
+    "location": {
+      "latitude": 55.7485,
+      "longitude": 37.6041
+    }
+  },
+  {
+    "name": "Андреевский мост",
+    "location": {
+      "latitude": 55.7282,
+      "longitude": 37.61
+    }
+  },
+  {
+    "name": "Центр современной культуры Винзавод",
+    "location": {
+      "latitude": 55.7553,
+      "longitude": 37.6646
+    }
+  },
+  {
+    "name": "Центральный Детский мир на Лубянке",
+    "location": {
+      "latitude": 55.7585,
+      "longitude": 37.6235
+    }
+  },
+  {
+    "name": "Воробьевы горы",
+    "location": {
+      "latitude": 55.7106,
+      "longitude": 37.5762
+    }
+  },
+  {
+    "name": "Московский государственный университет имени М.В.Ломоносова",
+    "location": {
+      "latitude": 55.7028,
+      "longitude": 37.5315
+    }
+  },
+  {
+    "name": "Планетарий",
+    "location": {
+      "latitude": 55.7609,
+      "longitude": 37.5842
+    }
+  },
+  {
+    "name": "Дом музыки",
+    "location": {
+      "latitude": 55.7299,
+      "longitude": 37.6389
+    }
+  },
+  {
+    "name": "Арбатская улица",
+    "location": {
+      "latitude": 55.7515,
+      "longitude": 37.5969
+    }
+  },
+  {
+    "name": "Великий РТУ МИРЭА",
+    "location": {
+      "latitude": 55.67,
+      "longitude": 37.4802
+    }
+  },
+  {
+    "name": "Кремлевская набережная",
+    "location": {
+      "latitude": 55.7497,
+      "longitude": 37.6142
+    }
+  },
+  {
+    "name": "Мост Богдана Хмельницкого",
+    "location": {
+      "latitude": 55.7473,
+      "longitude": 37.5673
+    }
+  },
+  {
+    "name": "Пушкинская площадь",
+    "location": {
+      "latitude": 55.7663,
+      "longitude": 37.6043
+    }
+  },
+  {
+    "name": "Русский Этнографический музей",
+    "location": {
+      "latitude": 55.7602,
+      "longitude": 37.6392
+    }
+  },
+  {
+    "name": "Театр на Таганке",
+    "location": {
+      "latitude": 55.7416,
+      "longitude": 37.656
+    }
+  },
+  {
+    "name": "Театральная площадь",
+    "location": {
+      "latitude": 55.7584,
+      "longitude": 37.6202
+    }
+  },
+  {
+    "name": "Церковь Василия в Кузьмино",
+    "location": {
+      "latitude": 55.6981,
+      "longitude": 37.7705
+    }
+  },
+  {
+    "name": "Московский государственный академический детский музыкальный театр им. Н. И. Сац",
+    "location": {
+      "latitude": 55.7089,
+      "longitude": 37.5957
+    }
+  },
+  {
+    "name": "Дворец на Яузе",
+    "location": {
+      "latitude": 55.7489,
+      "longitude": 37.6716
+    }
+  },
+  {
+    "name": "Виктор Васнецов Мемориальный Музей",
+    "location": {
+      "latitude": 55.7769,
+      "longitude": 37.5966
+    }
+  },
+  {
+    "name": "Государственный Исторический музей",
+    "location": {
+      "latitude": 55.7537,
+      "longitude": 37.62
+    }
+  },
+  {
+    "name": "Новодевичий монастырь",
+    "location": {
+      "latitude": 55.7231,
+      "longitude": 37.5652
+    }
+  },
+  {
+    "name": "Тропарёвский парк",
+    "location": {
+      "latitude": 55.6416,
+      "longitude": 37.4824
+    }
+  },
+  {
+    "name": "Армянская церковь Святого Католикоса Геворга",
+    "location": {
+      "latitude": 55.7558,
+      "longitude": 37.6415
+    }
+  },
+  {
+    "name": "Московский международный Дом Музыки",
+    "location": {
+      "latitude": 55.7301,
+      "longitude": 37.6363
+    }
+  },
+  {
+    "name": "Патриаршие пруды",
+    "location": {
+      "latitude": 55.7621,
+      "longitude": 37.591
+    }
+  },
+  {
+    "name": "Чистые пруды",
+    "location": {
+      "latitude": 55.7618,
+      "longitude": 37.637
+    }
+  },
+  {
+    "name": "Крокус Экспо",
+    "location": {
+      "latitude": 55.8219,
+      "longitude": 37.3853
+    }
+  },
+  {
+    "name": "Московский цирк Никулина на Цветном бульваре",
+    "location": {
+      "latitude": 55.7717,
+      "longitude": 37.6214
+    }
+  },
+  {
+    "name": "Садовое кольцо",
+    "location": {
+      "latitude": 55.7499,
+      "longitude": 37.6046
+    }
+  }
+]

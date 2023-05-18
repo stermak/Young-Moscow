@@ -40,14 +40,16 @@
 
                 <ImageView
                     android:id="@+id/profilePic"
-                    android:layout_width="match_parent"
-                    android:layout_height="196dp"
+                    android:layout_width="175dp"
+                    android:layout_height="220dp"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
                     app:layout_constraintTop_toBottomOf="@id/dashHeading"
                     app:srcCompat="@drawable/userpic" />
 
                 <Button
                     android:id="@+id/uploadPhotoButton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="175dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_gravity="center"
