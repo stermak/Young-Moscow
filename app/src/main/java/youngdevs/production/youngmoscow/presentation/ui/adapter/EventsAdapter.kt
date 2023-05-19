@@ -16,12 +16,32 @@ class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
     interface OnItemClickListener {
         fun onItemClick(
             event: Event
-        ) // интерфейс для реализации обработчика клика на элементе списка
+        ) // интерфейс дляD реализации обработчика клика на элементе списка
     }
 
     // метод для установки списка событий для адаптера
     fun setEvents(newEvents: List<Event>) {
         events.addAll(newEvents)
+        notifyDataSetChanged()
+    }
+
+    fun setExhibitions(newExhibitions: List<Event>) {
+        events.clear()
+        events.addAll(newExhibitions)
+        notifyDataSetChanged()
+    }
+
+    // Обновить список вечеринок
+    fun setPartys(newPartys: List<Event>) {
+        events.clear()
+        events.addAll(newPartys)
+        notifyDataSetChanged()
+    }
+
+    // Обновить список праздников
+    fun setHolidays(newHolidays: List<Event>) {
+        events.clear()
+        events.addAll(newHolidays)
         notifyDataSetChanged()
     }
 

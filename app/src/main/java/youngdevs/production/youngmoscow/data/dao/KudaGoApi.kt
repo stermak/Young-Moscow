@@ -27,6 +27,44 @@ interface KudaGoApi {
 
     @GET("events/{event_id}/")
     suspend fun getEvent(@Path("event_id") eventId: Int): Response<Event>
+
+
+    @GET("events/")
+    suspend fun getExhibitions(
+        @Query("fields") fields: String =
+            "id,title,description,images,site_url,body_text,price",
+        @Query("location") location: String? = null,
+        @Query("page_size") pageSize: Int? = null,
+        @Query("page") page: Int? = null,
+        @Query("order_by") order_by: String? = null,
+        @Query("categories") categories: String? = null
+    ): Response<ApiResponse>
+
+
+    @GET("events/")
+    suspend fun getPartys(
+        @Query("fields")
+        fields: String =
+            "id,title,description,images,site_url,body_text,price",
+        @Query("location") location: String? = null,
+        @Query("page_size") pageSize: Int? = null,
+        @Query("page") page: Int? = null,
+        @Query("order_by") order_by: String? = null,
+        @Query("categories") categories: String? = null
+    ): Response<ApiResponse>
+
+    @GET("events/")
+    suspend fun getHolidays(
+        @Query("fields")
+        fields: String =
+            "id,title,description,images,site_url,body_text,price",
+        @Query("location") location: String? = null,
+        @Query("page_size") pageSize: Int? = null,
+        @Query("page") page: Int? = null,
+        @Query("order_by") order_by: String? = null,
+        @Query("categories") categories: String? = null
+    ): Response<ApiResponse>
+
 }
 // Метод getEvent() отправляет GET запрос на сервер KudaGo для получения информации о событии по ID.
 // Аннотация @Path указывает переменную в URL запроса, которая будет заменена на значение переменной

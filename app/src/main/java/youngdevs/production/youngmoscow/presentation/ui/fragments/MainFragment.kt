@@ -58,8 +58,18 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
             )
         binding.recyclerView.adapter = eventsAdapter
 
-        // Наблюдение за LiveData events в ViewModel и обновление списка событий в RecyclerView при
-        // изменении данных
+        binding.exhibitionsButton.setOnClickListener {
+            viewModel.fetchExhibitions()
+        }
+
+        binding.partysButton.setOnClickListener {
+            viewModel.fetchPartys()
+        }
+
+        binding.holidaysButton.setOnClickListener {
+            viewModel.fetchHolidays()
+        }
+
         viewModel.events.observe(viewLifecycleOwner) { events ->
             eventsAdapter.setEvents(events)
         }

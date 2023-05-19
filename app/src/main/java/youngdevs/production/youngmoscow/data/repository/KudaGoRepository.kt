@@ -21,7 +21,8 @@ class KudaGoRepository(private val api: KudaGoApi) {
                 pageSize, // Задание количества элементов на странице
                 page = page, // Задание номера страницы
                 order_by =
-                "-publication_date" // Задание порядка сортировки по дате публикации
+                "-publication_date"
+                // Задание порядка сортировки по дате публикации
             )
 
         // Возвращение списка событий из ответа или пустого списка, если ответ не содержит данных
@@ -41,4 +42,42 @@ class KudaGoRepository(private val api: KudaGoApi) {
             null
         }
     }
+
+    suspend fun getExhibitions(pageSize: Int, page: Int): List<Event> {
+        val response = api.getExhibitions(
+            fields = "id,title,description,images,site_url,body_text,price",
+            location = "msk",
+            pageSize = pageSize,
+            page = page,
+            order_by = "-publication_date",
+            categories = "exhibition" // Изменено на "exhibition,entertainment"
+        )
+        return response.body()?.results ?: emptyList()
+    }
+
+
+    suspend fun getPartys(pageSize: Int, page: Int): List<Event> {
+        val response = api.getPartys(
+            fields = "id,title,description,images,site_url,body_text,price",
+            location = "msk",
+            pageSize = pageSize,
+            page = page,
+            order_by = "-publication_date",
+            categories = "party"
+        )
+        return response.body()?.results ?: emptyList()
+    }
+
+    suspend fun getHoliday(pageSize: Int, page: Int): List<Event> {
+        val response = api.getHolidays(
+            fields = "id,title,description,images,site_url,body_text,price",
+            location = "msk",
+            pageSize = pageSize,
+            page = page,
+            order_by = "-publication_date",
+            categories = "holiday"
+        )
+        return response.body()?.results ?: emptyList()
+    }
+
 }
