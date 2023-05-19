@@ -13,7 +13,7 @@ interface UserRepository {
     ): Boolean
 
     // Проверяет, существует ли уже аккаунт с указанным email
-// Возвращает значение типа Boolean, которое указывает на существование аккаунта
+    // Возвращает значение типа Boolean, которое указывает на существование аккаунта
     suspend fun checkAccountExists(email: String): Boolean
 
 

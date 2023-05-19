@@ -4,7 +4,8 @@ package youngdevs.production.youngmoscow.domain.models
 data class UserModel(
     val id: String, // Уникальный идентификатор пользователя
     val name: String? = null, // Имя пользователя. Может быть null
-    val email: String?, // Email пользователя. Обязателен для заполнения
-    val phone: String? = null, // Phone пользователя.
+    val email: String? = null, // Email пользователя. Может быть null
+    val phone: String? = null, // Phone пользователя. Может быть null
     val profileImage: String? = null
 )
+

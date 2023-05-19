@@ -5,17 +5,15 @@ import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
-import youngdevs.production.youngmoscow.data.dao.UserDao
-import youngdevs.production.youngmoscow.data.entities.User
-import youngdevs.production.youngmoscow.data.entities.asDomainModel
 import youngdevs.production.youngmoscow.data.utilities.CollectionNames
-import youngdevs.production.youngmoscow.data.utilities.convertUserDocumentToEntity
 import youngdevs.production.youngmoscow.domain.models.UserModel
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,7 +24,6 @@ import javax.inject.Singleton
 class UserRepositoryImpl
 @Inject
 constructor(
-    private val userDao: UserDao,
     private val firebaseAuth: FirebaseAuth
 ) : UserRepository {
 
@@ -39,48 +36,33 @@ constructor(
         password: String,
         name: String,
         phone: String?
-    ): Boolean {
-        var dbUser: User? = null
+    ): Boolean = coroutineScope {
         var isSuccess = false
 
-        auth
-            .createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val userId = auth.currentUser!!.uid
+        try {
+            auth.createUserWithEmailAndPassword(email, password).await()
 
-                    val newUser =
-                        hashMapOf<String, Any>(
-                            "name" to name,
-                            "email" to email
-                        )
+            val newUser = hashMapOf<String, Any>(
+                "name" to name,
+                "email" to email
+            )
 
-                    // Добавляем телефон только если он не равен null
-                    phone?.let { newUser["phone"] = it }
+            phone?.let { newUser["phone"] = it }
 
-                    isSuccess = true
+            val userId = auth.currentUser!!.uid
+            Firebase.firestore.collection(CollectionNames.users)
+                .document(userId)
+                .set(newUser)
+                .await()
 
-                    dbUser = User(userId, name, email, phone ?: "")
-                    val db = Firebase.firestore
-                    db.collection(CollectionNames.users)
-                        .document(userId)
-                        .set(newUser)
-                        .addOnSuccessListener { isSuccess = true }
-                        .addOnFailureListener {
-                            Log.e(TAG, "Error writing document")
-                        }
-                }
-            }
-            .addOnFailureListener { Exception ->
-                Log.e(TAG, Exception.toString())
-            }
-            .await()
-
-        if (isSuccess) {
-            withContext(Dispatchers.IO) { userDao.insert(dbUser!!) }
+            isSuccess = true
+        } catch (e: Exception) {
+            Log.e(TAG, e.toString())
         }
-        return isSuccess
+
+        isSuccess
     }
+
 
     override suspend fun checkAccountExists(email: String): Boolean {
         val auth = FirebaseAuth.getInstance()
@@ -93,61 +75,51 @@ constructor(
     override suspend fun authenticate(
         email: String,
         password: String
-    ): Boolean {
-
+    ): Boolean = coroutineScope {
         var isSuccess = false
-        val db = Firebase.firestore
-        var id: String? = null
 
-        // Аутентифицируем пользователя с помощью email и password в Firebase.
-        auth
-            .signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
-                    isSuccess = true
-                    id = auth.currentUser?.uid!!
-                } else {
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                }
-            }
-            .addOnFailureListener { Log.e(TAG, "FailureListener") }
-            .await()
+        try {
+            auth.signInWithEmailAndPassword(email, password).await()
+            isSuccess = true
+        } catch (e: Exception) {
+            Log.e(TAG, "FailureListener", e)
+        }
 
-        var user: User? = null
-
-        // Получаем информацию о пользователе из Firestore и конвертируем ее в объект User.
-        db.collection(CollectionNames.users)
-            .document(auth.currentUser?.uid!!)
-            .get()
-            .addOnSuccessListener {
-                it?.let { user = convertUserDocumentToEntity(id!!, it) }
-            }
-            .addOnFailureListener { Log.e(TAG, "FailureListener") }
-            .await()
-
-        // Добавляем пользователя в локальную базу данных.
-        withContext(Dispatchers.IO) { userDao.insert(user!!) }
-        return isSuccess
+        isSuccess
     }
 
-    // Функция getCurrentUser возвращает текущего пользователя из локальной базы данных.
     override suspend fun getCurrentUser(): UserModel? {
-        return userDao.getCurrentUser()?.asDomainModel()
-    }
-
-    override suspend fun authenticateWithGoogle(idToken: String): Boolean {
         return withContext(Dispatchers.IO) {
-            try {
-                val credential =
-                    GoogleAuthProvider.getCredential(idToken, null)
-                firebaseAuth.signInWithCredential(credential).await()
-                true
-            } catch (e: Exception) {
-                false
+            val firebaseUser = FirebaseAuth.getInstance().currentUser
+            firebaseUser?.let { firebaseUser ->
+                val userDocument = Firebase.firestore.collection(CollectionNames.users)
+                    .document(firebaseUser.uid)
+                    .get()
+                    .await()
+                UserModel(
+                    id = firebaseUser.uid,
+                    name = userDocument["name"] as? String ?: "",
+                    email = userDocument["email"] as? String,
+                    phone = userDocument["phone"] as? String
+                    // Добавьте остальные поля здесь, если они вам нужны
+                )
             }
         }
     }
+
+
+
+
+    override suspend fun authenticateWithGoogle(idToken: String): Boolean {
+        try {
+            val credential = GoogleAuthProvider.getCredential(idToken, null)
+            firebaseAuth.signInWithCredential(credential).await()
+            return true
+        } catch (e: Exception) {
+            return false
+        }
+    }
+
 
     // Функция updateUserProfile используется для обновления информации о пользователе в Firebase.
     override suspend fun updateUserProfile(
@@ -156,7 +128,7 @@ constructor(
         email: String,
         phone: String
     ) {
-        // Обновление данных пользователя в Firebase и локальной базе данных
+
         val userDataToUpdate =
             hashMapOf<String, Any>(
                 "name" to name,
@@ -175,10 +147,10 @@ constructor(
                 Log.w(TAG, "Error updating document", e)
             }
             .await()
+    }
 
-        withContext(Dispatchers.IO) {
-            userDao.updateUser(userId, name, email, phone)
-        }
+    override suspend fun clearUser() {
+        TODO("Not yet implemented")
     }
 
     override suspend fun updateUserPassword(newPassword: String) {
@@ -199,10 +171,6 @@ constructor(
             ?.await()
     }
 
-    // Функция clearUser очищает локальную базу данных от всех пользователей.
-    override suspend fun clearUser() {
-        withContext(Dispatchers.IO) { userDao.clear() }
-    }
 
 
     suspend fun uploadProfileImage(imageUri: Uri): String = withContext(Dispatchers.IO) {
@@ -217,13 +185,12 @@ constructor(
     }
 
     suspend fun updateProfileImage(imageUrl: String) {
-        val userId =
-            FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
-        val db = Firebase.firestore
-        val userDocument = db.collection(CollectionNames.users).document(userId)
-        userDocument.update("profileImage", imageUrl)
-            .addOnSuccessListener { Log.d(TAG, "Profile image updated successfully") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error updating profile image", e) }
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
+        val databaseRef = FirebaseDatabase.getInstance().reference.child("users").child(userId)
+        databaseRef.child("profileImage").setValue(imageUrl)
+            .addOnSuccessListener { Log.d(TAG, "Профильное изображение успешно обновлено") }
+            .addOnFailureListener { e -> Log.w(TAG, "Ошибка при обновлении профильного изображения", e) }
             .await()
     }
+
 }

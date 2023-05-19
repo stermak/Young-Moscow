@@ -78,15 +78,6 @@ class RegistrationFragment : Fragment() {
                     "Пользователь с таким email уже существует",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else {
-                val email = binding.emailField.text.toString().trim(' ')
-                viewModel.registration(
-                    email = email,
-                    password = binding.passwordRegistrationField.text.toString().trim(' '),
-                    repeatPassword = binding.repeatPasswordRegistrationField.text.toString()
-                        .trim(' '),
-                    name = binding.usernameField.text.toString().trim(' ')
-                )
             }
         }
 

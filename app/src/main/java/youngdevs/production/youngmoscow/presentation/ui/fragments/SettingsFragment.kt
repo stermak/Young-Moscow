@@ -103,9 +103,12 @@ class SettingsFragment : Fragment() {
         settingsViewModel.userName.observe(viewLifecycleOwner) { name ->
             // Обновляем текст приветствия на экране настроек.
             binding.welcomeText.text =
-                getString(R.string.settings_welcome) + " " + name
+                getString(R.string.settings_welcome) + " " + name // здесь мы используем name как ник пользователя
         }
     }
+
+
+
 
     override fun onStart() {
         super.onStart()
