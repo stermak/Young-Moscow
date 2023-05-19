@@ -186,7 +186,7 @@ class ProfileViewModel @Inject constructor() : ViewModel() {
                     context
                 )
             }
-            ?.addOnFailureListener { exception ->
+            .addOnFailureListener { exception ->
                 Toast.makeText(
                     context,
                     "Ошибка аутентификации: ${exception.message}",

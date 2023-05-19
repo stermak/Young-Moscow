@@ -70,13 +70,6 @@
     }
   },
   {
-    "name": "Музей Пушкина",
-    "location": {
-      "latitude": 55.7485,
-      "longitude": 37.6041
-    }
-  },
-  {
     "name": "Третьяковская галерея",
     "location": {
       "latitude": 55.7414,
@@ -116,13 +109,6 @@
     "location": {
       "latitude": 55.7282,
       "longitude": 37.5958
-    }
-  },
-  {
-    "name": "Государственная Третьяковская галерея на Крымском Валу",
-    "location": {
-      "latitude": 55.741,
-      "longitude": 37.6208
     }
   },
   {
@@ -200,13 +186,6 @@
     "location": {
       "latitude": 55.7553,
       "longitude": 37.6646
-    }
-  },
-  {
-    "name": "Центральный Детский мир на Лубянке",
-    "location": {
-      "latitude": 55.7585,
-      "longitude": 37.6235
     }
   },
   {
@@ -711,6 +690,356 @@
     "location": {
       "latitude": 55.6183,
       "longitude": 37.6231
+    }
+  },
+  {
+    "name": "Нулевой километр",
+    "location": {
+      "latitude": 55.755799,
+      "longitude": 37.617687
+    }
+  },
+  {
+    "name": "Поклонная гора",
+    "location": {
+      "latitude": 55.735783,
+      "longitude": 37.500695
+    }
+  },
+  {
+    "name": "Парк Горького",
+    "location": {
+      "latitude": 55.731667,
+      "longitude": 37.601389
+    }
+  },
+  {
+    "name": "Московский метрополитен",
+    "location": {
+      "latitude": 55.751667,
+      "longitude": 37.618056
+    }
+  },
+  {
+    "name": "Останкинская телебашня",
+    "location": {
+      "latitude": 55.819722,
+      "longitude": 37.611667
+    }
+  },
+  {
+    "name": "Музей изобразительных искусств им. Пушкина",
+    "location": {
+      "latitude": 55.7475,
+      "longitude": 37.605833
+    }
+  },
+  {
+    "name": "Музей архитектуры им. Щусева",
+    "location": {
+      "latitude": 55.750278,
+      "longitude": 37.608333
+    }
+  },
+  {
+    "name": "Памятник Петру I",
+    "location": {
+      "latitude": 55.740156,
+      "longitude": 37.616356
+    }
+  },
+  {
+    "name": "Новодевичий монастырь",
+    "location": {
+      "latitude": 55.725,
+      "longitude": 37.552222
+    }
+  },
+  {
+    "name": "Государственный исторический музей",
+    "location": {
+      "latitude": 55.752222,
+      "longitude": 37.608611
+    }
+  },
+  {
+    "name": "Храм Христа Спасителя",
+    "location": {
+      "latitude": 55.744722,
+      "longitude": 37.605833
+    }
+  },
+  {
+    "name": "Парк Зарядье",
+    "location": {
+      "latitude": 55.751667,
+      "longitude": 37.625
+    }
+  },
+  {
+    "name": "Московский планетарий",
+    "location": {
+      "latitude": 55.751667,
+      "longitude": 37.617222
+    }
+  },
+  {
+    "name": "Мемориал Победы на Поклонной горе",
+    "location": {
+      "latitude": 55.739444,
+      "longitude": 37.503611
+    }
+  },
+  {
+    "name": "Парк Патриот",
+    "location": {
+      "latitude": 55.527778,
+      "longitude": 36.025
+    }
+  },
+  {
+    "name": "Нижегородская улица",
+    "location": {
+      "latitude": 55.7475,
+      "longitude": 37.679167
+    }
+  },
+  {
+    "name": "Москва-Сити",
+    "location": {
+      "latitude": 55.747222,
+      "longitude": 37.539167
+    }
+  },
+  {
+    "name": "Музей Москвы",
+    "location": {
+      "latitude": 55.748056,
+      "longitude": 37.601944
+    }
+  },
+  {
+    "name": "Мемориал Бородинской битвы",
+    "location": {
+      "latitude": 55.777222,
+      "longitude": 37.477778
+    }
+  },
+  {
+    "name": "Коломенское",
+    "location": {
+      "latitude": 55.671944,
+      "longitude": 37.662222
+    }
+  },
+  {
+    "name": "Золотые ворота",
+    "location": {
+      "latitude": 55.752222,
+      "longitude": 37.592778
+    }
+  },
+  {
+    "name": "Городской парк 'Митино'",
+    "location": {
+      "latitude": 55.853889,
+      "longitude": 37.363889
+    }
+  },
+  {
+    "name": "Парк 'Сокольники'",
+    "location": {
+      "latitude": 55.789167,
+      "longitude": 37.679444
+    }
+  },
+  {
+    "name": "Музей Гражданской войны 1812 года",
+    "location": {
+      "latitude": 55.759444,
+      "longitude": 37.615278
+    }
+  },
+  {
+    "name": "Парк 'Измайлово'",
+    "location": {
+      "latitude": 55.792778,
+      "longitude": 37.783333
+    }
+  },
+  {
+    "name": "Музей кукол",
+    "location": {
+      "latitude": 55.758333,
+      "longitude": 37.597778
+    }
+  },
+  {
+    "name": "Олимпийский парк",
+    "location": {
+      "latitude": 55.781389,
+      "longitude": 37.518333
+    }
+  },
+  {
+    "name": "Московская дума",
+    "location": {
+      "latitude": 55.753333,
+      "longitude": 37.622778
+    }
+  },
+  {
+    "name": "Красный Октябрь",
+    "location": {
+      "latitude": 55.744167,
+      "longitude": 37.607778
+    }
+  },
+  {
+    "name": "Центральный дом художника",
+    "location": {
+      "latitude": 55.751667,
+      "longitude": 37.605833
+    }
+  },
+  {
+    "name": "Павильон 'Космос'",
+    "location": {
+      "latitude": 55.829722,
+      "longitude": 37.633889
+    }
+  },
+  {
+    "name": "Стадион 'Лужники'",
+    "location": {
+      "latitude": 55.715556,
+      "longitude": 37.553056
+    }
+  },
+  {
+    "name": "Памятник Юрию Долгорукому",
+    "location": {
+      "latitude": 55.755556,
+      "longitude": 37.591389
+    }
+  },
+  {
+    "name": "Памятник Минину и Пожарскому",
+    "location": {
+      "latitude": 55.753889,
+      "longitude": 37.623611
+    }
+  },
+  {
+    "name": "Бункер-42 на Таганке",
+    "location": {
+      "latitude": 55.739722,
+      "longitude": 37.623056
+    }
+  },
+  {
+    "name": "Московский Международный Дом Музыки",
+    "location": {
+      "latitude": 55.740833,
+      "longitude": 37.613611
+    }
+  },
+  {
+    "name": "Памятник Маяковскому",
+    "location": {
+      "latitude": 55.7625,
+      "longitude": 37.609722
+    }
+  },
+  {
+    "name": "Музей современного искусства 'Гараж'",
+    "location": {
+      "latitude": 55.730833,
+      "longitude": 37.609444
+    }
+  },
+  {
+    "name": "Памятник Чайковскому",
+    "location": {
+      "latitude": 55.760278,
+      "longitude": 37.6175
+    }
+  },
+  {
+    "name": "Музей Лермонтова",
+    "location": {
+      "latitude": 55.760833,
+      "longitude": 37.615278
+    }
+  },
+  {
+    "name": "Государственный музей-заповедник 'Царицыно'",
+    "location": {
+      "latitude": 55.614444,
+      "longitude": 37.676944
+    }
+  },
+  {
+    "name": "Московский Дворец Пионеров",
+    "location": {
+      "latitude": 55.734167,
+      "longitude": 37.6575
+    }
+  },
+  {
+    "name": "Государственный академический Малый театр России",
+    "location": {
+      "latitude": 55.758056,
+      "longitude": 37.609167
+    }
+  },
+  {
+    "name": "Музей советских игровых автоматов",
+    "location": {
+      "latitude": 55.750556,
+      "longitude": 37.592222
+    }
+  },
+  {
+    "name": "Памятник Ленину на Красной площади",
+    "location": {
+      "latitude": 55.753333,
+      "longitude": 37.621667
+    }
+  },
+  {
+    "name": "Музей ВОВ 1941-1945",
+    "location": {
+      "latitude": 55.769722,
+      "longitude": 37.605833
+    }
+  },
+  {
+    "name": "Киноцентр 'Октябрь'",
+    "location": {
+      "latitude": 55.751667,
+      "longitude": 37.603611
+    }
+  },
+  {
+    "name": "Московский Дом Печати",
+    "location": {
+      "latitude": 55.762222,
+      "longitude": 37.610278
+    }
+  },
+  {
+    "name": "Смотровая площадка на Воробьевых горах",
+    "location": {
+      "latitude": 55.710833,
+      "longitude": 37.553333
+    }
+  },
+  {
+    "name": "Колокольня Ивана Великого",
+    "location": {
+      "latitude": 55.752222,
+      "longitude": 37.614722
     }
   }
 ]

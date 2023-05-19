@@ -192,5 +192,4 @@ constructor(
             .addOnFailureListener { e -> Log.w(TAG, "Ошибка при обновлении профильного изображения", e) }
             .await()
     }
-
 }
