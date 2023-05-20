@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.Sightseeing
 import youngdevs.production.youngmoscow.data.services.ImagesService
 import youngdevs.production.youngmoscow.data.services.SightseeingsService
+import youngdevs.production.youngmoscow.data.utilities.LoadingStatus
 import javax.inject.Inject
 
 // Используем HiltViewModel для автоматического внедрения зависимостей с Hilt
@@ -29,18 +30,23 @@ constructor(
 
     // Объявляем LiveData для предоставления списка достопримечательностей во внешний код
     val sightseeings: LiveData<List<Sightseeing>> = _sightseeings
+    val loadingStatus = MutableLiveData<LoadingStatus>()
+
 
     // Загружаем список достопримечательностей с использованием корутин
     fun loadSightseeings() {
+        loadingStatus.value = LoadingStatus.LOADING
         viewModelScope.launch {
             try {
                 val sightseeings = sightseeingsService.getSightseeings()
                 _sightseeings.value = sightseeings
+                loadingStatus.value = LoadingStatus.LOADED
                 Log.d(
                     "SightseeingsViewModel",
                     "Loaded ${sightseeings.size} sightseeings"
                 )
             } catch (e: Exception) {
+                loadingStatus.value = LoadingStatus.ERROR
                 Log.e(
                     "SightseeingsViewModel",
                     "Failed to load sightseeings",

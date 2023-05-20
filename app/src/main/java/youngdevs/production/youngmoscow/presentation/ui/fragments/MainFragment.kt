@@ -60,19 +60,29 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
 
         binding.exhibitionsButton.setOnClickListener {
             viewModel.fetchExhibitions()
+            viewModel.exhibitions.observe(viewLifecycleOwner) { exhibitions ->
+                eventsAdapter.setExhibitions(exhibitions)
+            }
         }
 
         binding.partysButton.setOnClickListener {
             viewModel.fetchPartys()
+            viewModel.partys.observe(viewLifecycleOwner) { partys ->
+                eventsAdapter.setPartys(partys)
+            }
         }
 
         binding.holidaysButton.setOnClickListener {
             viewModel.fetchHolidays()
+            viewModel.holidays.observe(viewLifecycleOwner) { holidays ->
+                eventsAdapter.setHolidays(holidays)
+            }
         }
 
         viewModel.events.observe(viewLifecycleOwner) { events ->
             eventsAdapter.setEvents(events)
         }
+
 
         // Загрузка следующей страницы при достижении конца списка
         binding.recyclerView.addOnScrollListener(

@@ -10,8 +10,11 @@ import youngdevs.production.youngmoscow.databinding.ItemEventBinding
 
 class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
-    private val events =
-        mutableListOf<Event>() // список событий для адаптера
+    private val events = mutableListOf<Event>() // список событий для адаптера
+    private val exhibitions = mutableListOf<Event>()
+    private val partys = mutableListOf<Event>()
+    private val holidays = mutableListOf<Event>()
+
 
     interface OnItemClickListener {
         fun onItemClick(
@@ -21,27 +24,40 @@ class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
 
     // метод для установки списка событий для адаптера
     fun setEvents(newEvents: List<Event>) {
+        events.clear()
+        partys.clear()
+        exhibitions.clear()
+        holidays.clear()
         events.addAll(newEvents)
         notifyDataSetChanged()
     }
 
     fun setExhibitions(newExhibitions: List<Event>) {
         events.clear()
-        events.addAll(newExhibitions)
+        partys.clear()
+        exhibitions.clear()
+        holidays.clear()
+        exhibitions.addAll(newExhibitions)
         notifyDataSetChanged()
     }
 
     // Обновить список вечеринок
     fun setPartys(newPartys: List<Event>) {
         events.clear()
-        events.addAll(newPartys)
+        partys.clear()
+        exhibitions.clear()
+        holidays.clear()
+        partys.addAll(newPartys)
         notifyDataSetChanged()
     }
 
     // Обновить список праздников
     fun setHolidays(newHolidays: List<Event>) {
         events.clear()
-        events.addAll(newHolidays)
+        partys.clear()
+        exhibitions.clear()
+        holidays.clear()
+        holidays.addAll(newHolidays)
         notifyDataSetChanged()
     }
 

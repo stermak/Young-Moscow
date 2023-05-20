@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import youngdevs.production.youngmoscow.data.utilities.LoadingStatus
 import youngdevs.production.youngmoscow.databinding.FragmentSightseeingsBinding
 import youngdevs.production.youngmoscow.presentation.ui.adapter.SightseeingsAdapter
 import youngdevs.production.youngmoscow.presentation.viewmodel.SightseeingsViewModel
@@ -58,6 +59,39 @@ class SightseeingsFragment : Fragment() {
             ->
             sightseeingsAdapter.submitList(sightseeings)
         }
+
+        viewModel.loadingStatus.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                LoadingStatus.LOADING -> {
+                    binding.recyclerView.visibility = View.GONE
+                    binding.standing.visibility = View.VISIBLE
+                    binding.sitting.visibility = View.VISIBLE
+                    binding.errorServer.visibility = View.VISIBLE
+                    binding.sorry.visibility = View.VISIBLE
+                    binding.imageView8.visibility = View.VISIBLE
+                    binding.imageView9.visibility = View.VISIBLE
+                }
+                LoadingStatus.LOADED -> {
+                    binding.recyclerView.visibility = View.VISIBLE
+                    binding.standing.visibility = View.GONE
+                    binding.sitting.visibility = View.GONE
+                    binding.errorServer.visibility = View.GONE
+                    binding.sorry.visibility = View.GONE
+                    binding.imageView8.visibility = View.GONE
+                    binding.imageView9.visibility = View.GONE
+                }
+                LoadingStatus.ERROR -> {
+                    binding.recyclerView.visibility = View.GONE
+                    binding.standing.visibility = View.VISIBLE
+                    binding.sitting.visibility = View.VISIBLE
+                    binding.errorServer.visibility = View.VISIBLE
+                    binding.sorry.visibility = View.VISIBLE
+                    binding.imageView8.visibility = View.VISIBLE
+                    binding.imageView9.visibility = View.VISIBLE
+                }
+            }
+        }
+
 
         // Загружаем список достопримечательностей
         viewModel.loadSightseeings()
