@@ -1,11 +1,12 @@
 package youngdevs.production.youngmoscow
 
-import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.WriteBatch
@@ -20,6 +21,7 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.anyMap
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
@@ -32,39 +34,57 @@ class UserRepositoryTest {
     @Mock
     private lateinit var firebaseAuth: FirebaseAuth
 
+    // Добавлены моки для Firestore
+    @Mock
+    private lateinit var firebaseFirestore: FirebaseFirestore
+    @Mock
+    private lateinit var firebaseFirestoreCollection: CollectionReference
+    @Mock
+    private lateinit var firebaseFirestoreDocument: DocumentReference
+    @Mock
+    private lateinit var writeBatch: WriteBatch
+
     private lateinit var userRepository: UserRepository
 
     @Before
     fun setup() {
         userRepository = UserRepositoryImpl(firebaseAuth)
+        `when`(firebaseFirestore.collection(any())).thenReturn(firebaseFirestoreCollection)
+        `when`(firebaseFirestoreCollection.document(any())).thenReturn(firebaseFirestoreDocument)
+        `when`(firebaseFirestore.batch()).thenReturn(writeBatch)
+    }
+
+
+    @Test
+    fun testCreateAccount_Success() {
+        runBlocking {
+            val taskCompletionSource = TaskCompletionSource<AuthResult>()
+            val task = taskCompletionSource.task
+            taskCompletionSource.setResult(Mockito.mock(AuthResult::class.java))
+
+            whenever(firebaseAuth.createUserWithEmailAndPassword(any(), any())).thenReturn(task)
+
+            val result = userRepository.createAccount("test@example.com", "password", "John Doe")
+            assertTrue(result)
+
+            verify(firebaseAuth).createUserWithEmailAndPassword("test@example.com", "password")
+        }
     }
 
     @Test
-    fun testCreateAccount_Success() = runBlocking {
-        val taskCompletionSource = TaskCompletionSource<AuthResult>()
-        val task = taskCompletionSource.task
-        taskCompletionSource.setResult(Mockito.mock(AuthResult::class.java))
+    fun testCreateAccount_Failure() {
+        runBlocking {
+            val taskCompletionSource = TaskCompletionSource<AuthResult>()
+            val task = taskCompletionSource.task
+            taskCompletionSource.setException(Exception())
 
-        whenever(firebaseAuth.createUserWithEmailAndPassword(any(), any())).thenReturn(task)
+            whenever(firebaseAuth.createUserWithEmailAndPassword(any(), any())).thenReturn(task)
 
-        val result = userRepository.createAccount("test@example.com", "password", "John Doe")
-        assertTrue(result)
+            val result = userRepository.createAccount("test@example.com", "password", "John Doe")
+            assertFalse(result)
 
-        verify(firebaseAuth).createUserWithEmailAndPassword("test@example.com", "password")
-    }
-
-    @Test
-    fun testCreateAccount_Failure() = runBlocking {
-        val taskCompletionSource = TaskCompletionSource<AuthResult>()
-        val task = taskCompletionSource.task
-        taskCompletionSource.setException(Exception())
-
-        whenever(firebaseAuth.createUserWithEmailAndPassword(any(), any())).thenReturn(task)
-
-        val result = userRepository.createAccount("test@example.com", "password", "John Doe")
-        assertFalse(result)
-
-        verify(firebaseAuth).createUserWithEmailAndPassword("test@example.com", "password")
+            verify(firebaseAuth).createUserWithEmailAndPassword("test@example.com", "password")
+        }
     }
 
 
@@ -109,7 +129,7 @@ class UserRepositoryTest {
         val task = taskCompletionSource.task
         taskCompletionSource.setResult(documentSnapshot)
 
-        Mockito.`when`(FirebaseFirestore.getInstance().collection(any()).document(any()).get()).thenReturn(task)
+        Mockito.`when`(firebaseFirestore.collection(any()).document(any()).get()).thenReturn(task)
 
         val result = userRepository.getCurrentUser()
         assertNotNull(result)
@@ -124,11 +144,13 @@ class UserRepositoryTest {
     fun testUpdateUserProfile_Success() = runBlocking {
         val writeBatch = Mockito.mock(WriteBatch::class.java)
 
-        Mockito.`when`(FirebaseFirestore.getInstance().batch()).thenReturn(writeBatch)
-        Mockito.`when`(writeBatch.commit()).thenReturn(Tasks.forResult(null))
+        `when`(firebaseFirestore.batch()).thenReturn(writeBatch)
+        `when`(writeBatch.commit()).thenReturn(Tasks.forResult(null))
 
         userRepository.updateUserProfile("test_uid", "test_name", "test_email", "test_phone")
 
-        verify(FirebaseFirestore.getInstance().collection(any()).document(any())).update(anyMap())
+        verify(firebaseFirestore.collection(any()).document(any())).update(anyMap())
     }
+
+
 }

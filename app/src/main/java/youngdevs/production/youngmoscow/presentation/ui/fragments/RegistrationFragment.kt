@@ -68,6 +68,15 @@ class RegistrationFragment : Fragment() {
                     // Пароли не совпадают
                     Toast.makeText(context, "Пароли не совпадают", Toast.LENGTH_SHORT).show()
                 }
+
+                -2 -> {
+                    // Пароль слишком короткий
+                    Toast.makeText(
+                        context,
+                        "Пароль должен состоять из 6 и более символов",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
 
@@ -103,13 +112,29 @@ class RegistrationFragment : Fragment() {
     // интерфейса.
     private fun setEventListener() {
         binding.registration.setOnClickListener {
-            val email = binding.emailField.text.toString().trim(' ')
-            val password = binding.passwordRegistrationField.text.toString().trim(' ')
-            val repeatPassword = binding.repeatPasswordRegistrationField.text.toString().trim(' ')
-            val name = binding.usernameField.text.toString().trim(' ')
-            viewModel.registration(email, password, repeatPassword, name)
+            val email = binding.emailField.text.toString().trim()
+            val password = binding.passwordRegistrationField.text.toString().trim()
+            val repeatPassword = binding.repeatPasswordRegistrationField.text.toString().trim()
+            val name = binding.usernameField.text.toString().trim()
+
+            if (password.length < 6) {
+                Toast.makeText(
+                    context,
+                    "Пароль должен состоять из 6 и более символов",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (password != repeatPassword) {
+                Toast.makeText(
+                    context,
+                    "Пароли не совпадают",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                viewModel.registration(email, password, repeatPassword, name)
+            }
         }
     }
+
 
 
     // Метод вызывается, когда фрагмент уничтожается.

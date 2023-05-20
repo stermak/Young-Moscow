@@ -5,10 +5,9 @@ import android.net.Uri
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
@@ -100,9 +99,10 @@ constructor(
                     id = firebaseUser.uid,
                     name = userDocument["name"] as? String ?: "",
                     email = userDocument["email"] as? String,
-                    phone = userDocument["phone"] as? String
-                    // Добавьте остальные поля здесь, если они вам нужны
+                    phone = userDocument["phone"] as? String,
+                    profileImage = userDocument["profileImage"] as? String // Получите URL профильного изображения из Firestore
                 )
+
             }
         }
     }
@@ -174,22 +174,24 @@ constructor(
 
 
     suspend fun uploadProfileImage(imageUri: Uri): String = withContext(Dispatchers.IO) {
-        val userId =
-            FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
-        val storageRef = FirebaseStorage.getInstance().reference.child("profile_images/$userId")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
+        val storageRef = Firebase.storage.reference.child("profile_images/$userId")
         val uploadTask = storageRef.putFile(imageUri)
 
-        val snapshot = uploadTask.await()
-        val downloadUrl = snapshot.metadata?.reference?.downloadUrl
-        downloadUrl?.await().toString()
+        // Await the upload task to complete
+        uploadTask.await()
+
+        // Get the downloadable URL for the uploaded image file
+        storageRef.downloadUrl.await().toString()
     }
 
-    suspend fun updateProfileImage(imageUrl: String) {
+    suspend fun updateProfileImage(imageUrl: String) = withContext(Dispatchers.IO) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
-        val databaseRef = FirebaseDatabase.getInstance().reference.child("users").child(userId)
-        databaseRef.child("profileImage").setValue(imageUrl)
-            .addOnSuccessListener { Log.d(TAG, "Профильное изображение успешно обновлено") }
-            .addOnFailureListener { e -> Log.w(TAG, "Ошибка при обновлении профильного изображения", e) }
-            .await()
+        val databaseRef = Firebase.firestore.collection(CollectionNames.users).document(userId)
+
+        // Update the profileImage field of the Firestore document
+        databaseRef.update("profileImage", imageUrl).await()
     }
+
+
 }
