@@ -18,7 +18,8 @@ class SettingsViewModel
 @Inject
 constructor(
     // Внедрение зависимости для доступа к use-case аутентификации пользователя
-    private val authenticateUserUseCase: AuthenticateUserUseCase , private val userRepository: UserRepository
+    private val authenticateUserUseCase: AuthenticateUserUseCase,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     // Объявление MutableLiveData для отслеживания имени пользователя

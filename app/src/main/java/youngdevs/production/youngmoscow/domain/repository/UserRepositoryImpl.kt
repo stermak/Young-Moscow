@@ -108,8 +108,6 @@ constructor(
     }
 
 
-
-
     override suspend fun authenticateWithGoogle(idToken: String): Boolean {
         try {
             val credential = GoogleAuthProvider.getCredential(idToken, null)
@@ -172,9 +170,9 @@ constructor(
     }
 
 
-
     suspend fun uploadProfileImage(imageUri: Uri): String = withContext(Dispatchers.IO) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
+        val userId =
+            FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
         val storageRef = Firebase.storage.reference.child("profile_images/$userId")
         val uploadTask = storageRef.putFile(imageUri)
 
@@ -186,7 +184,8 @@ constructor(
     }
 
     suspend fun updateProfileImage(imageUrl: String) = withContext(Dispatchers.IO) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
+        val userId =
+            FirebaseAuth.getInstance().currentUser?.uid ?: throw Exception("Пользователь не найден")
         val databaseRef = Firebase.firestore.collection(CollectionNames.users).document(userId)
 
         // Update the profileImage field of the Firestore document

@@ -92,7 +92,8 @@ class MapsFragment : Fragment() {
                     googleMap.uiSettings.isMyLocationButtonEnabled = true
                     getLastKnownLocation {}
 
-                    val landmarksJson = context?.assets?.open("Landmark.json")?.bufferedReader().use { it?.readText() }
+                    val landmarksJson = context?.assets?.open("Landmark.json")?.bufferedReader()
+                        .use { it?.readText() }
                     val landmarksType = object : TypeToken<List<Landmark>>() {}.type
                     val landmarks: List<Landmark> = Gson().fromJson(landmarksJson, landmarksType)
 
@@ -254,7 +255,6 @@ class MapsFragment : Fragment() {
             googleMap.addMarker(marker)
         }
     }
-
 
 
     override fun onStart() {

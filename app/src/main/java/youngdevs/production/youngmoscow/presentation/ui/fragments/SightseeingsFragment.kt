@@ -71,6 +71,7 @@ class SightseeingsFragment : Fragment() {
                     binding.imageView8.visibility = View.VISIBLE
                     binding.imageView9.visibility = View.VISIBLE
                 }
+
                 LoadingStatus.LOADED -> {
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.standing.visibility = View.GONE
@@ -80,6 +81,7 @@ class SightseeingsFragment : Fragment() {
                     binding.imageView8.visibility = View.GONE
                     binding.imageView9.visibility = View.GONE
                 }
+
                 LoadingStatus.ERROR -> {
                     binding.recyclerView.visibility = View.GONE
                     binding.standing.visibility = View.VISIBLE

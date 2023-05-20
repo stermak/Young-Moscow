@@ -136,7 +136,6 @@ class RegistrationFragment : Fragment() {
     }
 
 
-
     // Метод вызывается, когда фрагмент уничтожается.
     // Очищаем viewModelStore от viewModel, чтобы предотвратить утечки памяти.
     override fun onDestroyView() {

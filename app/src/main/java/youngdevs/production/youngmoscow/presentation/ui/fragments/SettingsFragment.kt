@@ -113,8 +113,6 @@ class SettingsFragment : Fragment() {
     }
 
 
-
-
     override fun onStart() {
         super.onStart()
         FirebaseAuth.getInstance().addAuthStateListener(authStateListener)
