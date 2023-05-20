@@ -27,13 +27,64 @@
     <string name="sightseeings">Sight Seeings</string>
     <string name="google_maps_key">AIzaSyAvSFt5zVRWD5KyTvVpECH52KLms-U4olY</string>
     <string name="CurrentPassword">Current Password</string>
-    <string name="Favourite">Избранное</string>
-    <string name="HaventSavedEvent">Нет сохранённых событий</string>
-    <string name="FindInterestingEvent">Найдите интересные события и добавьте их в избранное</string>
-    <string name="Welcome">Добро пожаловать</string>
-    <string name="LoginInYourAcc">войдите в свой аккаунт</string>
-    <string name="Profile">Профиль</string>
-    <string name="Registration">Регистрация</string>
-    <string name="RegisterYouAcc">зарегистрируйте свой аккаунт</string>
-    <string name="upload_photo">Загрузите фото</string>
+    <string name="Favourite">Favourite</string>
+    <string name="HaventSavedEvent">Have not saved event</string>
+    <string name="FindInterestingEvent">Find interesting event and add to favourite</string>
+    <string name="Welcome">Welcome</string>
+    <string name="LoginInYourAcc">Login In Your Account</string>
+    <string name="Profile">Profile</string>
+    <string name="Registration">Registration</string>
+    <string name="RegisterYouAcc">Register Your Account</string>
+    <string name="upload_photo">Upload the photo</string>
+
+    <string-array name="language_names">
+        <item>Abkhazian</item>
+        <item>Afrikaans</item>
+        <item>Albanian</item>
+        <item>Amharic</item>
+        <item>Arabic</item>
+        <item>Armenian</item>
+        <item>Azerbaijani</item>
+        <item>Bangla</item>
+        <item>Basque</item>
+        <item>Belarusian</item>
+        <item>Bosnian</item>
+        <item>Bulgarian</item>
+        <item>Burmese</item>
+        <item>Chinese</item>
+        <item>Chinese in China</item>
+        <item>Chinese in Taiwan</item>
+        <item>English</item>
+        <item>German</item>
+        <item>Portuguese</item>
+        <item>Russian</item>
+        <item>Spanish</item>
+        <item>Uzbek</item>
+    </string-array>
+
+    <string-array name="language_codes">
+        <item>ab</item>
+        <item>af</item>
+        <item>sq</item>
+        <item>am</item>
+        <item>ar</item>
+        <item>hy</item>
+        <item>az</item>
+        <item>bn</item>
+        <item>eu</item>
+        <item>be</item>
+        <item>bs</item>
+        <item>bg</item>
+        <item>my</item>
+        <item>zh</item>
+        <item>zh_CN</item>
+        <item>zh_TW</item>
+        <item>en</item>
+        <item>de</item>
+        <item>pt</item>
+        <item>ru</item>
+        <item>es</item>
+        <item>uz</item>
+    </string-array>
+
 </resources>

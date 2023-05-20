@@ -34,5 +34,6 @@
     <string name="LoginInYourAcc">Авторизациа ахьӡара ацәа</string>
     <string name="Profile">Профиль</string>
     <string name="Registration">Регистрациа</string>
+    <string name="RegisterYouAcc">Register Your Account</string>
     <string name="upload_photo">Фото аҳәо</string>
 </resources>

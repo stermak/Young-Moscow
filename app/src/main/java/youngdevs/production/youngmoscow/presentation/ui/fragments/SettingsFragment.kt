@@ -88,6 +88,11 @@ class SettingsFragment : Fragment() {
             findNavController()
                 .navigate(R.id.action_settingsFragment_to_profileFragment)
         }
+        binding.btnLanguage.setOnClickListener {
+            // Навигируем пользователя на экран избранных событий.
+            findNavController()
+                .navigate(R.id.action_settingsFragment_to_languageFragment)
+        }
         binding.btnSightseeings.setOnClickListener {
             // Навигируем пользователя на экран избранных событий.
             findNavController()

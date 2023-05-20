@@ -34,5 +34,7 @@
     <string name="LoginInYourAcc">Влезте в своя акаунт</string>
     <string name="Profile">Профил</string>
     <string name="Registration">Регистрация</string>
+    <string name="RegisterYouAcc">Register Your Account</string>
+
     <string name="upload_photo">Качи снимка</string>
 </resources>

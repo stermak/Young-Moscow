@@ -34,5 +34,6 @@
     <string name="LoginInYourAcc">Iniciar sesión en tu cuenta</string>
     <string name="Profile">Perfil</string>
     <string name="Registration">Registro</string>
+    <string name="RegisterYouAcc">Register Your Account</string>
     <string name="upload_photo">Cargar foto</string>
 </resources>

@@ -1,5 +1,6 @@
 package youngdevs.production.youngmoscow.presentation.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -11,14 +12,29 @@ import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.ActivityMainBinding
 import youngdevs.production.youngmoscow.presentation.ui.fragments.MainFragment
+import youngdevs.production.youngmoscow.presentation.viewmodel.LanguageViewModel
+import java.util.Locale
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    // Объект, который связывает элементы интерфейса в макете с кодом в MainActivity
+
+    companion object {
+        var selectedLanguage: String? = null
+    }
+
     private lateinit var binding: ActivityMainBinding
 
+    // Объект, который связывает элементы интерфейса в макете с кодом в MainActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        // Здесь мы проверяем, сохранен ли язык в настройках, и если да, то применяем этот язык
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val languageCode = sharedPref.getString("SelectedLanguage", Locale.getDefault().language)
+        if (languageCode != null) {
+            LanguageViewModel.changeLanguage(this, languageCode)
+        }
 
         // Инфлейт макета ActivityMainBinding и установка его в качестве контента активности
         binding = ActivityMainBinding.inflate(layoutInflater)

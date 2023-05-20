@@ -35,5 +35,5 @@
     <string name="Profile">መገለጫ</string>
     <string name="Registration">ምዝገባ</string>
     <string name="RegisterYouAcc">መለያዎን ያስመዝግቡ</string>
-    <string name="upload_photo">Загрузите фото</string>
+    <string name="upload_photo">Upload Photo</string>
 </resources>

@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_sightseeingsFragment"
             app:destination="@id/sightseeingsFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_languageFragment"
+            app:destination="@id/languageFragment" />
     </fragment>
 
     <fragment
@@ -96,4 +99,9 @@
         android:id="@+id/sightseeingsFragment"
         android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.SightseeingsFragment"
         android:label="SightseeingsFragment" />
+    <fragment
+        android:id="@+id/languageFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.LanguageFragment"
+        android:label="fragment_language"
+        tools:layout="@layout/fragment_language" />
 </navigation>

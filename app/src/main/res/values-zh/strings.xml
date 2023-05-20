@@ -34,5 +34,6 @@
     <string name="LoginInYourAcc">登录您的账号</string>
     <string name="Profile">个人资料</string>
     <string name="Registration">注册</string>
+    <string name="RegisterYouAcc">Register Your Account</string>
     <string name="upload_photo">上传照片</string>
 </resources>
