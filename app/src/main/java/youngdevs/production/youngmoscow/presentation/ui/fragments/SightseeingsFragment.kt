@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -48,6 +49,10 @@ class SightseeingsFragment : Fragment() {
         // Инициализируем адаптер достопримечательностей
         sightseeingsAdapter =
             SightseeingsAdapter(viewLifecycleOwner.lifecycleScope)
+
+        binding.searchField.addTextChangedListener { text ->
+            viewModel.searchSightseeings(text.toString())
+        }
 
         // Настраиваем RecyclerView с LinearLayoutManager и устанавливаем адаптер
         binding.recyclerView.layoutManager =

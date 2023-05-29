@@ -7,13 +7,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.databinding.FragmentLanguageBinding
 import youngdevs.production.youngmoscow.presentation.ui.activity.MainActivity
+import youngdevs.production.youngmoscow.presentation.ui.adapter.CustomAdapter
 import youngdevs.production.youngmoscow.presentation.viewmodel.LanguageViewModel
 
 @AndroidEntryPoint
@@ -48,8 +48,8 @@ class LanguageFragment : Fragment() {
         sharedPreferences =
             requireContext().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
 
-        val languageAdapter =
-            ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, languageNames)
+        val languageAdapter = CustomAdapter(requireContext(), R.layout.list_item_layout, languageNames)
+
 
         binding.languageListView.adapter = languageAdapter
 
@@ -88,3 +88,4 @@ class LanguageFragment : Fragment() {
         _binding = null
     }
 }
+

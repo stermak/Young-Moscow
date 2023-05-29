@@ -35,5 +35,12 @@
     <string name="Profile">መገለጫ</string>
     <string name="Registration">ምዝገባ</string>
     <string name="RegisterYouAcc">መለያዎን ያስመዝግቡ</string>
-    <string name="upload_photo">Upload Photo</string>
+    <string name="upload_photo">ፎቶ ጫንን</string>
+    <string name="exhibitions">የነገራችን</string>
+    <string name="partys">የስነስርአት</string>
+    <string name="holidays">በቀናችን</string>
+    <string name="change_language">ቋንቋ ይቀይሩ</string>
+    <string name="Sorry_there_a_problem_with_the_server">ይቅርታ በሰርቨር ውስጥ ያሉት ችግሮች አልተገኙም</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">ወደ መታወቂያ ስንቲት በርስት ይመልከቱ።</string>
+    <string name="points">...</string>
 </resources>

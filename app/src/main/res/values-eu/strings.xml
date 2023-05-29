@@ -29,11 +29,18 @@
     <string name="CurrentPassword">Uneko pasahitza</string>
     <string name="Favourite">Gogokoak</string>
     <string name="HaventSavedEvent">Ez dago gordetako gertaerarik</string>
-    <string name="FindInterestingEvent">Aurkitu interesgarriak diren gertaerak eta gehitu gogokoetara</string>
+    <string name="FindInterestingEvent">Interesgarriak diren gertaerak aurkitu eta gogokoetara gehitu</string>
     <string name="Welcome">Ongi etorri</string>
     <string name="LoginInYourAcc">Saioa hasi zure kontuan</string>
     <string name="Profile">Profila</string>
     <string name="Registration">Erregistroa</string>
-    <string name="RegisterYouAcc">Register Your Account</string>
+    <string name="RegisterYouAcc">Erregistratu zure kontua</string>
     <string name="upload_photo">Argazkia igo</string>
+    <string name="exhibitions">Erakusketak</string>
+    <string name="partys">Besteak</string>
+    <string name="holidays">Jaiegunak</string>
+    <string name="change_language">Hizkuntza aldatu</string>
+    <string name="Sorry_there_a_problem_with_the_server">Barkatu, zerbitzariarekin arazo bat dago</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Hortik aurrera, begiratu gertakari interesgarriak pantaila nagusian :)</string>
+    <string name="points">...</string>
 </resources>

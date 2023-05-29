@@ -34,6 +34,13 @@
     <string name="LoginInYourAcc">Acesse sua conta</string>
     <string name="Profile">Perfil</string>
     <string name="Registration">Registro</string>
-    <string name="RegisterYouAcc">Register Your Account</string>
+    <string name="RegisterYouAcc">Registrar sua conta</string>
     <string name="upload_photo">Enviar foto</string>
+    <string name="exhibitions">Exposições</string>
+    <string name="partys">Festas</string>
+    <string name="holidays">Feriados</string>
+    <string name="change_language">Alterar idioma</string>
+    <string name="Sorry_there_a_problem_with_the_server">Desculpe, há um problema com o servidor</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Enquanto isso, confira os eventos interessantes na tela principal :)</string>
+    <string name="points">...</string>
 </resources>

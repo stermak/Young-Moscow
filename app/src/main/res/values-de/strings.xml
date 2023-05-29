@@ -27,13 +27,20 @@
     <string name="sightseeings">Sehenswürdigkeiten</string>
     <string name="google_maps_key">AIzaSyAvSFt5zVRWD5KyTvVpECH52KLms-U4olY</string>
     <string name="CurrentPassword">Aktuelles Passwort</string>
-    <string name="Favourite">Favoriten</string>
-    <string name="HaventSavedEvent">Keine gespeicherten Ereignisse</string>
-    <string name="FindInterestingEvent">Finden Sie interessante Ereignisse und fügen Sie sie zu Ihren Favoriten hinzu</string>
+    <string name="Favourite">Favorit</string>
+    <string name="HaventSavedEvent">Keine gespeicherten Veranstaltungen</string>
+    <string name="FindInterestingEvent">Finde interessante Veranstaltungen und füge sie zu deinen Favoriten hinzu</string>
     <string name="Welcome">Willkommen</string>
-    <string name="LoginInYourAcc">Melden Sie sich in Ihrem Konto an</string>
+    <string name="LoginInYourAcc">Melde dich in deinem Konto an</string>
     <string name="Profile">Profil</string>
     <string name="Registration">Registrierung</string>
-    <string name="RegisterYouAcc">Register Your Account</string>
+    <string name="RegisterYouAcc">Registriere dein Konto</string>
     <string name="upload_photo">Foto hochladen</string>
+    <string name="exhibitions">Ausstellungen</string>
+    <string name="partys">Partys</string>
+    <string name="holidays">Feiertage</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="Sorry_there_a_problem_with_the_server">Entschuldigung, es gibt ein Problem mit dem Server</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Schau dir in der Zwischenzeit die coolen Veranstaltungen auf dem Hauptbildschirm an :)</string>
+    <string name="points">...</string>
 </resources>

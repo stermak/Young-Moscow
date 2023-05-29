@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:background="@color/bgColor"
+        android:background="@color/black1"
         tools:context=".presentation.ui.fragments.EventDetailsFragment">
 
         <ScrollView
@@ -20,12 +20,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/eventImage"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_width="370dp"
+                    android:layout_height="370dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +38,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textColor="@color/bgColor"
+                    android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/eventImage" />
@@ -48,10 +49,9 @@
                     style="@style/titleStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:autoLink="all"
                     android:focusable="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/bgColor"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -59,36 +59,33 @@
 
                 <TextView
                     android:id="@+id/eventDescription"
-                    style="@style/inputStyle"
+                    style="@style/titleStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textColor="@color/bgColor"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/site_url" />
 
                 <TextView
                     android:id="@+id/eventBodyText"
-                    style="@style/inputStyle"
+                    style="@style/titleStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textColor="@color/bgColor"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/eventDescription" />
 
                 <TextView
                     android:id="@+id/eventPrice"
-                    style="@style/inputStyle"
+                    style="@style/titleStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textColor="@color/bgColor"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/eventBodyText" />
 

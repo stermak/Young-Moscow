@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -8,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:background="@color/bgColor"
+        android:background="@color/black"
         tools:context=".presentation.ui.fragments.MainFragment">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -24,7 +23,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="411dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/recyclerView"
@@ -34,33 +33,29 @@
 
             <Button
                 android:id="@+id/exhibitions_button"
-                android:layout_width="125dp"
+                style="@style/buttonStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
                 android:layout_weight="1"
-                android:text="Выставки" />
+                android:text="@string/exhibitions" />
 
             <Button
                 android:id="@+id/partys_button"
-                android:layout_width="125dp"
+                style="@style/buttonStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
                 android:layout_weight="1"
-                android:text="Вечеринки" />
+                android:text="@string/partys" />
 
             <Button
                 android:id="@+id/holidays_button"
-                android:layout_width="125dp"
+                style="@style/buttonStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
                 android:layout_weight="1"
-                android:text="Праздники" />
+                android:text="@string/holidays" />
 
         </LinearLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

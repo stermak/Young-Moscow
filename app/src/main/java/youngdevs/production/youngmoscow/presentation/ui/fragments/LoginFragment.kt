@@ -59,9 +59,8 @@ class LoginFragment : Fragment() {
                 Log.d(
                     "LoginFragment",
                     "isLoginSuccessful changed to $it"
-                ) // добавляем вызов Log.d() для вывода информации об изменении значения LiveData в
-                // лог
-                if (it == true) {
+                )
+                if (it == true && findNavController().currentDestination?.id == R.id.loginFragment) {
                     findNavController()
                         .navigate(
                             R.id.action_loginFragment_to_navigation_main

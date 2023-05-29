@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:background="@color/bgColor">
+        android:background="@color/black">
 
         <TextView
             android:id="@+id/login_logo"
@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:text="@string/Favourite"
-            android:textColor="@color/black"
+            android:textColor="@color/bgColor"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +93,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:visibility="gone"
+            android:textColor="@color/bgColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="492dp"
             android:text="@string/FindInterestingEvent"
-            android:textColor="@color/login_grey"
+            android:textColor="@color/bgColor"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

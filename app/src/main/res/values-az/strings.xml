@@ -35,5 +35,12 @@
     <string name="Profile">Profil</string>
     <string name="Registration">Qeydiyyat</string>
     <string name="RegisterYouAcc">hesabınızı qeydiyyatdan keçirin</string>
-    <string name="upload_photo">Upload Photo</string>
+    <string name="upload_photo">Şəkil yüklə</string>
+    <string name="exhibitions">Sərgilər</string>
+    <string name="partys">Partylar</string>
+    <string name="holidays">Bayramlar</string>
+    <string name="change_language">Dili dəyiş</string>
+    <string name="Sorry_there_a_problem_with_the_server">Üzr istəyirəm, serverdə problem var</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Bu arada əsas ekran üzərindəki maraqlı hadisələri yoxlayın :)</string>
+    <string name="points">...</string>
 </resources>

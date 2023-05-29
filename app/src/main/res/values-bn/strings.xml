@@ -35,5 +35,12 @@
     <string name="Profile">প্রোফাইল</string>
     <string name="Registration">নিবন্ধন</string>
     <string name="RegisterYouAcc">আপনার অ্যাকাউন্ট নিবন্ধন করুন</string>
-    <string name="upload_photo">Upload Photo</string>
+    <string name="upload_photo">ফটো আপলোড করুন</string>
+    <string name="exhibitions">প্রদর্শনী</string>
+    <string name="partys">পার্টি</string>
+    <string name="holidays">উপলক্ষ্য</string>
+    <string name="change_language">ভাষা পরিবর্তন করুন</string>
+    <string name="Sorry_there_a_problem_with_the_server">দুঃখিত, সার্ভারে সমস্যা হয়েছে</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">এই সময়ে মূল স্ক্রিনে শীতল ঘটনাগুলি দেখুন :)</string>
+    <string name="points">...</string>
 </resources>

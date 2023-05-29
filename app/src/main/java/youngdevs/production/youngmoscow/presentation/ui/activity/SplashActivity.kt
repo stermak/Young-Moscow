@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish() // Завершите сплеш-экран после перехода
-        }, 1000)
+        }, 750)
 
     }
 }

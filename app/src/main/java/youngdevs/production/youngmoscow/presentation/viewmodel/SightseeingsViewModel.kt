@@ -34,11 +34,15 @@ constructor(
 
 
     // Загружаем список достопримечательностей с использованием корутин
+    private val _allSightseeings = mutableListOf<Sightseeing>()
+
     fun loadSightseeings() {
         loadingStatus.value = LoadingStatus.LOADING
         viewModelScope.launch {
             try {
                 val sightseeings = sightseeingsService.getSightseeings()
+                _allSightseeings.clear()
+                _allSightseeings.addAll(sightseeings)
                 _sightseeings.value = sightseeings
                 loadingStatus.value = LoadingStatus.LOADED
                 Log.d(
@@ -57,6 +61,11 @@ constructor(
         }
     }
 
+    fun searchSightseeings(query: String) {
+        val filteredSightseeings = _allSightseeings.filter { it.name.contains(query, ignoreCase = true) }
+        _sightseeings.value = filteredSightseeings
+    }
+
     // Загружаем изображение с использованием корутин и обрабатываем исключения
     suspend fun loadImage(imageName: String): Bitmap? {
         return try {
@@ -71,4 +80,5 @@ constructor(
             null
         }
     }
+
 }

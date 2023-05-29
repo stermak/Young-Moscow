@@ -35,5 +35,12 @@
     <string name="Profile">حساب تعريفي</string>
     <string name="Registration">تسجيل</string>
     <string name="RegisterYouAcc">سجل حسابك</string>
-    <string name="upload_photo">Upload Photoо</string>
+    <string name="upload_photo">تحميل الصورة</string>
+    <string name="exhibitions">المعارض</string>
+    <string name="partys">الحفلات</string>
+    <string name="holidays">العطلات</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="Sorry_there_a_problem_with_the_server">عذرًا، هناك مشكلة في الخادم</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">في الوقت الحالي، تفضل بالاطلاع على الأحداث الرائعة على الشاشة الرئيسية :)</string>
+    <string name="points">...</string>
 </resources>

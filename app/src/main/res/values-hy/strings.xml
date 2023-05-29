@@ -35,5 +35,12 @@
     <string name="Profile">Անձնագիր</string>
     <string name="Registration">Գրանցում</string>
     <string name="RegisterYouAcc">գրանցեք ձեր հաշիվը</string>
-    <string name="upload_photo">Upload Photo</string>
+    <string name="upload_photo">Լուծեք լուսանկար</string>
+    <string name="exhibitions">Ցուցանակներ</string>
+    <string name="partys">Միջոցառումներ</string>
+    <string name="holidays">Օրերվա</string>
+    <string name="change_language">Փոխել լեզուն</string>
+    <string name="Sorry_there_a_problem_with_the_server">Կներեք, սերվերում խնդիրներ են</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Միջին ժամանակին, դիտեք հայտնի իրադարձությունները գլխավոր էկրանում :)</string>
+    <string name="points">...</string>
 </resources>

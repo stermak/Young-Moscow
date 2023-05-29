@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="black">#DD0D1117</color>
+    <color name="black1">#DD0D1117</color>
     <color name="white">#FFFFFFFF</color>
     <color name="bgColor">#FFFFFF</color>
-    <color name="iconColor">#F28241</color>
-    <color name="orange">#F28241</color>
+    <color name="iconColor">#DD0D1117</color>
+    <color name="orange">#DD0D1117</color>
     <color name="grey">#F1EDED</color>
     <color name="login_grey">#6A6767</color>
-    <color name="btnColor">#F28241</color>
+    <color name="btnColor">#DD0D1117</color>
     <color name="trans">#00EFEFEF</color>
-    <color name="md_theme_light_primary">#F28241</color>
+    <color name="md_theme_light_primary">#DD0D1117</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_light_primaryContainer">#EADDFF</color>
     <color name="md_theme_light_onPrimaryContainer">#22005D</color>

@@ -7,7 +7,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgColor"
+        android:background="#DF0D1117"
         android:padding="16dp"
         tools:context=".presentation.ui.fragments.LoginFragment">
 
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="220dp"
-            android:background="@color/bgColor"
+            android:background="#0D0D1117"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,17 +71,31 @@
                 style="@style/buttonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:backgroundTint="@color/orange"
                 android:layout_below="@+id/password"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="start"
                 android:text="@string/action_sign_in"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/password"
                 app:layout_constraintVertical_bias="0.2" />
+
+            <Button
+                android:id="@+id/google_login"
+                style="@style/buttonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@+id/login"
+                android:layout_marginTop="10dp"
+                android:text="@string/google_login" />
+
+            <Button
+                android:id="@+id/registration_button"
+                style="@style/buttonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@+id/google_login"
+                android:layout_marginTop="10dp"
+                android:text="@string/registration_button" />
 
             <ProgressBar
                 android:id="@+id/loading"
@@ -98,50 +112,6 @@
                 app:layout_constraintStart_toStartOf="@+id/password"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.3" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@color/bgColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
-
-            <Button
-                android:id="@+id/google_login"
-                style="@style/buttonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="@string/google_login"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@color/bgColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
-
-            <Button
-                android:id="@+id/registration_button"
-                style="@style/buttonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:text="@string/registration_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
         </RelativeLayout>
 
         <ImageView
@@ -163,7 +133,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/Welcome"
-            android:textColor="@color/black"
+            android:textColor="@color/bgColor"
             android:textSize="21sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -180,7 +150,7 @@
             android:layout_marginTop="164dp"
             android:gravity="center"
             android:text="@string/LoginInYourAcc"
-            android:textColor="#252525"
+            android:textColor="@color/bgColor"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.204"
             app:layout_constraintStart_toStartOf="@+id/imageView"

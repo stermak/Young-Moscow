@@ -36,4 +36,11 @@
     <string name="Registration">Регистрациа</string>
     <string name="RegisterYouAcc">Register Your Account</string>
     <string name="upload_photo">Фото аҳәо</string>
+    <string name="exhibitions">Выставки</string>
+    <string name="partys">Вечеринки</string>
+    <string name="holidays">Праздники</string>
+    <string name="change_language">Change language</string>
+    <string name="Sorry_there_a_problem_with_the_server">Извините,на сервере неполадки</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">А пока посмотрите на крутые события на главном экране :)</string>
+    <string name="points">…</string>
 </resources>

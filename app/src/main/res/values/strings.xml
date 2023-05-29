@@ -36,6 +36,13 @@
     <string name="Registration">Registration</string>
     <string name="RegisterYouAcc">Register Your Account</string>
     <string name="upload_photo">Upload the photo</string>
+    <string name="exhibitions">Exhibitions</string>
+    <string name="partys">Parties</string>
+    <string name="holidays">Holidays</string>
+    <string name="change_language">Change language</string>
+    <string name="Sorry_there_a_problem_with_the_server">Sorry, there\'s a problem with the server</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">In the meantime, check out the cool events on the main screen :)</string>
+    <string name="points">...</string>
 
     <string-array name="language_names">
         <item>Abkhazian</item>
@@ -59,7 +66,6 @@
         <item>Portuguese</item>
         <item>Russian</item>
         <item>Spanish</item>
-        <item>Uzbek</item>
     </string-array>
 
     <string-array name="language_codes">
@@ -84,7 +90,6 @@
         <item>pt</item>
         <item>ru</item>
         <item>es</item>
-        <item>uz</item>
     </string-array>
 
 </resources>

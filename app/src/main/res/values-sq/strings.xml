@@ -31,9 +31,16 @@
     <string name="HaventSavedEvent">Asnjë ngjarje e ruajtur</string>
     <string name="FindInterestingEvent">Gjeni ngjarje interesante dhe shtoni ato në të preferuarat tuaja</string>
     <string name="Welcome">Mirë se vini</string>
-    <string name="LoginInYourAcc">hyni në llogarinë tuaj</string>
+    <string name="LoginInYourAcc">Hyni në llogarinë tuaj</string>
     <string name="Profile">Profili</string>
     <string name="Registration">Regjistrimi</string>
-    <string name="RegisterYouAcc">regjistroni llogarinë tuaj</string>
-    <string name="upload_photo">Upload Photo</string>
+    <string name="RegisterYouAcc">Regjistroni llogarinë tuaj</string>
+    <string name="upload_photo">Ngarko Foto</string>
+    <string name="exhibitions">Ekspozitat</string>
+    <string name="partys">Festat</string>
+    <string name="holidays">Pushimet</string>
+    <string name="change_language">Ndrysho gjuhën</string>
+    <string name="Sorry_there_a_problem_with_the_server">Na falni, ka një problem me serverin</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Në mes kohë, shikoni ngjarjet e këndshme në ekranin kryesor :)</string>
+    <string name="points">...</string>
 </resources>

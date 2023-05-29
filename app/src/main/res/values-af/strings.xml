@@ -35,5 +35,12 @@
     <string name="Profile">Profiel</string>
     <string name="Registration">Registrasie</string>
     <string name="RegisterYouAcc">registreer jou rekening</string>
-    <string name="upload_photo">Upload Photo</string>
+    <string name="upload_photo">Laai Foto op</string>
+    <string name="exhibitions">Uitstallings</string>
+    <string name="partys">Partytjies</string>
+    <string name="holidays">Vakansies</string>
+    <string name="change_language">Verander taal</string>
+    <string name="Sorry_there_a_problem_with_the_server">Jammer, daar is \'n probleem met die bediener</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Intussen kyk na die koel gebeure op die hoofskerm :)</string>
+    <string name="points">…</string>
 </resources>

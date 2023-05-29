@@ -7,20 +7,22 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgColor"
+        android:background="@color/black"
         android:paddingLeft="@dimen/fragment_horizontal_margin"
         android:paddingTop="@dimen/fragment_vertical_margin"
         android:paddingRight="@dimen/fragment_horizontal_margin"
         android:paddingBottom="@dimen/fragment_vertical_margin"
         tools:context=".presentation.ui.fragments.RegistrationFragment">
 
+
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:background="@color/bgColor"
+            android:layout_marginTop="220dp"
+            android:background="#0D0D1117"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -121,12 +123,21 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_gravity="start"
-
                 android:text="@string/registration_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.2" />
+
+            <Button
+                android:id="@+id/login_button"
+                style="@style/buttonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_below="@+id/registration"
+                android:layout_marginTop="10dp"
+                android:text="@string/action_sign_in" />
+
 
             <ProgressBar
                 android:id="@+id/loading"
@@ -162,7 +173,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/Registration"
-            android:textColor="@color/black"
+            android:textColor="@color/bgColor"
             android:textSize="21sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -179,7 +190,7 @@
             android:layout_marginTop="164dp"
             android:gravity="center"
             android:text="@string/RegisterYouAcc"
-            android:textColor="#252525"
+            android:textColor="@color/bgColor"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.204"
             app:layout_constraintStart_toStartOf="@+id/imageView"

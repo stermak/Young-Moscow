@@ -34,7 +34,13 @@
     <string name="LoginInYourAcc">Влезте в своя акаунт</string>
     <string name="Profile">Профил</string>
     <string name="Registration">Регистрация</string>
-    <string name="RegisterYouAcc">Register Your Account</string>
-
-    <string name="upload_photo">Качи снимка</string>
+    <string name="RegisterYouAcc">Регистрирайте своя акаунт</string>
+    <string name="upload_photo">Качване на снимка</string>
+    <string name="exhibitions">Изложби</string>
+    <string name="partys">Парти</string>
+    <string name="holidays">Празници</string>
+    <string name="change_language">Промяна на езика</string>
+    <string name="Sorry_there_a_problem_with_the_server">Съжалявам, има проблем със сървъра</string>
+    <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Докато това, проверете интересните събития на главния екран :)</string>
+    <string name="points">...</string>
 </resources>

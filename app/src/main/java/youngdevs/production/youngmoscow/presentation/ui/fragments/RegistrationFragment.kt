@@ -91,7 +91,9 @@ class RegistrationFragment : Fragment() {
         }
 
         FirebaseAuth.getInstance().addAuthStateListener { firebaseAuth ->
-            if (firebaseAuth.currentUser != null) {
+            if (firebaseAuth.currentUser != null &&
+                findNavController().currentDestination?.id == R.id.registrationFragment
+            ) {
                 findNavController()
                     .navigate(
                         R.id
@@ -111,6 +113,12 @@ class RegistrationFragment : Fragment() {
     // Метод устанавливает обработчики событий на кнопки и другие элементы пользовательского
     // интерфейса.
     private fun setEventListener() {
+        binding.loginButton.setOnClickListener {
+            findNavController()
+                .navigate(
+                    R.id.action_registrationFragment_to_loginFragment
+                ) // Переход к экрану регистрации при нажатии кнопки "Зарегистрироваться"
+        }
         binding.registration.setOnClickListener {
             val email = binding.emailField.text.toString().trim()
             val password = binding.passwordRegistrationField.text.toString().trim()
