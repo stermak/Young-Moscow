@@ -76,6 +76,13 @@ class SettingsFragment : Fragment() {
             bottomNavigation?.visibility = View.GONE
         }
 
+        binding.btnFavouriteEvents.setOnClickListener {
+            // Навигируем пользователя на экран избранных событий.
+            findNavController()
+                .navigate(
+                    R.id.action_settingsFragment_to_favoriteEventsFragment
+                )
+        }
         binding.btnProfile.setOnClickListener {
             // Навигируем пользователя на экран избранных событий.
             findNavController()

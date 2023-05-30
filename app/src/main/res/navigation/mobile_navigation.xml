@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_languageFragment"
             app:destination="@id/languageFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_favoriteEventsFragment"
+            app:destination="@id/favoriteEventsFragment" />
     </fragment>
 
     <fragment
@@ -77,4 +80,9 @@
         android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.LanguageFragment"
         android:label="fragment_language"
         tools:layout="@layout/fragment_language" />
+    <fragment
+        android:id="@+id/favoriteEventsFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.FavoriteEventsFragment"
+        android:label="fragment_favorite_events"
+        tools:layout="@layout/fragment_favorite_events" />
 </navigation>
