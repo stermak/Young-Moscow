@@ -14,37 +14,49 @@ import youngdevs.production.youngmoscow.data.services.RetrofitClient
 import youngdevs.production.youngmoscow.databinding.ItemEventBinding
 
 class EventsAdapter(private val scope: LifecycleCoroutineScope) :
-    ListAdapter<Event, EventsAdapter.EventViewHolder>(
-        DiffCallback()
-    ) {
-    // Создание нового ViewHolder, которому передается экземпляр макета ItemSightseeingBinding
+    ListAdapter<Event, EventsAdapter.EventViewHolder>(DiffCallback()) {
+
+    interface OnItemClickListener {
+        fun onItemClick(event: Event)
+    }
+
+    var onItemClickListener: OnItemClickListener? = null
+
+    // Создание нового ViewHolder, которому передается экземпляр макета ItemEventBinding
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): EventViewHolder {
-        val binding =
-            ItemEventBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        return EventViewHolder(binding, scope)
+        val binding = ItemEventBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return EventViewHolder(binding, scope, onItemClickListener, ::getItem)
     }
 
     // Привязка данных к ViewHolder
-    override fun onBindViewHolder(
-        holder: EventViewHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
     }
 
-    // Определение класса SightseeingViewHolder, который наследуется от RecyclerView.ViewHolder
     class EventViewHolder(
         private val binding: ItemEventBinding,
-        private val scope: LifecycleCoroutineScope
+        private val scope: LifecycleCoroutineScope,
+        private val onItemClickListener: OnItemClickListener?,
+        private val getItem: (Int) -> Event
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    onItemClickListener?.onItemClick(item)
+                }
+            }
+        }
 
         // Привязка данных к View
         fun bind(event: Event) {

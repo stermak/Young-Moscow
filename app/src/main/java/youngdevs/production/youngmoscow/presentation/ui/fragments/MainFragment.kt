@@ -11,12 +11,15 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.data.utilities.LoadingStatus
 import youngdevs.production.youngmoscow.databinding.FragmentMainBinding
 import youngdevs.production.youngmoscow.presentation.ui.adapter.EventsAdapter
 import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
+import youngdevs.production.youngmoscow.presentation.viewmodel.SharedViewModel
 
 // Фрагмент, отображающий список событий
 @AndroidEntryPoint // аннотация для использования Hilt DI
@@ -25,6 +28,7 @@ class MainFragment : Fragment() {
 
     // ViewModel для работы с данными
     private val viewModel: MainViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
 
     // Поле для привязки View Binding
     private var _binding: FragmentMainBinding? = null
@@ -32,6 +36,12 @@ class MainFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var eventsAdapter: EventsAdapter
+
+
+    // Когда пользователь выбирает местоположение, вызываем setSelectedLocation() в SharedViewModel
+    private fun onLocationSelected(location: String) {
+        sharedViewModel.setSelectedLocation(location)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +60,13 @@ class MainFragment : Fragment() {
         // Инициализируем адаптер достопримечательностей
         eventsAdapter =
             EventsAdapter(viewLifecycleOwner.lifecycleScope)
+
+        eventsAdapter.onItemClickListener = object : EventsAdapter.OnItemClickListener {
+            override fun onItemClick(event: Event) {
+                val action = MainFragmentDirections.actionMainFragmentToMapsFragment(event.address)
+                findNavController().navigate(action)
+            }
+        }
 
         binding.searchField.addTextChangedListener { text ->
             viewModel.searchEvents(text.toString())
