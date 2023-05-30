@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import youngdevs.production.youngmoscow.data.services.EventsService
+import youngdevs.production.youngmoscow.data.services.ImagesEventsService
 import youngdevs.production.youngmoscow.data.services.ImagesService
 import youngdevs.production.youngmoscow.data.services.RetrofitClient
 import youngdevs.production.youngmoscow.data.services.SightseeingsService
@@ -26,5 +28,18 @@ object NetworkModule {
     @Singleton
     fun provideImagesService(): ImagesService {
         return RetrofitClient.imagesService
+    }
+
+    @Provides
+    @Singleton
+    fun provideEventsService(): EventsService {
+        return RetrofitClient.eventsService
+    }
+
+    // Предоставление зависимости ImagesService в виде объекта RetrofitClient.imagesService
+    @Provides
+    @Singleton
+    fun provideImagesEventsService(): ImagesEventsService {
+        return RetrofitClient.imagesEventsService
     }
 }

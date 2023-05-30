@@ -14,11 +14,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="8dp">
-
             <ImageView
-                android:id="@+id/eventImage"
-                android:layout_width="375dp"
-                android:layout_height="375dp"
+                android:id="@+id/image"
+                android:layout_width="370dp"
+                android:layout_height="370dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
@@ -26,22 +25,38 @@
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/eventTitle"
+                android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_toEndOf="@+id/image"
+                android:layout_marginStart="8dp"
                 android:text="@string/points"
                 android:textColor="@color/bgColor"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/eventDescription"
+                android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_toEndOf="@+id/image"
+                android:layout_marginStart="8dp"
                 android:text="@string/points"
                 android:textColor="@color/bgColor"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/description"
+                android:layout_toEndOf="@+id/image"
+                android:layout_marginStart="8dp"
+                android:text="@string/points"
+                android:textColor="@color/bgColor"
+                android:textSize="14sp" />
+
 
         </LinearLayout>
 

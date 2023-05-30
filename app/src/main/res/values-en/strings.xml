@@ -43,4 +43,5 @@
     <string name="Sorry_there_a_problem_with_the_server">Sorry, there\'s a problem with the server</string>
     <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">In the meantime, check out the cool events on the main screen :)</string>
     <string name="points">...</string>
+    <string name="events">Events</string>
 </resources>

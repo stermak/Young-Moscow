@@ -1,5 +1,8 @@
 package youngdevs.production.youngmoscow.presentation.viewmodel
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,92 +10,74 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.Event
-import youngdevs.production.youngmoscow.data.repository.KudaGoRepository
+import youngdevs.production.youngmoscow.data.services.EventsService
+import youngdevs.production.youngmoscow.data.services.ImagesEventsService
+import youngdevs.production.youngmoscow.data.utilities.LoadingStatus
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel
 @Inject
-constructor(private val repository: KudaGoRepository) : ViewModel() {
+constructor(
+    // Внедряем сервисы для работы с достопримечательностями и изображениями
+    private val eventsService: EventsService,
+    private val imagesEventsService: ImagesEventsService
+) : ViewModel() {
 
-    private var loading = false
-    private val _events = MutableLiveData<List<Event>>() // LiveData для получения списка событий
-    val events: LiveData<List<Event>> get() = _events // LiveData для доступа к списку событий
-    private var currentPage = 1
+    // Используем MutableLiveData для изменения списка достопримечательностей внутри ViewModel
+    private val _events = MutableLiveData<List<Event>>()
 
-    private val _exhibitions = MutableLiveData<List<Event>>()
-    val exhibitions: LiveData<List<Event>> get() = _exhibitions
+    // Объявляем LiveData для предоставления списка достопримечательностей во внешний код
+    val events: LiveData<List<Event>> = _events
+    val loadingStatus = MutableLiveData<LoadingStatus>()
 
-    private val _partys = MutableLiveData<List<Event>>()
-    val partys: LiveData<List<Event>> get() = _partys
 
-    private val _holidays = MutableLiveData<List<Event>>()
-    val holidays: LiveData<List<Event>> get() = _holidays
+    // Загружаем список достопримечательностей с использованием корутин
+    private val _allEvents = mutableListOf<Event>()
 
-    init {
-        fetchEvents()
-        fetchExhibitions()
-        fetchPartys()
-        fetchHolidays()
-    }
-
-    fun isLoading(): Boolean {
-        return loading
-    }
-
-    fun loadNextPage() {
-        currentPage++
-        fetchEvents()
-        fetchExhibitions()
-        fetchPartys()
-        fetchHolidays()
-    }
-
-    private fun fetchEvents() {
-        if (loading) {
-            return
-        }
-        loading = true
+    fun loadEvents() {
+        loadingStatus.value = LoadingStatus.LOADING
         viewModelScope.launch {
-            val events = repository.getEvents(pageSize = 50, page = currentPage)
-            _events.value = events
-            loading = false
+            try {
+                val events = eventsService.getEvents()
+                _allEvents.clear()
+                _allEvents.addAll(events)
+                _events.value = events
+                loadingStatus.value = LoadingStatus.LOADED
+                Log.d(
+                    "MainViewModel",
+                    "Loaded ${events.size} events"
+                )
+            } catch (e: Exception) {
+                loadingStatus.value = LoadingStatus.ERROR
+                Log.e(
+                    "MainViewModel",
+                    "Failed to load events",
+                    e
+                )
+                // Обработка ошибки
+            }
         }
     }
 
-    fun fetchExhibitions() {
-        if (loading) {
-            return
-        }
-        loading = true
-        viewModelScope.launch {
-            val exhibitions = repository.getExhibitions(pageSize = 50, page = currentPage)
-            _exhibitions.value = exhibitions
-            loading = false
+    fun searchEvents(query: String) {
+        val filteredEvents = _allEvents.filter { it.name.contains(query, ignoreCase = true) }
+        _events.value = filteredEvents
+    }
+
+    // Загружаем изображение с использованием корутин и обрабатываем исключения
+    suspend fun loadImage(imageEventName: String): Bitmap? {
+        return try {
+            val response = imagesEventsService.getImageEvent(imageEventName)
+            if (response.isSuccessful) {
+                val inputStream = response.body()?.byteStream()
+                inputStream?.let { BitmapFactory.decodeStream(it) }
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
         }
     }
 
-    fun fetchPartys() {
-        if (loading) {
-            return
-        }
-        loading = true
-        viewModelScope.launch {
-            val partys = repository.getPartys(pageSize = 50, page = currentPage)
-            _partys.value = partys
-            loading = false
-        }
-    }
-
-    fun fetchHolidays() {
-        if (loading) {
-            return
-        }
-        loading = true
-        viewModelScope.launch {
-            val holidays = repository.getHoliday(pageSize = 50, page = currentPage)
-            _holidays.value = holidays
-            loading = false
-        }
-    }
 }

@@ -7,22 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import youngdevs.production.youngmoscow.R
-import youngdevs.production.youngmoscow.data.entities.Event
+import youngdevs.production.youngmoscow.data.utilities.LoadingStatus
 import youngdevs.production.youngmoscow.databinding.FragmentMainBinding
 import youngdevs.production.youngmoscow.presentation.ui.adapter.EventsAdapter
 import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 
 // Фрагмент, отображающий список событий
 @AndroidEntryPoint // аннотация для использования Hilt DI
-class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
+class MainFragment : Fragment() {
     private var isBackPressed = false
 
     // ViewModel для работы с данными
@@ -33,8 +31,8 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
     private val binding
         get() = _binding!!
 
-    // Адаптер для отображения списка событий
-    private val eventsAdapter = EventsAdapter(this)
+    private lateinit var eventsAdapter: EventsAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,65 +47,62 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Установка LayoutManager и адаптера в RecyclerView
+        // Инициализируем адаптер достопримечательностей
+        eventsAdapter =
+            EventsAdapter(viewLifecycleOwner.lifecycleScope)
+
+        binding.searchField.addTextChangedListener { text ->
+            viewModel.searchEvents(text.toString())
+        }
+
+        // Настраиваем RecyclerView с LinearLayoutManager и устанавливаем адаптер
         binding.recyclerView.layoutManager =
-            LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false
-            )
+            LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = eventsAdapter
 
-        binding.exhibitionsButton.setOnClickListener {
-            viewModel.fetchExhibitions()
-            viewModel.exhibitions.observe(viewLifecycleOwner) { exhibitions ->
-                eventsAdapter.setExhibitions(exhibitions)
-            }
+        // Обрабатываем изменения данных в ViewModel и обновляем адаптер
+        viewModel.events.observe(viewLifecycleOwner) { events
+            ->
+            eventsAdapter.submitList(events)
         }
 
-        binding.partysButton.setOnClickListener {
-            viewModel.fetchPartys()
-            viewModel.partys.observe(viewLifecycleOwner) { partys ->
-                eventsAdapter.setPartys(partys)
-            }
-        }
+        viewModel.loadingStatus.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                LoadingStatus.LOADING -> {
+                    binding.recyclerView.visibility = View.GONE
+                    binding.standing.visibility = View.VISIBLE
+                    binding.sitting.visibility = View.VISIBLE
+                    binding.errorServer.visibility = View.VISIBLE
+                    binding.sorry.visibility = View.VISIBLE
+                    binding.imageView8.visibility = View.VISIBLE
+                    binding.imageView9.visibility = View.VISIBLE
+                }
 
-        binding.holidaysButton.setOnClickListener {
-            viewModel.fetchHolidays()
-            viewModel.holidays.observe(viewLifecycleOwner) { holidays ->
-                eventsAdapter.setHolidays(holidays)
-            }
-        }
+                LoadingStatus.LOADED -> {
+                    binding.recyclerView.visibility = View.VISIBLE
+                    binding.standing.visibility = View.GONE
+                    binding.sitting.visibility = View.GONE
+                    binding.errorServer.visibility = View.GONE
+                    binding.sorry.visibility = View.GONE
+                    binding.imageView8.visibility = View.GONE
+                    binding.imageView9.visibility = View.GONE
+                }
 
-        viewModel.events.observe(viewLifecycleOwner) { events ->
-            eventsAdapter.setEvents(events)
-        }
-
-
-        // Загрузка следующей страницы при достижении конца списка
-        binding.recyclerView.addOnScrollListener(
-            object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(
-                    recyclerView: RecyclerView,
-                    dx: Int,
-                    dy: Int
-                ) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val layoutManager =
-                        binding.recyclerView.layoutManager
-                                as LinearLayoutManager
-                    val lastVisiblePosition =
-                        layoutManager.findLastVisibleItemPosition()
-                    val totalItemCount = layoutManager.itemCount
-                    if (
-                        lastVisiblePosition + 5 >= totalItemCount &&
-                        !viewModel.isLoading()
-                    ) {
-                        viewModel.loadNextPage()
-                    }
+                LoadingStatus.ERROR -> {
+                    binding.recyclerView.visibility = View.GONE
+                    binding.standing.visibility = View.VISIBLE
+                    binding.sitting.visibility = View.VISIBLE
+                    binding.errorServer.visibility = View.VISIBLE
+                    binding.sorry.visibility = View.VISIBLE
+                    binding.imageView8.visibility = View.VISIBLE
+                    binding.imageView9.visibility = View.VISIBLE
                 }
             }
-        )
+        }
+
+
+        // Загружаем список достопримечательностей
+        viewModel.loadEvents()
     }
 
     fun handleOnBackPressed() {
@@ -126,14 +121,9 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         }
     }
 
-    // Обработка нажатия на элемент списка
-    override fun onItemClick(event: Event) {
-        val eventId = event.id
-        val navController = findNavController()
-        // Переход к фрагменту EventDetailsFragment с передачей идентификатора события
-        navController.navigate(
-            R.id.action_mainFragment_to_eventDetailsFragment,
-            bundleOf("eventId" to eventId)
-        )
+    // Удаляем связывание с макетом при уничтожении представления
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
