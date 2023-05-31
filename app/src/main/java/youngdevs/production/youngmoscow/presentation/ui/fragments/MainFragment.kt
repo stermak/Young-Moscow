@@ -14,12 +14,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import youngdevs.production.youngmoscow.data.entities.AppDatabase
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.data.utilities.LoadingStatus
 import youngdevs.production.youngmoscow.databinding.FragmentMainBinding
 import youngdevs.production.youngmoscow.presentation.ui.adapter.EventsAdapter
 import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 import youngdevs.production.youngmoscow.presentation.viewmodel.SharedViewModel
+import javax.inject.Inject
 
 // Фрагмент, отображающий список событий
 @AndroidEntryPoint // аннотация для использования Hilt DI
@@ -36,6 +38,10 @@ class MainFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var eventsAdapter: EventsAdapter
+
+    @Inject
+    lateinit var database: AppDatabase
+
 
 
     // Когда пользователь выбирает местоположение, вызываем setSelectedLocation() в SharedViewModel
@@ -57,9 +63,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Инициализируем адаптер достопримечательностей
-        eventsAdapter =
-            EventsAdapter(viewLifecycleOwner.lifecycleScope)
+        val favoriteEventDao = database.favoriteEventDao()
+        eventsAdapter = EventsAdapter(viewLifecycleOwner.lifecycleScope, favoriteEventDao)
+
 
         eventsAdapter.onItemClickListener = object : EventsAdapter.OnItemClickListener {
             override fun onItemClick(event: Event) {

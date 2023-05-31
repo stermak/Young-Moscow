@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import youngdevs.production.youngmoscow.data.entities.Event
+import youngdevs.production.youngmoscow.data.entities.FavoriteEvent
 import youngdevs.production.youngmoscow.data.services.EventsService
 import youngdevs.production.youngmoscow.data.services.ImagesEventsService
 import youngdevs.production.youngmoscow.data.utilities.LoadingStatus
@@ -25,15 +26,15 @@ constructor(
 ) : ViewModel() {
 
     // Используем MutableLiveData для изменения списка достопримечательностей внутри ViewModel
-    private val _events = MutableLiveData<List<Event>>()
+    private val _events = MutableLiveData<List<FavoriteEvent>>()
 
     // Объявляем LiveData для предоставления списка достопримечательностей во внешний код
-    val events: LiveData<List<Event>> = _events
+    val events: LiveData<List<FavoriteEvent>> = _events
     val loadingStatus = MutableLiveData<LoadingStatus>()
 
 
     // Загружаем список достопримечательностей с использованием корутин
-    private val _allEvents = mutableListOf<Event>()
+    private val _allEvents = mutableListOf<FavoriteEvent>()
 
     fun loadEvents() {
         loadingStatus.value = LoadingStatus.LOADING
