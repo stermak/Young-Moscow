@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presentation.ui.fragments.FavoriteEventsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/favoriteLayout"
+        android:id="@+id/favouriteEventsLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
@@ -17,38 +15,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/Favourites"
+            android:text="@string/Favourite"
             android:textColor="@color/bgColor"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/searchField"
-            android:layout_width="411dp"
-            android:layout_height="50dp"
-            android:gravity="start"
-            android:hint="Search"
-            android:textColorHint="@color/bgColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_logo" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            style="@style/titleStyle"
+            android:id="@+id/favouriteEventsRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:orientation="vertical"
             android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchField"
+            app:layout_constraintTop_toBottomOf="@+id/login_logo"
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
@@ -101,7 +84,7 @@
             app:srcCompat="@drawable/favourite_sitting_7" />
 
         <TextView
-            android:id="@+id/error_server"
+            android:id="@+id/no_saved_favourites"
             style="@style/inputStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,15 +92,15 @@
             android:text="@string/HaventSavedEvent"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="@color/bgColor"
             android:visibility="gone"
+            android:textColor="@color/bgColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/sorry"
+            android:id="@+id/find_and_save_events"
             style="@style/inputStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,5 +114,4 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

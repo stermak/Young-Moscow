@@ -4,8 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -40,7 +38,6 @@ import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.data.entities.Landmark
 import youngdevs.production.youngmoscow.databinding.FragmentMapsBinding
 import youngdevs.production.youngmoscow.presentation.viewmodel.MapsViewModel
-import youngdevs.production.youngmoscow.presentation.viewmodel.SharedViewModel
 
 @AndroidEntryPoint
 class MapsFragment : Fragment() {
@@ -57,24 +54,28 @@ class MapsFragment : Fragment() {
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var placesClient: PlacesClient
     private lateinit var geoApiContext: GeoApiContext
-    private val sharedViewModel: SharedViewModel by viewModels()
     private var userMarker: Marker? = null
-    private var addresses: List<Address>? = null // New line: Declare addresses here
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMapsBinding.inflate(layoutInflater, container, false)
-        Places.initialize(requireContext(), getString(R.string.google_maps_key))
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        _binding =
+            FragmentMapsBinding.inflate(layoutInflater, container, false)
+        Places.initialize(
+            requireContext(),
+            getString(R.string.google_maps_key)
+        )
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(
+                requireContext()
+            )
         placesClient = Places.createClient(requireContext())
-        geoApiContext = GeoApiContext.Builder().apiKey(getString(R.string.google_maps_key)).build()
-
-        val geocoder = Geocoder(requireContext())
-        val address = arguments?.getString("address") ?: "Красная площадь"
-        addresses = geocoder.getFromLocationName(address, 1)
+        geoApiContext =
+            GeoApiContext.Builder()
+                .apiKey(getString(R.string.google_maps_key))
+                .build()
         return binding.root
     }
 
@@ -82,17 +83,6 @@ class MapsFragment : Fragment() {
     private val callback = OnMapReadyCallback { googleMap ->
         this.googleMap = googleMap
         val moscowLatLng = LatLng(55.751244, 37.618423)
-        addresses?.let {
-            if (it.isNotEmpty()) {
-                val location = LatLng(it[0].latitude, it[0].longitude)
-                val marker = googleMap.addMarker(MarkerOptions().position(location).title("Место проведения"))
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
-                marker?.showInfoWindow()
-            }
-        } ?: run {
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscowLatLng, 10f))
-        }
-
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(moscowLatLng, 10f))
 
         viewModel.locationPermission.observe(viewLifecycleOwner) { isGranted ->
@@ -227,22 +217,6 @@ class MapsFragment : Fragment() {
             viewModel.setLocationPermission(true)
         } else {
             requestLocationPermission()
-        }
-
-        sharedViewModel.selectedLocation.observe(viewLifecycleOwner) { location ->
-            // Создаем маркер с использованием выбранного местоположения
-            if (location.isNotEmpty()) {
-                val geocoder = Geocoder(requireContext())
-                val addresses = geocoder.getFromLocationName(location, 1)
-                if (addresses != null) {
-                    if (addresses.isNotEmpty()) {
-                        val latLng = LatLng(addresses[0].latitude, addresses[0].longitude)
-                        val marker = googleMap.addMarker(MarkerOptions().position(latLng).title(location))
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10f))
-                        marker?.showInfoWindow()
-                    }
-                }
-            }
         }
     }
 

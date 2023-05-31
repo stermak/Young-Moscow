@@ -80,7 +80,7 @@ class SettingsFragment : Fragment() {
             // Навигируем пользователя на экран избранных событий.
             findNavController()
                 .navigate(
-                    R.id.action_settingsFragment_to_favoriteEventsFragment
+                    R.id.action_settingsFragment_to_favouriteEventsFragment
                 )
         }
         binding.btnProfile.setOnClickListener {

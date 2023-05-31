@@ -6,7 +6,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
-import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.data.entities.Sightseeing
 
 // Определение интерфейса SightseeingsService для работы с API, предоставляющего информацию о
@@ -24,22 +23,10 @@ interface ImagesService {
     ): Response<ResponseBody>
 }
 
-interface EventsService {
-    @GET("/api/events")
-    suspend fun getEvents(): List<Event>
-}
-
-interface ImagesEventsService {
-    @GET("/api/imagesEvents/{imageEventName}")
-    suspend fun getImageEvent(
-        @Path("imageEventName") imageEventName: String
-    ): Response<ResponseBody>
-}
-
 // Объект RetrofitClient предоставляет доступ к Retrofit, который используется для выполнения
 // запросов к API
 object RetrofitClient {
-    private const val BASE_URL = "http://46.188.35.184:12345/"
+    private const val BASE_URL = "http://95.84.178.227:80/"
 
     // Ленивая инициализация Retrofit
     private val retrofit: Retrofit by lazy {
@@ -59,13 +46,5 @@ object RetrofitClient {
     // изображений
     val imagesService: ImagesService by lazy {
         retrofit.create(ImagesService::class.java)
-    }
-
-    val eventsService: EventsService by lazy {
-        retrofit.create(EventsService::class.java)
-    }
-
-    val imagesEventsService: ImagesEventsService by lazy {
-        retrofit.create(ImagesEventsService::class.java)
     }
 }

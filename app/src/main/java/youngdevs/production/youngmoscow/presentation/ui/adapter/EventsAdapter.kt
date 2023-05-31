@@ -1,111 +1,123 @@
 package youngdevs.production.youngmoscow.presentation.ui.adapter
 
-import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import youngdevs.production.youngmoscow.data.dao.FavoriteEventDao
+import com.bumptech.glide.Glide
+import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.data.entities.Event
-import youngdevs.production.youngmoscow.data.entities.FavoriteEvent
-import youngdevs.production.youngmoscow.data.services.RetrofitClient
 import youngdevs.production.youngmoscow.databinding.ItemEventBinding
 
-class EventsAdapter(
-    private val scope: CoroutineScope,
-    private val favoriteEventDao: FavoriteEventDao
-) : ListAdapter<FavoriteEvent, EventsAdapter.EventViewHolder>(DiffCallback()) {
+class EventsAdapter(private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<EventsAdapter.EventViewHolder>() {
+    private val events = mutableListOf<Event>() // список событий для адаптера
+    private val exhibitions = mutableListOf<Event>()
+    private val partys = mutableListOf<Event>()
+    private val holidays = mutableListOf<Event>()
+
 
     interface OnItemClickListener {
-        fun onItemClick(event: FavoriteEvent)
+        fun onItemClick(
+            event: Event
+        ) // интерфейс дляD реализации обработчика клика на элементе списка
     }
 
-    var onItemClickListener: OnItemClickListener? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return EventViewHolder(binding, scope, onItemClickListener)
+    // метод для установки списка событий для адаптера
+    fun setEvents(newEvents: List<Event>) {
+        events.clear()
+        partys.clear()
+        exhibitions.clear()
+        holidays.clear()
+        events.addAll(newEvents)
+        notifyDataSetChanged()
     }
 
+    fun setExhibitions(newExhibitions: List<Event>) {
+        events.clear()
+        partys.clear()
+        exhibitions.clear()
+        holidays.clear()
+        exhibitions.addAll(newExhibitions)
+        notifyDataSetChanged()
+    }
+
+    // Обновить список вечеринок
+    fun setPartys(newPartys: List<Event>) {
+        events.clear()
+        partys.clear()
+        exhibitions.clear()
+        holidays.clear()
+        partys.addAll(newPartys)
+        notifyDataSetChanged()
+    }
+
+    // Обновить список праздников
+    fun setHolidays(newHolidays: List<Event>) {
+        events.clear()
+        partys.clear()
+        exhibitions.clear()
+        holidays.clear()
+        holidays.addAll(newHolidays)
+        notifyDataSetChanged()
+    }
+
+    // создание ViewHolder для элемента списка
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): EventViewHolder {
+        val binding =
+            ItemEventBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ) // раздувание макета элемента списка
+        return EventViewHolder(
+            binding
+        ) // возвращение ViewHolder для элемента списка
+    }
+
+    // привязка данных к ViewHolder
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        val favoriteEvent = getItem(position)
-        holder.bind(favoriteEvent)
+        val event = events[position] // получение текущего события
+        holder.bind(event) // привязка данных события к ViewHolder
+
+        holder.itemView
+            .setOnClickListener { // установка обработчика клика на элемент списка
+                onItemClickListener.onItemClick(
+                    event
+                ) // вызов метода из интерфейса для обработки клика на элементе списка
+            }
     }
 
-    inner class EventViewHolder(
-        private val binding: ItemEventBinding,
-        private val scope: CoroutineScope,
-        private val onItemClickListener: OnItemClickListener?
-    ) : RecyclerView.ViewHolder(binding.root) {
+    override fun getItemCount() =
+        events.size // возвращает количество элементов в списке
 
-        fun bind(favoriteEvent: FavoriteEvent) {
-            scope.launch {
-                val event = favoriteEventDao.getEventById(favoriteEvent.eventId)
-                event?.let {
-                    binding.name.text = it.name
-                    binding.description.text = it.description
-                    binding.address.text = it.address
-                    loadImage(it.image)
-                }
+    // класс ViewHolder для элемента списка
+    inner class EventViewHolder(private val binding: ItemEventBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        // метод для привязки данных события к элементу списка
+        fun bind(event: Event) {
+            binding.eventTitle.text = event.formattedTitle
+            binding.eventDescription.text = event.formattedDescription
+
+            if (
+                event.images.isNotEmpty()
+            ) { // проверка на наличие изображения для события
+                val imageUrl =
+                    event.images[0].image // получение URL изображения
+                Glide.with(binding.root.context)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.photonet)
+                    .error(R.drawable.photonet)
+                    .into(
+                        binding.eventImage
+                    ) // загрузка изображения с помощью Glide и установка его в ImageView
+            } else {
+                binding.eventImage.setImageResource(
+                    R.drawable.photonet
+                ) // установка изображения-заглушки, если изображения для события нет
             }
-
-            binding.root.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val item = getItem(position)
-                    onItemClickListener?.onItemClick(item)
-                }
-            }
-
-            binding.favoriteButton.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val favoriteEvent = getItem(position)
-                    scope.launch {
-                        val isFavorite = favoriteEventDao.getFavoriteEventById(favoriteEvent.eventId) != null
-                        if (isFavorite) {
-                            favoriteEventDao.deleteFavoriteEvent(favoriteEvent)
-                        } else {
-                            favoriteEventDao.addFavoriteEvent(favoriteEvent)
-                        }
-                    }
-                }
-            }
-        }
-
-        private fun loadImage(imageEventName: String) {
-            val imagesEventsService = RetrofitClient.imagesEventsService
-            scope.launch {
-                try {
-                    val response = imagesEventsService.getImageEvent(imageEventName.trim())
-                    if (response.isSuccessful) {
-                        val inputStream = response.body()?.byteStream()
-                        inputStream?.let {
-                            val bitmap = BitmapFactory.decodeStream(inputStream)
-                            binding.image.setImageBitmap(bitmap)
-                        }
-                    } else {
-                        Log.e("EventsAdapter", "Failed to load image: $imageEventName")
-                    }
-                } catch (e: Exception) {
-                    Log.e("EventsAdapter", "Error loading image: $imageEventName", e)
-                }
-            }
-        }
-    }
-
-    private class DiffCallback : DiffUtil.ItemCallback<FavoriteEvent>() {
-        override fun areItemsTheSame(oldItem: FavoriteEvent, newItem: FavoriteEvent): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: FavoriteEvent, newItem: FavoriteEvent): Boolean {
-            return oldItem == newItem
         }
     }
 }
