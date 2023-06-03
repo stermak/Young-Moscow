@@ -43,4 +43,5 @@
     <string name="Sorry_there_a_problem_with_the_server">Съжалявам, има проблем със сървъра</string>
     <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">Докато това, проверете интересните събития на главния екран :)</string>
     <string name="points">...</string>
+    <string name="events">Events</string>
 </resources>

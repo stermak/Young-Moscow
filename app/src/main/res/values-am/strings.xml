@@ -43,4 +43,5 @@
     <string name="Sorry_there_a_problem_with_the_server">ይቅርታ በሰርቨር ውስጥ ያሉት ችግሮች አልተገኙም</string>
     <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">ወደ መታወቂያ ስንቲት በርስት ይመልከቱ።</string>
     <string name="points">...</string>
+    <string name="events">Events</string>
 </resources>

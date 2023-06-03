@@ -3,18 +3,18 @@ package youngdevs.production.youngmoscow.presentation.ui.fragments
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.databinding.FragmentMainBinding
 import youngdevs.production.youngmoscow.presentation.ui.adapter.EventsAdapter
@@ -22,7 +22,7 @@ import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 
 // Фрагмент, отображающий список событий
 @AndroidEntryPoint // аннотация для использования Hilt DI
-class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
+class MainFragment : Fragment() {
     private var isBackPressed = false
 
     // ViewModel для работы с данными
@@ -33,8 +33,8 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
     private val binding
         get() = _binding!!
 
-    // Адаптер для отображения списка событий
-    private val eventsAdapter = EventsAdapter(this)
+    private lateinit var eventsAdapter: EventsAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,65 +49,30 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Установка LayoutManager и адаптера в RecyclerView
+        eventsAdapter = EventsAdapter(viewLifecycleOwner.lifecycleScope, object : EventsAdapter.OnItemClickListener {
+            override fun onItemClick(event: Event) {
+                val action = MainFragmentDirections.actionMainFragmentToMapsFragment(event.address)
+                findNavController().navigate(action)
+            }
+            override fun onFavoriteClick(event: Event) {
+                viewModel.toggleFavorite(event)
+            }
+        })
+
+
+        binding.searchField.addTextChangedListener { text ->
+            viewModel.searchEvents(text.toString())
+        }
         binding.recyclerView.layoutManager =
-            LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false
-            )
+            LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = eventsAdapter
 
-        binding.exhibitionsButton.setOnClickListener {
-            viewModel.fetchExhibitions()
-            viewModel.exhibitions.observe(viewLifecycleOwner) { exhibitions ->
-                eventsAdapter.setExhibitions(exhibitions)
-            }
-        }
-
-        binding.partysButton.setOnClickListener {
-            viewModel.fetchPartys()
-            viewModel.partys.observe(viewLifecycleOwner) { partys ->
-                eventsAdapter.setPartys(partys)
-            }
-        }
-
-        binding.holidaysButton.setOnClickListener {
-            viewModel.fetchHolidays()
-            viewModel.holidays.observe(viewLifecycleOwner) { holidays ->
-                eventsAdapter.setHolidays(holidays)
-            }
-        }
-
         viewModel.events.observe(viewLifecycleOwner) { events ->
-            eventsAdapter.setEvents(events)
+            Log.d("MainFragment", "Events updated: ${events.size}")
+            eventsAdapter.submitList(events)
         }
 
-
-        // Загрузка следующей страницы при достижении конца списка
-        binding.recyclerView.addOnScrollListener(
-            object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(
-                    recyclerView: RecyclerView,
-                    dx: Int,
-                    dy: Int
-                ) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    val layoutManager =
-                        binding.recyclerView.layoutManager
-                                as LinearLayoutManager
-                    val lastVisiblePosition =
-                        layoutManager.findLastVisibleItemPosition()
-                    val totalItemCount = layoutManager.itemCount
-                    if (
-                        lastVisiblePosition + 5 >= totalItemCount &&
-                        !viewModel.isLoading()
-                    ) {
-                        viewModel.loadNextPage()
-                    }
-                }
-            }
-        )
+        viewModel.loadEvents()
     }
 
     fun handleOnBackPressed() {
@@ -126,14 +91,8 @@ class MainFragment : Fragment(), EventsAdapter.OnItemClickListener {
         }
     }
 
-    // Обработка нажатия на элемент списка
-    override fun onItemClick(event: Event) {
-        val eventId = event.id
-        val navController = findNavController()
-        // Переход к фрагменту EventDetailsFragment с передачей идентификатора события
-        navController.navigate(
-            R.id.action_mainFragment_to_eventDetailsFragment,
-            bundleOf("eventId" to eventId)
-        )
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

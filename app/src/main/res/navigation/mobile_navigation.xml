@@ -41,9 +41,6 @@
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings">
         <action
-            android:id="@+id/action_settingsFragment_to_favouriteEventsFragment"
-            app:destination="@id/favouriteEventsFragment" />
-        <action
             android:id="@+id/action_settingsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
@@ -52,6 +49,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_languageFragment"
             app:destination="@id/languageFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_favoriteEventsFragment"
+            app:destination="@id/favoriteEventsFragment" />
     </fragment>
 
     <fragment
@@ -66,34 +66,14 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_mainFragment_to_eventDetailsFragment"
-            app:destination="@id/eventDetailsFragment">
+            android:id="@+id/action_mainFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment">
             <argument
-                android:name="eventId"
-                app:argType="integer" />
+                android:name="address"
+                app:argType="string" />
         </action>
     </fragment>
 
-    <fragment
-        android:id="@+id/eventDetailsFragment"
-        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.EventDetailsFragment"
-        android:label="EventDetailsFragment">
-        <argument
-            android:name="eventId"
-            app:argType="integer" />
-    </fragment>
-    <fragment
-        android:id="@+id/favouriteEventsFragment"
-        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.FavouriteEventsFragment"
-        android:label="FavouriteEventsFragment">
-        <action
-            android:id="@+id/action_favouriteEventsFragment_to_eventDetailsFragment"
-            app:destination="@id/eventDetailsFragment">
-            <argument
-                android:name="eventId"
-                app:argType="integer" />
-        </action>
-    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.ProfileFragment"
@@ -107,4 +87,9 @@
         android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.LanguageFragment"
         android:label="fragment_language"
         tools:layout="@layout/fragment_language" />
+    <fragment
+        android:id="@+id/favoriteEventsFragment"
+        android:name="youngdevs.production.youngmoscow.presentation.ui.fragments.FavoriteEventsFragment"
+        android:label="fragment_favorite_events"
+        tools:layout="@layout/fragment_favorite_events" />
 </navigation>

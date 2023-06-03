@@ -43,4 +43,5 @@
     <string name="Sorry_there_a_problem_with_the_server">দুঃখিত, সার্ভারে সমস্যা হয়েছে</string>
     <string name="In_the_meantime_check_out_the_cool_events_on_the_main_screen">এই সময়ে মূল স্ক্রিনে শীতল ঘটনাগুলি দেখুন :)</string>
     <string name="points">...</string>
+    <string name="events">Events</string>
 </resources>
