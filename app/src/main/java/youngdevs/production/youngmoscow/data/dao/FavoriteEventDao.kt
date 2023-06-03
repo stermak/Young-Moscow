@@ -1,6 +1,5 @@
 package youngdevs.production.youngmoscow.data.dao
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
@@ -12,14 +11,10 @@ import youngdevs.production.youngmoscow.data.entities.FavoriteEvent
 @Dao
 interface FavoriteEventDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addFavoriteEvent(favoriteEvent: FavoriteEvent) {
-        Log.d("FavoriteEventDao", "Inserted favorite event: ${favoriteEvent.name}")
-    }
+    suspend fun addFavoriteEvent(favoriteEvent: FavoriteEvent)
 
     @Delete
-    suspend fun deleteFavoriteEvent(favoriteEvent: FavoriteEvent) {
-        Log.d("FavoriteEventDao", "Deleted favorite event: ${favoriteEvent.name}")
-    }
+    suspend fun deleteFavoriteEvent(favoriteEvent: FavoriteEvent)
 
     @Query("SELECT * FROM favorite_event_table WHERE event_id = :eventId")
     suspend fun getFavoriteEventById(eventId: Long): FavoriteEvent?

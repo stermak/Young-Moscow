@@ -1,6 +1,5 @@
 package youngdevs.production.youngmoscow.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,12 +13,8 @@ import javax.inject.Inject
 class FavoriteEventsViewModel @Inject constructor(
     val favoriteEventDao: FavoriteEventDao
 ) : ViewModel() {
-    val favoriteEvents: LiveData<List<FavoriteEvent>> = favoriteEventDao.getFavoriteEvents().also {
-        it.observeForever { favoriteEvents ->
-            Log.d("FavoriteEventsViewModel", "Favorite events updated: ${favoriteEvents.size}")
-        }
-        Log.d("FavoriteEventsViewModel", "Loaded ${it.value?.size ?: 0} favorite events")
-    }
+    val favoriteEvents: LiveData<List<FavoriteEvent>> = favoriteEventDao.getFavoriteEvents()
+
 
     fun deleteAllFavoriteEvents() {
         viewModelScope.launch {
