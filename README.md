@@ -1,4 +1,5 @@
 ![logo](https://user-images.githubusercontent.com/101000051/226495109-e38e7a22-d353-4f23-8f53-a249a2af7272.png)
+
 <h1>Мобильное приложение "Young Moscow"</h1>
 
 
