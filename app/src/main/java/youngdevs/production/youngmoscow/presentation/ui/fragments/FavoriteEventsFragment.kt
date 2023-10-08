@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.data.entities.FavoriteEvent
 import youngdevs.production.youngmoscow.databinding.FragmentFavoriteEventsBinding
+import youngdevs.production.youngmoscow.presentation.ui.activity.SpaceItemDecoration
 import youngdevs.production.youngmoscow.presentation.ui.adapter.FavoriteEventsAdapter
 import youngdevs.production.youngmoscow.presentation.viewmodel.FavoriteEventsViewModel
 
@@ -35,13 +36,16 @@ class FavoriteEventsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        favoriteEventsAdapter = FavoriteEventsAdapter(viewLifecycleOwner.lifecycleScope, viewModel.favoriteEventDao)
+        favoriteEventsAdapter = FavoriteEventsAdapter(viewLifecycleOwner.lifecycleScope, viewModel.favoriteEventDao, viewModel)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = favoriteEventsAdapter
 
+        val spaceDecoration = SpaceItemDecoration(16)
+        binding.recyclerView.addItemDecoration(spaceDecoration)
+
         favoriteEventsAdapter.onItemClickListener = object : FavoriteEventsAdapter.OnItemClickListener {
             override fun onItemClick(event: FavoriteEvent) {
-                // Handle item click event
+                // TODO: Handle the click event here
             }
         }
 
@@ -49,7 +53,6 @@ class FavoriteEventsFragment : Fragment() {
             Log.d("FavoriteEventsFragment", "Favorite events updated: ${favoriteEvents.size}")
             favoriteEventsAdapter.submitList(favoriteEvents)
         }
-
         binding.deleteButton.setOnClickListener {
             viewModel.deleteAllFavoriteEvents()
         }

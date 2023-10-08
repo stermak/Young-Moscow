@@ -14,11 +14,14 @@ import youngdevs.production.youngmoscow.data.dao.FavoriteEventDao
 import youngdevs.production.youngmoscow.data.entities.FavoriteEvent
 import youngdevs.production.youngmoscow.data.services.RetrofitClient
 import youngdevs.production.youngmoscow.databinding.ItemEventBinding
+import youngdevs.production.youngmoscow.presentation.viewmodel.FavoriteEventsViewModel
 
 
 class FavoriteEventsAdapter(
     private val scope: LifecycleCoroutineScope,
-    private val favoriteEventDao: FavoriteEventDao
+    private val favoriteEventDao: FavoriteEventDao,
+    private val viewModel: FavoriteEventsViewModel
+
 ) : ListAdapter<FavoriteEvent, FavoriteEventsAdapter.FavoriteEventViewHolder>(DiffCallback()) {
 
     interface OnItemClickListener {
@@ -26,7 +29,6 @@ class FavoriteEventsAdapter(
     }
 
     var onItemClickListener: OnItemClickListener? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteEventViewHolder {
         val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FavoriteEventViewHolder(binding, scope)
@@ -34,11 +36,10 @@ class FavoriteEventsAdapter(
 
     override fun onBindViewHolder(holder: FavoriteEventViewHolder, position: Int) {
         val favoriteEvent = getItem(position)
-        scope.launch {
-            val event = favoriteEventDao.getEventById(favoriteEvent.eventId)
-            event?.let { holder.bind(it) }
-        }
+        holder.bind(favoriteEvent)
     }
+
+
 
     inner class FavoriteEventViewHolder(
         private val binding: ItemEventBinding,
@@ -53,6 +54,9 @@ class FavoriteEventsAdapter(
             binding.name.text = favoriteEvent.name
             binding.description.text = favoriteEvent.description
             binding.address.text = favoriteEvent.address
+            binding.favoriteButton.setOnClickListener {
+                viewModel.deleteFavoriteEvent(favoriteEvent)
+            }
             loadImage(favoriteEvent.image)
         }
 

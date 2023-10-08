@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.databinding.FragmentMainBinding
+import youngdevs.production.youngmoscow.presentation.ui.activity.SpaceItemDecoration
 import youngdevs.production.youngmoscow.presentation.ui.adapter.EventsAdapter
 import youngdevs.production.youngmoscow.presentation.viewmodel.MainViewModel
 
@@ -66,6 +67,9 @@ class MainFragment : Fragment() {
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = eventsAdapter
+        val spaceDecoration = SpaceItemDecoration(16)
+        binding.recyclerView.addItemDecoration(spaceDecoration)
+
 
         viewModel.events.observe(viewLifecycleOwner) { events ->
             Log.d("MainFragment", "Events updated: ${events.size}")

@@ -2,6 +2,7 @@ package youngdevs.production.youngmoscow.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,7 +14,9 @@ import javax.inject.Inject
 class FavoriteEventsViewModel @Inject constructor(
     val favoriteEventDao: FavoriteEventDao
 ) : ViewModel() {
-    val favoriteEvents: LiveData<List<FavoriteEvent>> = favoriteEventDao.getFavoriteEvents()
+    val favoriteEvents: LiveData<List<FavoriteEvent>> = liveData {
+        emitSource(favoriteEventDao.getFavoriteEvents())
+    }
 
 
     fun deleteAllFavoriteEvents() {
@@ -21,4 +24,10 @@ class FavoriteEventsViewModel @Inject constructor(
             favoriteEventDao.deleteAllFavoriteEvents()
         }
     }
+    fun deleteFavoriteEvent(favoriteEvent: FavoriteEvent) {
+        viewModelScope.launch {
+            favoriteEventDao.deleteFavoriteEvent(favoriteEvent)
+        }
+    }
+
 }
