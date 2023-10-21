@@ -80,7 +80,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.21")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    implementation("androidx.preference:preference:1.2.0")
+    implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("com.google.firebase:firebase-auth-ktx:22.0.0")
     implementation("com.google.firebase:firebase-database-ktx:20.2.1")
     implementation("com.google.firebase:firebase-analytics-ktx:21.2.2")

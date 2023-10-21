@@ -19,6 +19,9 @@ interface FavoriteEventDao {
     @Query("SELECT * FROM favorite_event_table WHERE event_id = :eventId")
     suspend fun getFavoriteEventById(eventId: Long): FavoriteEvent?
 
+    @Query("SELECT COUNT(*) FROM favorite_event_table WHERE event_id = :eventId")
+    suspend fun countEventWithId(eventId: String): Int
+
     @Query("SELECT * FROM favorite_event_table")
     fun getFavoriteEvents(): LiveData<List<FavoriteEvent>>
 

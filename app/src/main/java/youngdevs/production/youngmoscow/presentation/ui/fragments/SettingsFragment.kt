@@ -67,7 +67,11 @@ class SettingsFragment : Fragment() {
     private fun setEventListener() {
         binding.logout.setOnClickListener {
             // Вызываем метод exit() в settingsViewModel, чтобы выйти из приложения.
+            FirebaseAuth.getInstance().addAuthStateListener { firebaseAuth ->
+                firebaseAuth.currentUser == null
+            }
             settingsViewModel.exit()
+
             // Навигируем пользователя на экран входа в приложение.
             findNavController().navigate(R.id.loginFragment)
             // Скрываем нижнюю навигационную панель на экране входа в приложение.

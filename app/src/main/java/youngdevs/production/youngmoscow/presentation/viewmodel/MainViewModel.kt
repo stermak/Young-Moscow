@@ -73,17 +73,24 @@ constructor(
 
     private fun addFavorite(event: Event) {
         viewModelScope.launch {
-            val favoriteEvent = FavoriteEvent(
-                name = event.name,
-                description = event.description,
-                address = event.address,
-                image = event.image,
-                eventId = event.id
-            )
-            favoriteEventDao.addFavoriteEvent(favoriteEvent)
-            Log.d("MainViewModel", "Added favorite event: ${favoriteEvent.name}")
+            val existingCount = favoriteEventDao.countEventWithId(event.id.toString())
+            if (existingCount == 0) {
+                val favoriteEvent = FavoriteEvent(
+                    name = event.name,
+                    description = event.description,
+                    address = event.address,
+                    image = event.image,
+                    eventId = event.id
+                )
+                favoriteEventDao.addFavoriteEvent(favoriteEvent)
+                Log.d("MainViewModel", "Added favorite event: ${favoriteEvent.name}")
+            } else {
+                Log.d("MainViewModel", "Event already exists in favorites: ${event.name}")
+            }
         }
     }
+
+
 
     private fun removeFavorite(event: Event) {
         viewModelScope.launch {
