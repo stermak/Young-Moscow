@@ -39,7 +39,7 @@ interface ImagesEventsService {
 // Объект RetrofitClient предоставляет доступ к Retrofit, который используется для выполнения
 // запросов к API
 object RetrofitClient {
-    private const val BASE_URL = "http://213.109.204.40:12345/"
+    private const val BASE_URL = "http://213.171.9.155:12345/"
 
     // Ленивая инициализация Retrofit
     private val retrofit: Retrofit by lazy {
