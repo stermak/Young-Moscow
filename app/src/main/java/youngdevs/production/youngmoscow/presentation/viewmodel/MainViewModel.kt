@@ -26,6 +26,8 @@ constructor(
     private val favoriteEventDao: FavoriteEventDao
 ) : ViewModel() {
 
+    private val _eventToUpdate = MutableLiveData<Event>()
+    val eventToUpdate: LiveData<Event> = _eventToUpdate
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>> = _events
     val loadingStatus = MutableLiveData<LoadingStatus>()
@@ -37,21 +39,20 @@ constructor(
         viewModelScope.launch {
             try {
                 val events = eventsService.getEvents()
+
+                for (event in events) {
+                    val favoriteEvent = favoriteEventDao.getFavoriteEventById(event.id)
+                    event.isFavorite = favoriteEvent != null
+                }
+
                 _allEvents.clear()
                 _allEvents.addAll(events)
                 _events.value = events
                 loadingStatus.value = LoadingStatus.LOADED
-                Log.d(
-                    "MainViewModel",
-                    "Loaded ${events.size} events"
-                )
+                Log.d("MainViewModel", "Loaded ${events.size} events")
             } catch (e: Exception) {
                 loadingStatus.value = LoadingStatus.ERROR
-                Log.e(
-                    "MainViewModel",
-                    "Failed to load events",
-                    e
-                )
+                Log.e("MainViewModel", "Failed to load events", e)
             }
         }
     }
@@ -63,11 +64,10 @@ constructor(
 
 
     fun toggleFavorite(event: Event) {
-        event.isFavorite = !event.isFavorite
         if (event.isFavorite) {
-            addFavorite(event)
-        } else {
             removeFavorite(event)
+        } else {
+            addFavorite(event)
         }
     }
 
@@ -83,25 +83,28 @@ constructor(
                     eventId = event.id
                 )
                 favoriteEventDao.addFavoriteEvent(favoriteEvent)
+                event.isFavorite = true   // Установите статус избранного после добавления в БД
                 Log.d("MainViewModel", "Added favorite event: ${favoriteEvent.name}")
             } else {
                 Log.d("MainViewModel", "Event already exists in favorites: ${event.name}")
             }
+            event.isFavorite = true
+            _eventToUpdate.value = event
         }
     }
-
-
 
     private fun removeFavorite(event: Event) {
         viewModelScope.launch {
             val favoriteEvent = favoriteEventDao.getFavoriteEventById(event.id)
             favoriteEvent?.let {
                 favoriteEventDao.deleteFavoriteEvent(it)
+                event.isFavorite = false   // Сбросьте статус избранного после удаления из БД
                 Log.d("MainViewModel", "Removed favorite event: ${it.name}")
             }
+            event.isFavorite = false
+            _eventToUpdate.value = event
         }
     }
-
 
     suspend fun loadImage(imageEventName: String): Bitmap? {
         return try {

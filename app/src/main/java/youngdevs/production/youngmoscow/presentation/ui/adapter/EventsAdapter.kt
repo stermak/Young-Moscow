@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.data.entities.Event
 import youngdevs.production.youngmoscow.data.services.RetrofitClient
 import youngdevs.production.youngmoscow.databinding.ItemEventBinding
@@ -46,9 +47,22 @@ class EventsAdapter(
             binding.address.text = event.address
             loadImage(event.image)
 
+            if (event.isFavorite) {
+                binding.favoriteButton.setImageResource(R.drawable.del_favourites)
+            } else {
+                binding.favoriteButton.setImageResource(R.drawable.favourites)
+            }
+
             binding.favoriteButton.setOnClickListener {
                 listener.onFavoriteClick(event)
+                if (event.isFavorite) {
+                    binding.favoriteButton.setImageResource(R.drawable.del_favourites)
+                } else {
+                    binding.favoriteButton.setImageResource(R.drawable.favourites)
+                }
             }
+
+
             itemView.setOnClickListener {
                 listener.onItemClick(event)
 
@@ -87,6 +101,14 @@ class EventsAdapter(
             }
         }
     }
+
+    fun updateItem(event: Event) {
+        val index = currentList.indexOf(event)
+        if (index != -1) {
+            notifyItemChanged(index)
+        }
+    }
+
 
     private class DiffCallback : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(

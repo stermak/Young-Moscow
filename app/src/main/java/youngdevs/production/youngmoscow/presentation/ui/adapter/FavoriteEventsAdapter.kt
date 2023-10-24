@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import youngdevs.production.youngmoscow.R
 import youngdevs.production.youngmoscow.data.dao.FavoriteEventDao
 import youngdevs.production.youngmoscow.data.entities.FavoriteEvent
 import youngdevs.production.youngmoscow.data.services.RetrofitClient
@@ -54,6 +55,7 @@ class FavoriteEventsAdapter(
             binding.name.text = favoriteEvent.name
             binding.description.text = favoriteEvent.description
             binding.address.text = favoriteEvent.address
+            binding.favoriteButton.setImageResource(R.drawable.del_favourites)
             binding.favoriteButton.setOnClickListener {
                 viewModel.deleteFavoriteEvent(favoriteEvent)
             }

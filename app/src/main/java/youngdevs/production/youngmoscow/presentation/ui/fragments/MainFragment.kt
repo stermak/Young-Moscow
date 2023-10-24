@@ -60,6 +60,9 @@ class MainFragment : Fragment() {
             }
         })
 
+        viewModel.eventToUpdate.observe(viewLifecycleOwner) { event ->
+            eventsAdapter.updateItem(event)
+        }
 
         binding.searchField.addTextChangedListener { text ->
             viewModel.searchEvents(text.toString())
