@@ -25,7 +25,6 @@ interface AuthenticateUserUseCase {
     suspend fun createAccount(
         email: String,
         password: String,
-        repeatPassword: String,
         name: String
     ): Int
 

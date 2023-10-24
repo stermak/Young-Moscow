@@ -41,24 +41,20 @@ constructor(private val userRepository: UserRepository) :
     override suspend fun createAccount(
         email: String,
         password: String,
-        repeatPassword: String,
         name: String
     ): Int {
-        return if (password == repeatPassword) {
-            try {
-                if (userRepository.createAccount(email, password, name)) {
-                    1
-                } else {
-                    0
-                }
-            } catch (e: Exception) {
-                // Здесь вы можете добавить логирование ошибки, чтобы получить более подробную информацию о проблеме
-                -1
+        try {
+            return if (userRepository.createAccount(email, password, name)) {
+                1
+            } else {
+                0
             }
-        } else {
-            -1
+        } catch (e: Exception) {
+            println("Error creating account: ${e.message}")
+            return -1
         }
     }
+
 
     override suspend fun checkAccountExists(email: String): Boolean {
         return userRepository.checkAccountExists(email)

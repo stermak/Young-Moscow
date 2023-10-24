@@ -27,16 +27,10 @@ constructor(
     fun registration(
         email: String,
         password: String,
-        repeatPassword: String,
-        name: String
+        name: String,
+        name1: String
     ) {
-
         println("Starting registration with email: $email")
-
-        if (password != repeatPassword) {
-            _registrationResult.value = -1
-            return
-        }
 
         viewModelScope.launch {
             println("Inside coroutine, checking account existence for email: $email")
@@ -45,16 +39,12 @@ constructor(
             if (!exists) {
                 println("Account doesn't exist. Trying to create...")
                 _registrationResult.value =
-                    authenticateUserUseCase.createAccount(
-                        email,
-                        password,
-                        repeatPassword,
-                        name
-                    )
+                    authenticateUserUseCase.createAccount(email, password, name)
                 println("Account creation result: ${_registrationResult.value}")
             } else {
                 println("Account already exists.")
             }
         }
     }
+
 }

@@ -93,6 +93,7 @@ dependencies {
 
     //platform
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
+    implementation("com.google.firebase:firebase-firestore:24.9.0")
 
     //annotation
     annotationProcessor("androidx.room:room-compiler:2.6.0")
