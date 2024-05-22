@@ -65,7 +65,6 @@ class EventsAdapter(
 
             itemView.setOnClickListener {
                 listener.onItemClick(event)
-
             }
         }
 

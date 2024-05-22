@@ -17,6 +17,7 @@
     <string name="maps">Maps</string>
     <string name="exit">Exit</string>
     <string name="image">image</string>
+    <string name="default_web_client_id">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</string> <!-- Добавьте эту строку -->
     <string name="Favourites">Favourites</string>
     <string name="usernameTxt">Username</string>
     <string name="emailTxt">Email</string>

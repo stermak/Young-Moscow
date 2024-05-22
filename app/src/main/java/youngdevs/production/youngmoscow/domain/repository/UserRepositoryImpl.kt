@@ -3,6 +3,7 @@ package youngdevs.production.youngmoscow.domain.repository
 import android.content.ContentValues.TAG
 import android.net.Uri
 import android.util.Log
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
@@ -39,8 +40,6 @@ constructor(
         var isSuccess = false
 
         try {
-            auth.createUserWithEmailAndPassword(email, password).await()
-
             val newUser = hashMapOf<String, Any>(
                 "name" to name,
                 "email" to email
@@ -64,11 +63,9 @@ constructor(
 
 
     override suspend fun checkAccountExists(email: String): Boolean {
-        val auth = FirebaseAuth.getInstance()
-        val signInMethods = auth.fetchSignInMethodsForEmail(email).await().signInMethods
-        return signInMethods != null && signInMethods.isNotEmpty()
+        val signInMethods = firebaseAuth.fetchSignInMethodsForEmail(email).await().signInMethods
+        return signInMethods != null && signInMethods.contains(EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD)
     }
-
 
     // Функция authenticate используется для аутентификации пользователя в Firebase.
     override suspend fun authenticate(
@@ -105,6 +102,29 @@ constructor(
 
             }
         }
+    }
+
+    override suspend fun createAccountWithGoogle(email: String, name: String): Boolean = coroutineScope {
+        var isSuccess = false
+
+        try {
+            val newUser = hashMapOf<String, Any>(
+                "name" to name,
+                "email" to email
+            )
+
+            val userId = FirebaseAuth.getInstance().currentUser!!.uid
+            Firebase.firestore.collection("users")
+                .document(userId)
+                .set(newUser)
+                .await()
+
+            isSuccess = true
+        } catch (e: Exception) {
+            Log.e("UserRepositoryImpl", e.toString())
+        }
+
+        isSuccess
     }
 
 
@@ -147,26 +167,28 @@ constructor(
             .await()
     }
 
+    override suspend fun reauthenticate(email: String, password: String): Boolean = coroutineScope {
+        var isSuccess = false
+        try {
+            val user = auth.currentUser
+            val credential = EmailAuthProvider.getCredential(email, password)
+            user?.reauthenticate(credential)?.await()
+            isSuccess = true
+        } catch (e: Exception) {
+            Log.e(TAG, "Reauthentication failed", e)
+        }
+        isSuccess
+    }
     override suspend fun clearUser() {
         TODO("Not yet implemented")
     }
 
     override suspend fun updateUserPassword(newPassword: String) {
-        auth.currentUser
-            ?.updatePassword(newPassword)
-            ?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "User password updated.")
-                } else {
-                    Log.w(
-                        TAG,
-                        "Error updating user password",
-                        task.exception
-                    )
-                }
-            }
-            ?.addOnFailureListener { Log.e(TAG, "FailureListener") }
-            ?.await()
+        val user = firebaseAuth.currentUser
+        user?.let {
+            it.updatePassword(newPassword).await()
+            Log.d(TAG, "User password updated.")
+        } ?: Log.e(TAG, "No authenticated user.")
     }
 
 
